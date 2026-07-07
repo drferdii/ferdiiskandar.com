@@ -1,0 +1,89 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.yarn/
+.npm/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+.next-runtime-lock.json
+out/
+dist/
+build/
+.vercel/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Misc
+.DS_Store
+Thumbs.db
+*.pem
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local tooling
+.superpowers/
+.superdesign/
+.claude/
+.continue/
+.fallow/
+.vscode/settings.json
+.vscode/.ropeproject
+.clinerules/
+CLAUDE.md
+*.code-workspace
+app/terminal-only.html
+hello/
+
+# Local debug logs
+.next-dev.log
+.next-dev.out.log
+.next-dev.err.log
+
+# Temporary files
+*.tmp
+*.temp
+*.debug
+*.bak
+*.backup
+*.old
+
+# Test, coverage, and build outputs (per tooling/governance/templates/.gitignore)
+coverage/
+test-results/
+output/
+docs/api/
+docs/storybook/
+.idea/
+dist/
+.output/
+.wxt/
+
+# Agent operational memory
+.agent/
+.codex/
+.cursor/
+.gemini/
+.qoder/
+.roomodes
+.mcp.json
+.playwright-cli/
+
+# AI / assistant local artifacts
+.agent/cache/
+.agent/tmp/
+.ai-cache/
+.ai-output/
+.ai-scratch/
+.openai/

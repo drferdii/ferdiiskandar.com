@@ -1,0 +1,28 @@
+# ──────────────────────────────────────────────────────────────
+# Sentra Healthcare AI — Standard .gitattributes
+# Per tooling/governance/templates/.gitattributes (STANDARD.md §3)
+# ──────────────────────────────────────────────────────────────
+
+# Normalize all text files to LF on checkout
+* text=auto eol=lf
+
+# Windows-only scripts must keep CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files — no normalization
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.7z binary

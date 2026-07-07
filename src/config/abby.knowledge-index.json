@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_files": [
+    {
+      "id": "personal_profile",
+      "path": "/content/abby/personal-profile.md",
+      "priority": "high"
+    },
+    {
+      "id": "professional_journey",
+      "path": "/content/abby/professional-journey.md",
+      "priority": "high"
+    },
+    {
+      "id": "speaking_profile",
+      "path": "/content/abby/speaking-profile.md",
+      "priority": "high"
+    },
+    {
+      "id": "thought_leadership",
+      "path": "/content/abby/thought-leadership.md",
+      "priority": "high"
+    },
+    {
+      "id": "projects_and_works",
+      "path": "/content/abby/projects-and-works.md",
+      "priority": "high"
+    },
+    {
+      "id": "media_kit",
+      "path": "/content/abby/media-kit.md",
+      "priority": "medium"
+    },
+    {
+      "id": "contact_collaboration",
+      "path": "/content/abby/contact-and-collaboration.md",
+      "priority": "medium"
+    },
+    {
+      "id": "faq",
+      "path": "/content/abby/faq.md",
+      "priority": "medium"
+    },
+    {
+      "id": "public_boundaries",
+      "path": "/content/abby/public-boundaries.md",
+      "priority": "critical"
+    }
+  ]
+}

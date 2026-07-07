@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "lead_capture": {
+    "enabled": true,
+    "default_mode": "console",
+    "requires_consent": true,
+    "max_message_length": 2000,
+    "purposes": [
+      {
+        "id": "speaking_invitation",
+        "label": "Undangan Speaking / Seminar"
+      },
+      {
+        "id": "media_interview",
+        "label": "Media Interview / Podcast / Artikel"
+      },
+      {
+        "id": "collaboration",
+        "label": "Kolaborasi"
+      },
+      {
+        "id": "healthcare_ai_discussion",
+        "label": "Diskusi Healthcare AI"
+      },
+      {
+        "id": "partnership",
+        "label": "Partnership"
+      },
+      {
+        "id": "general_inquiry",
+        "label": "Pertanyaan Umum"
+      }
+    ],
+    "fields": [
+      {
+        "id": "name",
+        "label": "Nama",
+        "type": "text",
+        "required": true
+      },
+      {
+        "id": "email",
+        "label": "Email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "id": "organization",
+        "label": "Institusi / Organisasi",
+        "type": "text",
+        "required": false
+      },
+      {
+        "id": "purpose",
+        "label": "Tujuan Kontak",
+        "type": "select",
+        "required": true
+      },
+      {
+        "id": "message",
+        "label": "Pesan Singkat",
+        "type": "textarea",
+        "required": true,
+        "max_length": 2000
+      }
+    ],
+    "consent_text": "Saya setuju informasi ini digunakan untuk menindaklanjuti pesan saya kepada dr Classy melalui jalur kontak resmi. Saya tidak mengirimkan data medis pribadi.",
+    "success_message": "Terima kasih. Pesan Anda sudah diterima untuk ditinjau melalui jalur kontak resmi. Saya tidak bisa menjanjikan jadwal respons, tetapi informasi yang rapi akan membantu proses follow-up.",
+    "medical_data_rejection_message": "Untuk keamanan dan privasi, formulir ini tidak menerima data medis pribadi atau permintaan diagnosis. Silakan gunakan jalur konsultasi tenaga kesehatan yang sesuai."
+  }
+}

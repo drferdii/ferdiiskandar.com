@@ -1,0 +1,52 @@
+{
+  "name": "@the-abyss/ferdiiskandar",
+  "version": "0.1.0",
+  "description": "Abby: Personal AI Assistant Kit for dr. Ferdi Iskandar",
+  "author": "Ferdi Iskandar",
+  "private": true,
+  "sentra:tier": "shell",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "node scripts/next-runtime-guard.mjs dev",
+    "build": "node scripts/next-runtime-guard.mjs build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "security:deps": "node scripts/pnpm-scope-audit.mjs --audit-level=moderate",
+    "knip": "knip",
+    "knip:prod": "knip --production",
+    "knip:strict": "node --max-old-space-size=4096 ./node_modules/knip/bin/knip.js --production --strict"
+  },
+  "dependencies": {
+    "framer-motion": "^12.38.0",
+    "next": "15.5.15",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.6.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@the-abyss/config-eslint": "workspace:*",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "eslint": "^9.39.4",
+    "jsdom": "^29.1.1",
+    "knip": "^6.12.2",
+    "typescript": "^5",
+    "vitest": "^2.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.14"
+    },
+    "onlyBuiltDependencies": ["esbuild", "sharp"]
+  }
+}

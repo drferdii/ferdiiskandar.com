@@ -1,0 +1,20 @@
+{
+  "name": "@the-abyss/config-eslint",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.js"
+  },
+  "dependencies": {
+    "@next/eslint-plugin-next": "15.5.15",
+    "@typescript-eslint/parser": "8.59.2",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.1.1"
+  },
+  "peerDependencies": {
+    "eslint": ">=9"
+  }
+}
