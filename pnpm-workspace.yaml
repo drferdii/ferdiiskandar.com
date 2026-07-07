@@ -1,5 +1,9 @@
 packages:
   - 'packages/*'
+
+overrides:
+  postcss: 8.5.14
+
 allowBuilds:
-  esbuild: set this to true or false
-  sharp: set this to true or false
+  esbuild: true
+  sharp: true
