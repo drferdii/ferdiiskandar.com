@@ -40,7 +40,9 @@ function resolveProvider(): ProviderConfig | { error: string } {
     return {
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
       apiKey,
-      model: process.env.ABBY_MODEL ?? 'gemini-3.5-flash',
+      // gemini-3.5-flash's free tier is capped at 20 requests/day (new-model
+      // launch restriction) — 2.5-flash has a much higher free daily quota.
+      model: process.env.ABBY_MODEL ?? 'gemini-2.5-flash',
       // Keep thinking budget low so the visible reply doesn't get truncated by max_tokens.
       extraBody: { reasoning_effort: 'low' },
     }
@@ -240,7 +242,9 @@ export async function POST(request: NextRequest) {
         return problem(
           429,
           'Upstream Rate Limited',
-          'Layanan AI sedang sibuk. Silakan coba beberapa saat lagi.',
+          isDev
+            ? (upstreamMessage ?? errorText)
+            : 'Layanan AI sedang sibuk. Silakan coba beberapa saat lagi.',
           '/v1/problems/upstream-rate-limited',
         )
       }
