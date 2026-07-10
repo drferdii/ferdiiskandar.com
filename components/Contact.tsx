@@ -46,7 +46,7 @@ export default function Contact() {
         scrollTrigger: {
           trigger: root,
           start: 'top top',
-          end: '+=150%',
+          end: '+=60%',
           pin: true,
           scrub: true,
           anticipatePin: 1,

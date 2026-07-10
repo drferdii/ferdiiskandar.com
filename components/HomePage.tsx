@@ -6,6 +6,7 @@ import Expertise from '@/components/Expertise'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import Impact from '@/components/Impact'
+import Manifesto from '@/components/Manifesto'
 import Navbar from '@/components/Navbar'
 import PortfolioStory from '@/components/PortfolioStory'
 import ScrollEnter from '@/components/ScrollEnter'
@@ -20,6 +21,9 @@ export default function HomePage() {
       <Navbar />
       <main className="fi-shell" id="main-content">
         <Hero />
+        <ScrollReveal direction="fade">
+          <Manifesto />
+        </ScrollReveal>
         <ScrollReveal direction="left">
           <Impact />
         </ScrollReveal>

@@ -70,82 +70,87 @@ const storyChapters = [
   },
 ]
 
+// Rendered as a static sibling outside the panned scroll-story wrapper (see
+// PortfolioStory.tsx) so the title never gets carried off-screen by the
+// scene's internal pan transform.
+export function StoryHeader() {
+  return (
+    <header className="fi-story-head">
+      <SectionNumberMark number="04" />
+      <div className="fi-story-headline">
+        <div className="fi-story-headline-copy">
+          <div className="fi-kicker">Kisah Sentra</div>
+          <h2 className="fi-story-title" id="story-sentra-title">
+            Perjalanan Sentra Artificial Intelligence
+          </h2>
+          <p className="fi-story-subtitle">
+            Dari Inisiatif CSR menuju Ekosistem Human-AI untuk Kesehatan, Edukasi, dan Desain
+          </p>
+        </div>
+        <figure aria-label="Kolaborator Sentra" className="fi-story-portrait">
+          <video
+            aria-label="Video promosi Sentra Artificial Intelligence"
+            autoPlay
+            className="fi-story-portrait-image"
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src="/promovideo.mp4" type="video/mp4" />
+          </video>
+        </figure>
+      </div>
+    </header>
+  )
+}
+
 export default function StoryOfSentra() {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0)
   const activeChapter = storyChapters[activeChapterIndex] ?? storyChapters[0]
 
   return (
-    <section aria-labelledby="story-sentra-title" className="fi-section" id="story-sentra">
-      <article className="fi-story">
-        <header className="fi-story-head">
-          <SectionNumberMark number="04" />
-          <div className="fi-story-headline">
-            <div className="fi-story-headline-copy">
-              <div className="fi-kicker">Kisah Sentra</div>
-              <h2 className="fi-story-title" id="story-sentra-title">
-                Perjalanan Sentra Artificial Intelligence
-              </h2>
-              <p className="fi-story-subtitle">
-                Dari Inisiatif CSR menuju Ekosistem Human-AI untuk Kesehatan, Edukasi, dan Desain
-              </p>
-            </div>
-            <figure aria-label="Kolaborator Sentra" className="fi-story-portrait">
-              <video
-                aria-label="Video promosi Sentra Artificial Intelligence"
-                autoPlay
-                className="fi-story-portrait-image"
-                loop
-                muted
-                playsInline
-                preload="metadata"
-              >
-                <source src="/promovideo.mp4" type="video/mp4" />
-              </video>
-            </figure>
+    <article className="fi-story">
+      <div className="fi-story-board-dropdown">
+        <div className="fi-story-selector-container">
+          <label htmlFor="chapter-select" className="fi-story-select-label">
+            Pilih Bab Perjalanan:
+          </label>
+          <div className="fi-story-select-wrapper">
+            <select
+              id="chapter-select"
+              className="fi-story-select"
+              value={activeChapterIndex}
+              onChange={(e) => setActiveChapterIndex(Number(e.target.value))}
+            >
+              {storyChapters.map((chapter, index) => (
+                <option key={chapter.title} value={index}>
+                  {String(index + 1).padStart(2, '0')} — {chapter.marker}: {chapter.title}
+                </option>
+              ))}
+            </select>
+            <span className="fi-story-select-arrow" aria-hidden="true">
+              ▼
+            </span>
           </div>
-        </header>
-
-        <div className="fi-story-board-dropdown">
-          <div className="fi-story-selector-container">
-            <label htmlFor="chapter-select" className="fi-story-select-label">
-              Pilih Bab Perjalanan:
-            </label>
-            <div className="fi-story-select-wrapper">
-              <select
-                id="chapter-select"
-                className="fi-story-select"
-                value={activeChapterIndex}
-                onChange={(e) => setActiveChapterIndex(Number(e.target.value))}
-              >
-                {storyChapters.map((chapter, index) => (
-                  <option key={chapter.title} value={index}>
-                    {String(index + 1).padStart(2, '0')} — {chapter.marker}: {chapter.title}
-                  </option>
-                ))}
-              </select>
-              <span className="fi-story-select-arrow" aria-hidden="true">
-                ▼
-              </span>
-            </div>
-          </div>
-
-          <section
-            aria-live="polite"
-            aria-labelledby={`story-sentra-chapter-${activeChapterIndex}`}
-            className="fi-story-reader"
-            id="story-sentra-reader"
-            key={activeChapterIndex}
-          >
-            <span className="fi-story-reader-marker">{activeChapter.marker}</span>
-            <h3 id={`story-sentra-chapter-${activeChapterIndex}`}>{activeChapter.title}</h3>
-            {activeChapter.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="fi-story-reader-paragraph">
-                {paragraph}
-              </p>
-            ))}
-          </section>
         </div>
-      </article>
-    </section>
+
+        <section
+          aria-live="polite"
+          aria-labelledby={`story-sentra-chapter-${activeChapterIndex}`}
+          className="fi-story-reader"
+          id="story-sentra-reader"
+          key={activeChapterIndex}
+        >
+          <span className="fi-story-reader-marker">{activeChapter.marker}</span>
+          <h3 id={`story-sentra-chapter-${activeChapterIndex}`}>{activeChapter.title}</h3>
+          {activeChapter.paragraphs.map((paragraph) => (
+            <p key={paragraph} className="fi-story-reader-paragraph">
+              {paragraph}
+            </p>
+          ))}
+        </section>
+      </div>
+    </article>
   )
 }

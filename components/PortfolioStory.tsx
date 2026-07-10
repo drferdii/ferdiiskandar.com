@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLayoutEffect, useRef } from 'react'
 
 import Portfolio from '@/components/Portfolio'
-import StoryOfSentra from '@/components/StoryOfSentra'
+import StoryOfSentra, { StoryHeader } from '@/components/StoryOfSentra'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,8 +31,11 @@ export default function PortfolioStory() {
       if (!track || pans.length !== 2) return
 
       const vh = window.innerHeight
-      const dist0 = Math.max(0, pans[0].scrollHeight - vh)
-      const dist1 = Math.max(0, pans[1].scrollHeight - vh)
+      // Measure against each pan's own clipping ancestor (not raw vh) — the
+      // story panel's viewport is shorter than 100vh because StoryHeader now
+      // sits above it as a static, un-panned sibling.
+      const dist0 = Math.max(0, pans[0].scrollHeight - pans[0].parentElement!.clientHeight)
+      const dist1 = Math.max(0, pans[1].scrollHeight - pans[1].parentElement!.clientHeight)
       const total = dist0 + vh + dist1
 
       const master = gsap.timeline({
@@ -64,9 +67,16 @@ export default function PortfolioStory() {
             <Portfolio />
           </div>
         </div>
-        <div className="fi-portfolio-story-scene">
-          <div data-story-pan className="fi-portfolio-story-pan fi-portfolio-story-contained">
-            <StoryOfSentra />
+        <div
+          aria-labelledby="story-sentra-title"
+          className="fi-portfolio-story-scene fi-portfolio-story-scene-story"
+          id="story-sentra"
+        >
+          <StoryHeader />
+          <div className="fi-portfolio-story-viewport">
+            <div data-story-pan className="fi-portfolio-story-pan fi-portfolio-story-contained">
+              <StoryOfSentra />
+            </div>
           </div>
         </div>
       </div>

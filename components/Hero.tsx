@@ -81,7 +81,7 @@ export default function Hero() {
               </div>
               <div className="fi-hero-socials">
                 <a
-                  href="https://medium.com/@codieverse"
+                  href="https://medium.com/@drferdiiskandar"
                   target="_blank"
                   rel="noreferrer"
                   title="Medium"
