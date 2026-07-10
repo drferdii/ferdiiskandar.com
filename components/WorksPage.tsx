@@ -4,7 +4,6 @@ import { DossierGlanceSections, DossierIndexNav } from '@/components/DossierShar
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import ScrollEnter from '@/components/ScrollEnter'
-import WorksBlueprint from '@/components/WorksBlueprint'
 import {
   worksCategories,
   worksGlanceSections,
@@ -116,13 +115,6 @@ export default function WorksPage() {
                     Kecerdasan seharusnya mendukung penilaian, bukan memainkan panggung.
                   </strong>
                 </aside>
-              </div>
-              <div className="fi-works-blueprint-panel">
-                <div className="fi-works-blueprint-panel-head">
-                  <span>Cuplikan Blueprint</span>
-                  <strong>AADI Symphony Pipeline</strong>
-                </div>
-                <WorksBlueprint startDelay={300} />
               </div>
             </div>
           </header>

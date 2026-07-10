@@ -18,7 +18,7 @@ Sentra Healthcare Artificial Intelligence builds clinical system architectures t
 
 Flagship systems include:
 - AADI (Autonomous Admission & Documentation Intelligence)
-- Sentra Assist
+- Asisten Medis
 - Audrey
 - Med-Cognitive
 - MELLY

@@ -2,9 +2,7 @@
 
 // Architected and built by dr Classy
 
-import type { CSSProperties } from 'react'
 import { useState } from 'react'
-
 import SectionNumberMark from '@/components/SectionNumberMark'
 
 const storyChapters = [
@@ -12,68 +10,65 @@ const storyChapters = [
     marker: 'Februari 2025',
     title: 'Inisiatif Awal dari CSR RSIA Melinda DHAI',
     paragraphs: [
-      'Sentra Artificial Intelligence berawal dari sebuah inisiatif tanggung jawab sosial perusahaan di RSIA Melinda DHAI. Gagasan awalnya sederhana: menghadirkan teknologi AI yang memberikan manfaat nyata bagi layanan kesehatan, bukan untuk menggantikan peran manusia, melainkan untuk mendukung tenaga kesehatan agar dapat bekerja dengan lebih jelas, konsisten, dan percaya diri. Bekerja sama dengan Bpk. Joseph Arianto yang berpengalaman lebih dari 25 tahun di layanan primer, serta asisten saya Sdr. Norma, kami mengumpulkan masalah nyata, membaca potensi solusi, berdiskusi, membuat konsep, mengimplementasikan, lalu mengulang prosesnya.',
-      'Seiring waktu, Sentra berkembang melampaui konsep awal tersebut.',
-      'Perjalanan ini membuka pemahaman bahwa kekuatan utama AI tidak terletak pada otomatisasi semata, tetapi pada kemampuannya untuk berkolaborasi dengan manusia. AI dapat berperan sebagai rekan berpikir, asisten dokumentasi, pendukung penalaran klinis, media edukasi, serta penghubung antara kompleksitas data dan pengambilan keputusan di lapangan.',
+      'Sentra Artificial Intelligence bermula dari program tanggung jawab sosial (CSR) di RSIA Melinda DHAI. Tujuannya sederhana: membuat alat bantu AI yang benar-benar berguna untuk layanan kesehatan harian. Kami tidak berniat menggantikan peran manusia, melainkan membantu tenaga medis agar bekerja lebih terarah, konsisten, dan aman. Bersama Bpk. Joseph Arianto, praktisi layanan primer dengan pengalaman 25 tahun lebih, dan asisten saya Sdr. Norma, kami memetakan kendala di lapangan, merancang solusi praktis, mengujinya, lalu terus menyempurnakannya.',
+      'Dalam prosesnya, kami menyadari bahwa nilai utama AI bukanlah otomatisasi penuh, melainkan kemampuannya mendampingi manusia.',
+      'AI kini kami fungsikan sebagai mitra diskusi, pengolah dokumentasi, pembantu penalaran klinis, sarana edukasi, serta penerjemah data rumit menjadi keputusan praktis.',
     ],
   },
   {
     marker: 'Peralihan',
     title: 'Evolusi Peran AI sebagai Kolaborator Klinis',
     paragraphs: [
-      'Dari titik ini, arah Sentra menjadi semakin terdefinisi: menghadirkan AI yang relevan dan dapat digunakan secara langsung di lini depan pelayanan kesehatan primer.',
-      'Pengembangan Sentra dilakukan melalui kolaborasi lintas disiplin bersama berbagai tenaga kesehatan, termasuk dokter spesialis seperti dr. Dibya Arfianda, Sp.OG dan dr. Boyong Baskoro, Sp.OG, dokter umum, perawat, bidan, hingga staf administrasi. Pendekatan ini memastikan bahwa setiap solusi yang dikembangkan berangkat dari kebutuhan nyata di lapangan.',
-      'Dalam aspek teknologi, Sentra juga didukung oleh kolaborasi dengan Nathanael Kevin Susanto, BIT, M.Tech, Software Engineer di Visa Worldwide, Singapore, yang berperan dalam menjaga standar reliabilitas sistem serta menjembatani praktik rekayasa kelas enterprise dengan kebutuhan spesifik sektor layanan kesehatan.',
+      'Fokus kami bergeser ke arah yang lebih spesifik: membangun AI yang langsung terpakai di puskesmas dan klinik pratama.',
+      'Kerja bersama ini menjaga agar sistem yang dibuat tetap realistis sesuai kondisi lapangan. Kami bekerja erat dengan lintas profesi medis, mulai dari spesialis kandungan seperti dr. Dibya Arfianda, Sp.OG dan dr. Boyong Baskoro, Sp.OG, dokter umum, perawat, bidan, hingga staf administrasi.',
+      'Di sisi teknologi, Nathanael Kevin Susanto, BIT, M.Tech (Software Engineer di Visa Worldwide, Singapura) membantu kami mengawal keandalan sistem dan menerapkan standar rekayasa perangkat lunak skala industri yang aman untuk sektor kesehatan.',
     ],
   },
   {
     marker: 'Kolaborasi Klinis',
     title: 'Kolaborasi Lintas Disiplin dan Standar Teknologi',
     paragraphs: [
-      'Kolaborasi ini memperkuat prinsip bahwa AI tidak seharusnya berhenti sebagai konsep, publikasi, atau dashboard semata. Nilai sesungguhnya dari AI terletak pada kemampuannya untuk hadir di titik pelayanan—di mana keputusan dibuat, pasien didampingi, dan risiko harus diidentifikasi sejak dini.',
+      'Kami memegang prinsip bahwa AI tidak boleh hanya menjadi pajangan riset, wacana, atau grafik di dashboard. Manfaat nyata teknologi ini baru terasa ketika digunakan langsung di ruang periksa—membantu dokter mengambil keputusan cepat, menemani pasien, dan mendeteksi risiko klinis lebih awal.',
     ],
   },
   {
     marker: 'Layanan Primer',
     title: 'Implementasi Nyata di Lini Pelayanan Kesehatan',
     paragraphs: [
-      'Sentra dirancang untuk memahami secara menyeluruh alur kerja layanan kesehatan, mulai dari penerimaan pasien, dokumentasi, triase, penalaran klinis, komunikasi, tindak lanjut, koordinasi operasional, edukasi pasien, hingga deteksi dini risiko.',
-      'Seiring perkembangan, Sentra berevolusi menjadi ekosistem AI yang lebih luas. Selain berfokus pada kecerdasan layanan kesehatan dan pendukung keputusan klinis, Sentra juga mengembangkan platform edukasi berbasis AI, Sentra Mitra Design, serta berbagai inisiatif lain yang lahir dari kebutuhan nyata di bidang edukasi, dokumentasi, desain, komunikasi, operasional, dan pengembangan sistem.',
+      'Sistem Sentra kami buat untuk menyatu dengan alur pelayanan klinik—mulai dari pendaftaran, pencatatan rekam medis, triase, analisis klinis awal, edukasi pasien, hingga pemantauan risiko kesehatan.',
+      'Kini, Sentra tumbuh menjadi ekosistem yang lebih luas. Selain kecerdasan klinis, kami juga merintis platform edukasi bertenaga AI, Sentra Mitra Design, serta modul operasional yang lahir dari kebutuhan administrasi dan komunikasi sehari-hari.',
     ],
   },
   {
     marker: 'Ekosistem',
     title: 'Ekspansi Menuju Ekosistem AI Terintegrasi',
     paragraphs: [
-      'Secara pribadi, Sentra bukan sekadar proyek teknologi.',
-      'Selama kurang lebih satu tahun, proses pengembangan dilakukan dengan komitmen penuh—melalui pembelajaran berkelanjutan, pengujian, iterasi, dan penyempurnaan arah. Perjalanan ini menegaskan satu hal: AI menjadi paling bernilai ketika ia hadir berkolaborasi mendampingi manusia, bukan sebagai pengganti, melainkan memperkuat "Augmented".',
+      'Bagi saya pribadi, Sentra bukan sekadar proyek teknis.',
+      'Kami mendedikasikan waktu lebih dari setahun untuk belajar, menguji, dan memperbaiki arah pengembangan. Pengalaman ini membuktikan satu hal: teknologi AI paling berharga ketika bekerja mendampingi manusia sebagai penguat kapasitas intelektual (augmented intelligence), bukan sebagai pengganti.',
     ],
   },
   {
     marker: 'Kerja Pendiri',
     title: 'Perjalanan Personal dan Filosofi Pengembangan',
     paragraphs: [
-      'Dari sebuah inisiatif CSR, Sentra berkembang menjadi sebuah misi yang lebih luas: membangun sistem di mana keahlian manusia tetap menjadi pusat, sementara AI berperan dalam menyusun informasi, mendukung pengambilan keputusan, mempercepat pembelajaran, memperjelas komunikasi, dan membantu tim bertindak lebih proaktif.',
+      'Perjalanan dari sekadar program CSR ini mengkristal menjadi misi jangka panjang: membangun ekosistem kesehatan tempat keahlian manusia tetap menjadi pusat kendali. Di sini, AI bertugas merapikan informasi, menyajikan data pendukung keputusan, mempercepat proses belajar, dan membantu tim medis mengantisipasi risiko secara proaktif.',
     ],
   },
   {
     marker: 'Misi',
     title: 'Visi Kolaborasi Manusia dan AI di Masa Depan',
     paragraphs: [
-      'Ke depan, Sentra percaya bahwa masa depan tidak dibentuk oleh AI semata, melainkan oleh kolaborasi antara manusia dan teknologi—melibatkan tenaga kesehatan, tenaga pendukung, pendidik, desainer, pemimpin organisasi, serta masyarakat luas.',
+      'Kami percaya masa depan tidak ditentukan oleh kecerdasan buatan semata, melainkan oleh keharmonisan kolaborasi antara manusia dan teknologi. Ini melibatkan kerja bersama para dokter, perawat, pendidik, desainer, pengambil kebijakan, serta masyarakat luas.',
     ],
   },
   {
     marker: 'Saat Ini',
     title: 'Komitmen Sentra Artificial Intelligence',
     paragraphs: [
-      'Sentra Artificial Intelligence bergerak dengan satu komitmen: membangun ekosistem AI yang praktis, etis, relevan, dan berakar pada kebutuhan nyata manusia. Kedaulatan dan keputusan tetap berada di tangan tenaga kesehatan. Artificial Intelligence bertugas memenuhi mayoritas informasi yang diperlukan agar kita dapat menghasilkan diagnosis terbaik bagi pasien.',
+      'Sentra tetap berkomitmen menyediakan ekosistem AI yang praktis, aman, dan berangkat dari masalah nyata di puskesmas. Keputusan klinis dan tanggung jawab penuh tetap berada di tangan dokter atau tenaga medis. Tugas AI adalah merangkum informasi penting secara cepat agar tenaga medis dapat menegakkan diagnosis terbaik bagi pasien.',
     ],
   },
 ]
-
-const scrollDelay = (ms: number): CSSProperties =>
-  ({ '--fi-scroll-delay': `${ms}ms` }) as CSSProperties
 
 export default function StoryOfSentra() {
   const [activeChapterIndex, setActiveChapterIndex] = useState(0)
@@ -110,26 +105,29 @@ export default function StoryOfSentra() {
           </div>
         </header>
 
-        <div className="fi-story-board">
-          <nav aria-label="Urutan perjalanan Sentra" className="fi-story-index">
-            {storyChapters.map((chapter, index) => (
-              <button
-                aria-controls="story-sentra-reader"
-                aria-label={`${chapter.marker} ${chapter.title}`}
-                aria-pressed={index === activeChapterIndex}
-                className="fi-story-index-button"
-                data-active={index === activeChapterIndex ? 'true' : 'false'}
-                data-fi-scroll="left"
-                key={chapter.title}
-                onClick={() => setActiveChapterIndex(index)}
-                style={scrollDelay(Math.min(index * 70, 350))}
-                type="button"
+        <div className="fi-story-board-dropdown">
+          <div className="fi-story-selector-container">
+            <label htmlFor="chapter-select" className="fi-story-select-label">
+              Pilih Bab Perjalanan:
+            </label>
+            <div className="fi-story-select-wrapper">
+              <select
+                id="chapter-select"
+                className="fi-story-select"
+                value={activeChapterIndex}
+                onChange={(e) => setActiveChapterIndex(Number(e.target.value))}
               >
-                <span>{chapter.marker}</span>
-                <strong>{chapter.title}</strong>
-              </button>
-            ))}
-          </nav>
+                {storyChapters.map((chapter, index) => (
+                  <option key={chapter.title} value={index}>
+                    {String(index + 1).padStart(2, '0')} — {chapter.marker}: {chapter.title}
+                  </option>
+                ))}
+              </select>
+              <span className="fi-story-select-arrow" aria-hidden="true">
+                ▼
+              </span>
+            </div>
+          </div>
 
           <section
             aria-live="polite"
@@ -141,7 +139,9 @@ export default function StoryOfSentra() {
             <span className="fi-story-reader-marker">{activeChapter.marker}</span>
             <h3 id={`story-sentra-chapter-${activeChapterIndex}`}>{activeChapter.title}</h3>
             {activeChapter.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph} className="fi-story-reader-paragraph">
+                {paragraph}
+              </p>
             ))}
           </section>
         </div>

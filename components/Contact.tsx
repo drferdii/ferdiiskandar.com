@@ -1,18 +1,14 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLayoutEffect, useRef } from 'react'
 import { FaEnvelope, FaGithub, FaKaggle, FaLinkedinIn, FaMedium, FaXTwitter } from 'react-icons/fa6'
 
 import SectionNumberMark from '@/components/SectionNumberMark'
-import {
-  getRevealInitial,
-  motionVariants,
-  staggerContainer,
-  motionViewport,
-  transitions,
-} from '@/lib/motion-variants'
 import { socialLinks } from '@/lib/site-content'
-import { useMotionReady } from '@/lib/use-motion-ready'
+
+gsap.registerPlugin(ScrollTrigger)
 
 type IconKey = 'linkedin' | 'x' | 'medium' | 'github' | 'kaggle' | 'email'
 
@@ -25,77 +21,81 @@ const icons: Record<IconKey, React.ReactNode> = {
   email: <FaEnvelope />,
 }
 
+/**
+ * Contact section pins briefly and reveals scrubbed directly by scroll
+ * position: header first, then each contact row in sequence with its rule
+ * line drawing alongside.
+ */
 export default function Contact() {
-  const shouldReduce = useReducedMotion()
-  const isMotionReady = useMotionReady()
-  const revealInitial = getRevealInitial(isMotionReady, shouldReduce, 'hidden')
+  const rootRef = useRef<HTMLElement>(null)
+
+  useLayoutEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+
+    const ctx = gsap.context(() => {
+      const head = root.querySelector<HTMLElement>('[data-contact-head]')
+      const rows = gsap.utils.toArray<HTMLElement>('[data-contact-row]', root)
+      if (!head || rows.length === 0) return
+
+      gsap.set(head, { y: 28, opacity: 0 })
+      gsap.set(rows, { y: 24, opacity: 0 })
+
+      const master = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: root,
+          start: 'top top',
+          end: '+=150%',
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          refreshPriority: -1,
+        },
+      })
+
+      master.to(head, { y: 0, opacity: 1, duration: 1 })
+
+      rows.forEach((row) => {
+        master.to(row, { y: 0, opacity: 1, duration: 1 }, '+=0.15')
+      })
+    }, root)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section aria-labelledby="contact-title" className="fi-section" id="contact">
-      <motion.div
-        className="fi-section-head"
-        initial={revealInitial}
-        whileInView="visible"
-        viewport={motionViewport}
-        variants={motionVariants.fadeUp}
-        transition={shouldReduce ? { duration: 0 } : transitions.medium}
-      >
-        <SectionNumberMark number="06" />
+    <section aria-labelledby="contact-title" className="fi-section" id="contact" ref={rootRef}>
+      <div className="fi-section-head" data-contact-head>
+        <SectionNumberMark number="05" />
         <div>
           <div className="fi-kicker">Kontak</div>
           <h2 className="fi-section-title" id="contact-title">
-            Permukaan yang tepat untuk percakapan yang tepat.
+            Kanal Komunikasi & Kolaborasi
           </h2>
           <p className="fi-section-lead" style={{ marginTop: '20px' }}>
-            Setiap kanal memiliki fungsi yang berbeda. Pilih permukaan yang paling sesuai dengan
-            maksud, konteks, dan arah percakapan Anda.
+            Setiap saluran komunikasi memiliki fungsi spesifik. Silakan pilih kanal yang paling
+            sesuai dengan maksud dan konteks percakapan Anda.
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.ul
-        className="fi-contact-list"
-        role="list"
-        initial={revealInitial}
-        whileInView="visible"
-        viewport={motionViewport}
-        variants={staggerContainer(0.1, 0.15)}
-        transition={shouldReduce ? { staggerChildren: 0, delayChildren: 0 } : undefined}
-      >
+      <ul className="fi-contact-logos">
         {socialLinks.map((link) => (
-          <motion.li
-            className="fi-contact-row"
-            key={link.icon}
-            variants={motionVariants.fadeUp}
-            transition={shouldReduce ? { duration: 0 } : transitions.medium}
-          >
+          <li data-contact-row key={link.icon}>
             <a
               aria-label={link.label}
-              className="fi-contact-link"
+              className="fi-contact-logo-link"
               href={link.href}
               rel="noreferrer noopener"
               target={link.href.startsWith('mailto') ? undefined : '_blank'}
+              title={link.value}
             >
-              <span className="fi-contact-platform">
-                <span className="fi-contact-platform-icon" aria-hidden="true">
-                  {icons[link.icon as IconKey]}
-                </span>
-                <span className="fi-contact-platform-name">{link.label}</span>
-              </span>
-              <span className="fi-contact-rule" aria-hidden="true" />
-              <span className="fi-contact-desc">{link.value}</span>
-              <motion.span
-                className="fi-contact-arrow"
-                aria-hidden="true"
-                animate={shouldReduce ? undefined : { x: [0, 3, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1 }}
-              >
-                ↗
-              </motion.span>
+              {icons[link.icon as IconKey]}
             </a>
-          </motion.li>
+          </li>
         ))}
-      </motion.ul>
+      </ul>
     </section>
   )
 }

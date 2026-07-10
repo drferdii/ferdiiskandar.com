@@ -176,10 +176,10 @@ export const worksItems: WorkItem[] = [
   {
     id: 'sentra-assist',
     number: '05',
-    name: 'Sentra Assist',
-    tagline: 'Clinical Workflow Automation Extension – EMR Data Transfer & Process Optimization.',
+    name: 'Asisten Medis',
+    tagline: 'Infrastruktur Ekstraksi Klinis dan Integrasi EMR Berbasis Agen Klien.',
     description:
-      'Extension klinis yang mengotomatisasi transfer data ke EMR via HL7 FHIR, alur kerja klinis (lab, rujukan, resep), dan validasi dosis/interaksi obat. Event-driven architecture dengan throughput >100 transaksi/detik dan error rate <0.1%.',
+      'Asisten Medis mengotomatisasi ekstraksi dokumen dan integrasi EMR langsung di browser, meminimalkan beban kognitif klinisi dengan akurasi tinggi dan kendali keputusan klinis penuh.',
     status: 'live',
     domain: 'Kesehatan',
     category: 'assistant',
@@ -415,7 +415,7 @@ export const worksGlanceSections = [
   },
   {
     title: 'Aktif',
-    items: ['AADI', 'Sentra Assist', 'Intelligence Dashboard', 'ReferraLink'],
+    items: ['AADI', 'Asisten Medis', 'Intelligence Dashboard', 'ReferraLink'],
   },
   {
     title: 'Domain',

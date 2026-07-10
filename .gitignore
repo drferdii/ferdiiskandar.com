@@ -79,6 +79,7 @@ dist/
 .roomodes
 .mcp.json
 .playwright-cli/
+.playwright-mcp/
 
 # AI / assistant local artifacts
 .agent/cache/

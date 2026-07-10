@@ -1,9 +1,10 @@
 'use client'
 
-import { LazyMotion, domAnimation } from 'framer-motion'
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
 import { FadeIn } from '@/components/HeroMotion'
 import { primaryNav } from '@/lib/site-content'
@@ -19,6 +20,8 @@ const speakingNav = [
   { label: 'Kontak', href: '/#contact' },
 ] as const
 
+type HoverRect = { left: number; width: number }
+
 export default function Navbar() {
   const isMotionReady = useMotionReady()
   const pathname = usePathname()
@@ -26,16 +29,39 @@ export default function Navbar() {
   const isSpeakingPage = pathname === '/speaking'
   const navItems = isSpeakingPage ? speakingNav : primaryNav
 
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [hoverRect, setHoverRect] = useState<HoverRect | null>(null)
+  const linksRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    function onScroll() {
+      setIsScrolled(window.scrollY > 8)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   function isActive(href: string) {
     if (href === '/#contact') return pathname === '/'
     return pathname === href
+  }
+
+  function handleLinkHover(event: React.MouseEvent<HTMLElement>) {
+    const container = linksRef.current
+    if (!container) return
+    const linkRect = event.currentTarget.getBoundingClientRect()
+    const containerRect = container.getBoundingClientRect()
+    setHoverRect({ left: linkRect.left - containerRect.left, width: linkRect.width })
   }
 
   return (
     <LazyMotion features={domAnimation}>
       <header
         aria-label={isSpeakingPage ? 'Primary navigation' : 'Navigasi utama'}
-        className="fi-nav fi-nav-modernized"
+        className={['fi-nav', 'fi-nav-modernized', isScrolled ? 'is-scrolled' : '']
+          .join(' ')
+          .trim()}
       >
         <FadeIn
           as="div"
@@ -71,26 +97,78 @@ export default function Navbar() {
               <nav
                 aria-label={isSpeakingPage ? 'Primary navigation' : 'Navigasi utama'}
                 className="fi-nav-editorial-links"
+                onMouseLeave={() => setHoverRect(null)}
+                ref={linksRef}
               >
-                {navItems.map((item) => (
-                  <Link
-                    className={[
-                      'fi-nav-editorial-link fi-magnetic-btn fi-nav-slide fi-focus-ring',
-                      isActive(item.href) ? 'is-active' : '',
-                      item.label === (isSpeakingPage ? 'Contact' : 'Kontak') ? 'is-contact' : '',
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                    href={item.href}
-                    key={item.label}
-                    onClick={() => {
-                      if (!item.href.startsWith('/#')) return
-                      router.push(item.href)
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                <AnimatePresence>
+                  {hoverRect && (
+                    <m.span
+                      animate={{ opacity: 1, x: hoverRect.left, width: hoverRect.width }}
+                      className="fi-nav-hover-pill"
+                      exit={{ opacity: 0 }}
+                      initial={{ opacity: 0, x: hoverRect.left, width: hoverRect.width }}
+                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                </AnimatePresence>
+                {navItems.map((item) => {
+                  if (item.label === 'Karya') {
+                    return (
+                      <div className="fi-nav-dropdown" key={item.label}>
+                        <Link
+                          className={[
+                            'fi-nav-editorial-link fi-focus-ring',
+                            isActive(item.href) ? 'is-active' : '',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                          href={item.href}
+                          onMouseEnter={handleLinkHover}
+                        >
+                          {item.label}{' '}
+                          <span
+                            style={{ fontSize: '8px', marginLeft: '4px', verticalAlign: 'middle' }}
+                          >
+                            ▼
+                          </span>
+                        </Link>
+                        <div className="fi-nav-dropdown-content">
+                          <Link href="/works" className="fi-nav-dropdown-item">
+                            Semua Karya
+                          </Link>
+                          <a
+                            href="https://sentrahai.com/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="fi-nav-dropdown-item"
+                          >
+                            Sentraverse
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  }
+                  return (
+                    <Link
+                      className={[
+                        'fi-nav-editorial-link fi-focus-ring',
+                        isActive(item.href) ? 'is-active' : '',
+                        item.label === (isSpeakingPage ? 'Contact' : 'Kontak') ? 'is-contact' : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                      href={item.href}
+                      key={item.label}
+                      onClick={() => {
+                        if (!item.href.startsWith('/#')) return
+                        router.push(item.href)
+                      }}
+                      onMouseEnter={handleLinkHover}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                })}
               </nav>
             </div>
           </div>

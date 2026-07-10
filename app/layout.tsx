@@ -1,4 +1,4 @@
-import { Fragment_Mono, Geist, Inter, JetBrains_Mono } from 'next/font/google'
+import { Fragment_Mono, Geist, Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import type { ReactNode } from 'react'
 
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
@@ -9,6 +9,13 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['600', '700'],
+  variable: '--font-playfair',
 })
 
 const fragmentMono = Fragment_Mono({
@@ -36,12 +43,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${fragmentMono.variable} ${jetBrainsMono.variable} ${geist.variable}`}
+      className={`${inter.variable} ${fragmentMono.variable} ${jetBrainsMono.variable} ${geist.variable} ${playfairDisplay.variable}`}
       data-theme="light"
       suppressHydrationWarning
     >
       <head />
-      <body>
+      <body suppressHydrationWarning>
         <a className="fi-skip-link" href="#main-content">
           Skip to content
         </a>

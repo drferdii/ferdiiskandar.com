@@ -1,0 +1,177 @@
+/* Architected and built by Classy. */
+/*
+ * BlueprintStory — scroll-story blueprint section.
+ * Deliberately Tailwind-free: every rule is scoped through this module and
+ * every color flows from the Sentra tokens set by [data-sentra-sim][data-theme="dark"].
+ * Default (no-JS / prefers-reduced-motion) state = fully drawn: stroke-dashoffset 0.
+ */
+
+.root {
+  position: relative;
+  --sentra-bg: #1e1e1e;
+  --sentra-fg: #b7ab98;
+  --sentra-accent: #eb5939;
+  --sentra-muted-text: rgba(183, 171, 152, 0.8);
+  --font-jakarta: Inter, "Geist", sans-serif;
+  background: var(--sentra-bg);
+  color: var(--sentra-fg);
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Sentinel sibling — sekedar titik acuan posisi untuk entrance ScrollTrigger,
+   tidak boleh mempengaruhi layout. */
+.entranceMarker {
+  height: 0;
+  margin: 0;
+}
+
+/* Track horizontal: tiga lembar blueprint berjajar ke kanan; scroll vertikal
+   menggeser track lewat GSAP (xPercent). */
+.track {
+  display: flex;
+  width: 300vw;
+}
+
+.scene {
+  position: relative;
+  width: 100vw;
+  flex: 0 0 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  /* padding-top clears the fixed site navbar while the section is pinned */
+  padding: 78px 24px 20px;
+  box-sizing: border-box;
+  background: var(--sentra-bg);
+}
+
+.sceneHead {
+  width: 100%;
+  max-width: 1180px;
+}
+
+.kicker {
+  margin: 0;
+  font-family: "Fragment Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sentra-accent);
+}
+
+.title {
+  margin: 10px 0 6px;
+  font-family: Georgia, serif;
+  font-size: clamp(24px, 3.4vw, 40px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--sentra-fg);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: Inter, "Geist", sans-serif;
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: var(--sentra-muted-text);
+}
+
+/* "Kalkir" drafting-paper canvas: faint dot grid behind the line work. */
+.canvasWrap {
+  width: 100%;
+  max-width: 1180px;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--sentra-fg) 12%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 26px 26px;
+}
+
+.canvasWrapNarrow {
+  max-width: 680px;
+}
+
+.canvas {
+  width: 100%;
+  height: auto;
+  max-height: min(78vh, calc(100vh - 250px));
+  display: block;
+}
+
+.desktopOnly {
+  display: block;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* Line work. pathLength=1 on every path normalizes the dash math:
+   dashoffset 1 = invisible, 0 = fully drawn (the default/fallback state). */
+.draw {
+  fill: none;
+  stroke: var(--sentra-accent);
+  stroke-width: 1.6;
+  stroke-linejoin: miter;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+}
+
+.thin {
+  stroke-width: 1.1;
+  opacity: 0.6;
+}
+
+.soft {
+  opacity: 0.4;
+}
+
+.faint {
+  opacity: 0.22;
+}
+
+.mono {
+  font-family: "Fragment Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+}
+
+.sans {
+  font-family: Inter, "Geist", sans-serif;
+}
+
+.txtMain {
+  fill: var(--sentra-fg);
+}
+
+.txtMuted {
+  fill: var(--sentra-muted-text);
+}
+
+.txtAccent {
+  fill: var(--sentra-accent);
+}
+
+@media (max-width: 767px) {
+  .scene {
+    padding: 74px 16px 20px;
+    gap: 12px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+}

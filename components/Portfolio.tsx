@@ -1,150 +1,73 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
-import Image from 'next/image'
-import Link from 'next/link'
-import type { CSSProperties } from 'react'
-import { Fragment } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { useState, type CSSProperties } from 'react'
 
-import CountUp from '@/components/CountUp'
 import SectionNumberMark from '@/components/SectionNumberMark'
 import {
   getRevealInitial,
   motionVariants,
-  staggerContainer,
   motionViewport,
   transitions,
 } from '@/lib/motion-variants'
 import { useMotionReady } from '@/lib/use-motion-ready'
 
-type RegistryItem = {
+/* ────────── Data ────────── */
+
+type SystemData = {
+  id: string
   name: string
-  description: string
+  desc: string
+  status: 'testing' | 'built' | 'inbuild' | 'planned'
+  progress: number
 }
 
-type RegistrySection = {
-  className?: string
-  dotTone: 'testing' | 'built' | 'inbuild' | 'planned'
-  title: string
-  items: readonly RegistryItem[]
-}
-
-type RegistryColumn = {
-  sections: readonly RegistrySection[]
-}
-
-type FeaturedSystem = {
-  articleClassName: string
-  description: string
-  descriptionClassName?: string
-  imageAlt: string
-  imageClassName: string
-  imageSrc: string
-  illustrationClassName: string
-  label: string
-  subtitle: string
-  title: string
-}
-
-const featuredSystems: readonly FeaturedSystem[] = [
-  {
-    articleClassName: 'fi-feature-card fi-feature-aadi',
-    description:
-      'AADI mengumpulkan, memverifikasi, dan mendokumentasikan informasi pasien secara otonom lintas sistem, sehingga gesekan saat admisi menurun dan akurasi meningkat sejak awal proses.',
-    descriptionClassName: 'fi-feature-body-italic',
-    imageAlt: 'Tampilan sistem AADI',
-    imageClassName: 'fi-feature-product-image fi-feature-product-image-aadi',
-    imageSrc: '/aadi.png',
-    illustrationClassName: 'fi-feature-illustration',
-    label: 'Sistem Unggulan 01',
-    subtitle: 'Kecerdasan Admisi dan Dokumentasi Otonom',
-    title: 'AADI',
-  },
-  {
-    articleClassName: 'fi-feature-card fi-feature-assist',
-    description:
-      'Sentra Assist adalah Chrome Side Panel berbasis AI yang membaca dokumen klinis, melakukan ekstraksi OCR, dan menerapkan algoritma field-matching probabilistik untuk membantu penyelesaian formulir EMR secara end-to-end dengan tinjauan klinisi.',
-    imageAlt: 'Tampilan sistem Sentra Assist',
-    imageClassName: 'fi-feature-product-image fi-feature-product-image-assist',
-    imageSrc: '/assist.webp',
-    illustrationClassName: 'fi-feature-illustration fi-assist-visual fi-sentra-assist-sketch',
-    label: 'Sistem Unggulan 02',
-    subtitle: 'Panel samping Chrome berbasis AI untuk kelengkapan EMR',
-    title: 'Sentra Assist',
-  },
+const systems: readonly SystemData[] = [
+  { id: 'SYS-01', name: 'AADI', desc: 'Autonomous Diagnostic Intelligence', status: 'testing', progress: 85 },
+  { id: 'SYS-02', name: 'Audrey', desc: 'Voice-First Clinical Intelligence', status: 'testing', progress: 80 },
+  { id: 'SYS-03', name: 'Intelligence Dashboard', desc: 'Unified Clinical Operations', status: 'testing', progress: 90 },
+  { id: 'SYS-04', name: 'Asisten Medis', desc: 'AI Client-Agent for EMR', status: 'testing', progress: 85 },
+  { id: 'SYS-05', name: 'Telemedicine', desc: 'Remote Clinical Consultation', status: 'testing', progress: 75 },
+  { id: 'SYS-06', name: 'ReferraLink', desc: 'Awareness-Intelligence Protocol', status: 'testing', progress: 80 },
+  { id: 'SYS-07', name: 'Med-Cognitive', desc: 'Neural Memory Architecture', status: 'built', progress: 100 },
+  { id: 'SYS-08', name: 'MELLY', desc: 'Augmented Virtual Agent', status: 'inbuild', progress: 50 },
+  { id: 'SYS-09', name: 'Melinda Dashboard', desc: 'Interoperability Platform', status: 'inbuild', progress: 45 },
+  { id: 'SYS-10', name: 'Melinda Shield', desc: 'Cognitive Cybersecurity', status: 'inbuild', progress: 40 },
+  { id: 'SYS-11', name: 'Autonomous Admission', desc: 'Admission & Journey Tracking', status: 'inbuild', progress: 60 },
+  { id: 'SYS-12', name: 'Smart Triage', desc: 'Algorithmic Triage Assessment', status: 'inbuild', progress: 55 },
+  { id: 'SYS-13', name: 'Proactive Care Navigator', desc: 'Post-Partum Monitoring', status: 'inbuild', progress: 35 },
+  { id: 'SYS-14', name: 'Ambient Scribe', desc: 'Voice-to-EMR Engine', status: 'inbuild', progress: 45 },
+  { id: 'SYS-15', name: 'Critical Alert System', desc: 'NICU & Telemetry Intelligence', status: 'inbuild', progress: 30 },
+  { id: 'SYS-16', name: 'Predictive Bed Mgmt', desc: 'Turnaround Orchestration', status: 'inbuild', progress: 40 },
+  { id: 'SYS-17', name: 'Hospital Auditor', desc: 'Clinical Coding & Claims', status: 'inbuild', progress: 50 },
+  { id: 'SYS-18', name: 'Hospital Orchestrator', desc: 'Smart OR Logistics', status: 'inbuild', progress: 45 },
+  { id: 'SYS-19', name: 'POGS', desc: 'Pregnancy Observation System', status: 'planned', progress: 15 },
+  { id: 'SYS-20', name: 'CDOS', desc: 'Decision Orchestration System', status: 'planned', progress: 10 },
+  { id: 'SYS-21', name: 'TRIAGE', desc: 'Predictive Triage Engine', status: 'planned', progress: 15 },
+  { id: 'SYS-22', name: 'PREDICTION', desc: 'Predictive Analytics Engine', status: 'planned', progress: 5 },
 ]
 
-const registryColumns: readonly RegistryColumn[] = [
-  {
-    sections: [
-      {
-        dotTone: 'testing',
-        title: 'Sedang Diuji · 6',
-        items: [
-          { name: 'AADI', description: 'Autonomous Artificial Diagnostic Intelligence' },
-          { name: 'Audrey', description: 'Voice-First Clinical Intelligence' },
-          { name: 'Intelligence Dashboard', description: 'Unified Clinical Operations Platform' },
-          { name: 'Sentra Assist', description: 'AI Chrome Side Panel for EMR Automation' },
-          { name: 'Telemedicine', description: 'Remote Clinical Consultation' },
-          { name: 'ReferraLink', description: 'Awareness-Intelligence Protocol' },
-        ],
-      },
-    ],
-  },
-  {
-    sections: [
-      {
-        dotTone: 'built',
-        title: 'Sudah Dibangun · 1',
-        items: [
-          { name: 'Med-Cognitive', description: 'Neural Memory Architecture for Clinical AI' },
-        ],
-      },
-      {
-        className: 'mt',
-        dotTone: 'inbuild',
-        title: 'Sedang Dibangun · 11',
-        items: [
-          { name: 'MELLY', description: 'Hyper-Personalized Augmented Virtual Agent' },
-          { name: 'Melinda Dashboard', description: 'Zero-Friction Interoperability Platform' },
-          { name: 'Melinda Shield', description: 'Cognitive Cybersecurity Infrastructure' },
-          { name: 'Autonomous Admission', description: 'Admission & Journey Tracking' },
-          { name: 'Smart Triage', description: 'Pediatric & Maternal Algorithmic Assessment' },
-        ],
-      },
-    ],
-  },
-  {
-    sections: [
-      {
-        dotTone: 'inbuild',
-        title: 'Pembangunan Berlanjut',
-        items: [
-          { name: 'Proactive Care Navigator', description: 'Post-Partum & Preventive Monitoring' },
-          { name: 'Ambient Scribe', description: 'Clinical Voice-to-EMR Engine' },
-          { name: 'Critical Alert System', description: 'Proactive NICU & Telemetry Intelligence' },
-          { name: 'Predictive Bed Management', description: 'Autonomous Turnaround Orchestration' },
-          { name: 'Hospital management Auditor', description: 'Clinical Coding & Claim Defense' },
-          { name: 'Hospital Orchestrator', description: 'Smart Operating Room Logistics' },
-        ],
-      },
-    ],
-  },
-  {
-    sections: [
-      {
-        dotTone: 'planned',
-        title: 'Akan Dibangun · 4',
-        items: [
-          { name: 'POGS', description: 'Pregnancy Observation Global System' },
-          { name: 'CDOS', description: 'Clinical Decision Orchestration System' },
-          { name: 'TRIAGE', description: 'Severity Scoring & Predictive Triage Engine' },
-          { name: 'PREDICTION', description: 'Predictive Analytics Engine' },
-        ],
-      },
-    ],
-  },
+type TabType = 'all' | 'testing' | 'built' | 'inbuild' | 'planned'
+
+const tabs: { key: TabType; label: string; dot?: string }[] = [
+  { key: 'all', label: 'Semua' },
+  { key: 'testing', label: 'Sedang Diuji', dot: 'dot-testing' },
+  { key: 'built', label: 'Selesai', dot: 'dot-built' },
+  { key: 'inbuild', label: 'Dibangun', dot: 'dot-inbuild' },
+  { key: 'planned', label: 'Direncanakan', dot: 'dot-planned' },
 ]
+
+const statusLabels: Record<SystemData['status'], string> = {
+  testing: 'Sedang Diuji',
+  built: 'Selesai',
+  inbuild: 'Sedang Dibangun',
+  planned: 'Direncanakan',
+}
+
+const statusCounts = (status: TabType) =>
+  status === 'all' ? systems.length : systems.filter((s) => s.status === status).length
+
+/* ────────── Component ────────── */
 
 export default function Portfolio() {
   const shouldReduce = useReducedMotion()
@@ -152,327 +75,143 @@ export default function Portfolio() {
   const mv = shouldReduce ? undefined : motionVariants
   const revealInitial = getRevealInitial(isMotionReady, shouldReduce, 'hidden')
 
-  const renderRegistryColumn = (column: RegistryColumn, columnIndex: number) => (
-    <motion.article
-      className="fi-registry-column"
-      key={columnIndex}
-      variants={mv?.fadeUp}
-      transition={shouldReduce ? { duration: 0 } : transitions.medium}
-    >
-      {column.sections.map((section) => (
-        <Fragment key={section.title}>
-          <h4 className={section.className}>
-            <span className={`dot ${section.dotTone}`}></span>
-            {section.title}
-          </h4>
-          <ul>
-            {section.items.map((item) => (
-              <li key={item.name}>
-                <strong>{item.name}</strong>
-                <small>{item.description}</small>
-              </li>
-            ))}
-          </ul>
-        </Fragment>
-      ))}
-    </motion.article>
+  const [activeTab, setActiveTab] = useState<TabType>('all')
+
+  const filtered = systems.filter(
+    (s) => activeTab === 'all' || s.status === activeTab,
   )
 
   return (
     <section
-      aria-labelledby="systems-dossier-title"
-      className="fi-section fi-systems-dossier"
+      aria-labelledby="portfolio-title"
+      className="fi-section fi-portfolio-v2"
       id="portfolio"
     >
-      {/* ── LEFT: Dossier Index ── */}
-      <motion.aside
-        aria-label="Indeks dossier inisiatif dan sistem"
-        className="fi-dossier-index"
+      {/* ── Animated Motion Lines ── */}
+      <div className="fp-motion-lines" aria-hidden="true">
+        <span className="fp-line-h" />
+        <span className="fp-line-h" />
+        <span className="fp-line-h" />
+        <span className="fp-line-h" />
+        <span className="fp-line-v" />
+        <span className="fp-line-v" />
+        <span className="fp-line-v" />
+        <span className="fp-line-v" />
+      </div>
+
+      {/* ── Header ── */}
+      <motion.div
+        className="fp-header"
         initial={revealInitial}
         whileInView="visible"
         viewport={motionViewport}
-        variants={mv?.slideIn}
+        variants={mv?.fadeUp}
         transition={shouldReduce ? { duration: 0 } : transitions.medium}
       >
-        <div className="fi-dossier-index-title">Indeks Inisiatif</div>
-        <nav aria-label="Bagian inisiatif dan sistem" className="fi-dossier-nav">
-          <Link href="#portfolio">
-            <span>01</span>
-            <strong>Laboratorium</strong>
-            <em>Riset teknologi sejak Februari 2025</em>
-          </Link>
-          <Link href="#featured-systems">
-            <span>02</span>
-            <strong>Sistem Unggulan</strong>
-            <em>AADI dan Sentra Assist</em>
-          </Link>
-          <Link href="#registry-foundations">
-            <span>03</span>
-            <strong>Fondasi Kerja</strong>
-            <em>Kepercayaan, data, dan tanggung jawab klinis</em>
-          </Link>
-          <Link href="#registry-all-systems">
-            <span>04</span>
-            <strong>Registri Sistem</strong>
-            <em>Semua sistem sekilas</em>
-          </Link>
-          <Link href="#registry-roadmap">
-            <span>05</span>
-            <strong>Arah Lanjut</strong>
-            <em>Ruang pembangunan berikutnya</em>
-          </Link>
-        </nav>
-      </motion.aside>
-
-      {/* ── CENTER: Dossier Main ── */}
-      <div className="fi-dossier-main">
-        {/* Header */}
-        <motion.header
-          className="fi-dossier-hero fi-dossier-hero-numbered"
-          initial={revealInitial}
-          whileInView="visible"
-          viewport={motionViewport}
-          variants={mv?.fadeUp}
-          transition={shouldReduce ? { duration: 0 } : transitions.medium}
-        >
+        <div className="fp-header-top">
           <SectionNumberMark number="03" />
-          <div className="fi-dossier-titleblock">
-            <span className="fi-dossier-section">Inisiatif &amp; Sistem</span>
-            <h2 id="systems-dossier-title">
-              Dari Laboratorium Teknologi Sederhana untuk Indonesia
-            </h2>
-            <p>
-              Sejak Februari 2025, dr Ferdi Iskandar memulai riset dan pembangunan teknologi dari
-              kebutuhan nyata di lapangan. Prosesnya tidak berhenti pada eksperimen awal; setiap
-              temuan diuji kembali, dikembangkan, dan dirapikan menjadi sistem yang lebih berguna
-              bagi layanan kesehatan Indonesia.
-            </p>
-            <div className="fi-dossier-rule">
-              <span>Balowerti II 69, Kediri Jawa Timur</span>
-            </div>
-          </div>
-          <blockquote className="fi-dossier-quote">
-            <span aria-hidden="true">&ldquo;</span>
-            <p>Saya percaya teknologi terbaik adalah yang bekerja dalam diam.</p>
-            <cite>Praktik sistem founder</cite>
-          </blockquote>
-        </motion.header>
+          <span className="fp-badge">Registri Sistem</span>
+        </div>
 
-        {/* Featured Systems */}
-        <motion.section
-          aria-label="Sistem unggulan"
-          className="fi-feature-panel"
-          id="featured-systems"
-          initial={revealInitial}
-          whileInView="visible"
-          viewport={motionViewport}
-          variants={staggerContainer(0.18, 0.1)}
-          transition={shouldReduce ? { staggerChildren: 0, delayChildren: 0 } : undefined}
-        >
-          {featuredSystems.map((system) => (
+        <h2 id="portfolio-title" className="fp-title">
+          Dari Laboratorium Teknologi<br />
+          Sederhana untuk Indonesia
+        </h2>
+
+        <p className="fp-lead">
+          Sejak Februari 2025, dr Ferdi Iskandar membangun dan menguji sistem kecerdasan klinis
+          dari kebutuhan nyata di lapangan — bukan dari teori di atas kertas.
+        </p>
+      </motion.div>
+
+      {/* ── Stats row ── */}
+      <motion.div
+        className="fp-stats"
+        initial={revealInitial}
+        whileInView="visible"
+        viewport={motionViewport}
+        variants={mv?.fadeUp}
+        transition={shouldReduce ? { duration: 0 } : transitions.medium}
+      >
+        {tabs.filter((t) => t.key !== 'all').map((t) => (
+          <button
+            key={t.key}
+            className={`fp-stat-card ${activeTab === t.key ? 'is-active' : ''}`}
+            onClick={() => setActiveTab((prev) => (prev === t.key ? 'all' : t.key))}
+            type="button"
+          >
+            <strong>{statusCounts(t.key)}</strong>
+            <span className={`fp-stat-dot ${t.dot}`} />
+            <span className="fp-stat-label">{t.label}</span>
+          </button>
+        ))}
+        <div className="fp-stat-total">
+          <strong>{systems.length}</strong>
+          <span>Total Sistem</span>
+        </div>
+      </motion.div>
+
+      {/* ── Filter tabs ── */}
+      <div className="fp-filters" role="tablist" aria-label="Filter status sistem">
+        {tabs.map((t) => (
+          <button
+            key={t.key}
+            role="tab"
+            aria-selected={activeTab === t.key}
+            className={`fp-filter ${activeTab === t.key ? 'is-active' : ''}`}
+            onClick={() => setActiveTab(t.key)}
+            type="button"
+          >
+            {t.dot && <span className={`fp-dot ${t.dot}`} />}
+            {t.label}
+            <span className="fp-count">{statusCounts(t.key)}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* ── Grid ── */}
+      <motion.div layout className="fp-grid">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((sys) => (
             <motion.article
-              className={system.articleClassName}
-              key={system.title}
-              variants={mv?.scaleReveal}
-              transition={shouldReduce ? { duration: 0 } : transitions.medium}
-              whileHover={shouldReduce ? undefined : { y: -8, transition: { duration: 0.3 } }}
+              layout
+              key={sys.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className={`fp-card fp-card--${sys.status}`}
             >
-              <div className="fi-feature-copy">
-                <span>{system.label}</span>
-                <h3>{system.title}</h3>
-                <p className="fi-feature-subtitle">{system.subtitle}</p>
-                <p className={system.descriptionClassName}>{system.description}</p>
-                <div className="fi-feature-status">
-                  <small>Status</small>
-                  <b className="is-testing">Sedang Diuji</b>
-                </div>
-                <Link
-                  aria-label={`Telusuri ${system.title} di registri`}
-                  href="#registry-all-systems"
-                >
-                  Jelajahi system →
-                </Link>
+              <div className="fp-card-head">
+                <code className="fp-card-id">{sys.id}</code>
+                <span className={`fp-card-dot ${sys.status}`} />
               </div>
-              <div className={system.illustrationClassName}>
-                <Image
-                  alt={system.imageAlt}
-                  className={system.imageClassName}
-                  height={520}
-                  src={system.imageSrc}
-                  width={720}
-                />
+              <h4 className="fp-card-name">{sys.name}</h4>
+              <p className="fp-card-desc">{sys.desc}</p>
+              <div className="fp-card-foot">
+                <div className="fp-card-meta">
+                  <span>{statusLabels[sys.status]}</span>
+                  <span>{sys.progress}%</span>
+                </div>
+                <div className="fp-bar">
+                  <div
+                    className={`fp-bar-fill fp-bar--${sys.status}`}
+                    style={{ width: `${sys.progress}%` } as CSSProperties}
+                  />
+                </div>
               </div>
             </motion.article>
           ))}
-        </motion.section>
+        </AnimatePresence>
+      </motion.div>
 
-        {/* Registry Proof */}
-        <motion.section
-          aria-label="Prinsip dan metrik registri"
-          className="fi-registry-proof"
-          id="registry-foundations"
-          initial={revealInitial}
-          whileInView="visible"
-          viewport={motionViewport}
-          variants={mv?.fadeUp}
-          transition={shouldReduce ? { duration: 0 } : transitions.medium}
-        >
-          <div aria-hidden="true" className="fi-hands-card">
-            <svg
-              viewBox="0 0 180 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ width: '100%', opacity: 0.45 }}
-            >
-              <path
-                d="M 40 80 Q 60 40 90 60 Q 120 80 140 40"
-                stroke="#aa8548"
-                strokeWidth="1.5"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <circle
-                cx="90"
-                cy="60"
-                r="18"
-                stroke="#6b5a3e"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.3"
-              />
-              <circle cx="90" cy="60" r="4" fill="#aa8548" opacity="0.6" />
-            </svg>
-          </div>
-          <blockquote>
-            <span aria-hidden="true">&ldquo;</span>
-            <p>
-              Sistem kami dirancang bersama klinisi dan pasien. Kepercayaan mereka harus dibangun,
-              bukan diasumsikan.
-            </p>
-            <cite>Sentra Healthcare AI</cite>
-          </blockquote>
-          <div aria-label="Registry summary" className="fi-proof-metrics">
-            <div>
-              <strong>
-                <CountUp to={22} duration={1.6} />
-              </strong>
-              <span>Sistem</span>
-              <small>Lintas layanan kesehatan, pendidikan, kerja, dan permukaan digital</small>
-            </div>
-            <div>
-              <strong>
-                <CountUp to={4} duration={1.2} />
-              </strong>
-              <span>Domain Kapabilitas</span>
-              <small>Perawatan, pembelajaran, koordinasi, dan pengalaman publik</small>
-            </div>
-            <div>
-              <strong>
-                <CountUp to={1} duration={0.8} />
-              </strong>
-              <span>Commitment</span>
-              <small>Kecerdasan bertanggung jawab dalam kondisi operasional nyata.</small>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Registry Board */}
-        <section
-          aria-label="Registri semua sistem"
-          className="fi-registry-board"
-          id="registry-all-systems"
-        >
-          <div className="fi-registry-board-head">
-            <h3>Registri: Semua Sistem</h3>
-            <span>Lihat sebagai daftar ☷</span>
-          </div>
-          <motion.div
-            className="fi-registry-columns"
-            initial={revealInitial}
-            whileInView="visible"
-            viewport={motionViewport}
-            variants={staggerContainer(0.1, 0.05)}
-            transition={shouldReduce ? { staggerChildren: 0, delayChildren: 0 } : undefined}
-          >
-            {registryColumns.map(renderRegistryColumn)}
-          </motion.div>
-          <p className="fi-registry-boundary">
-            <strong>Batas klinis:</strong> Sistem Sentra dirancang sebagai pendukung keputusan,
-            kecerdasan alur kerja, dan infrastruktur koordinasi perawatan. Sistem ini tidak
-            menggantikan penilaian medis profesional.
-          </p>
-        </section>
+      {/* ── Boundary ── */}
+      <div className="fp-boundary">
+        <p>
+          <strong>Batas klinis:</strong> Sistem Sentra dirancang sebagai pendukung keputusan
+          dan infrastruktur koordinasi — bukan pengganti penilaian klinis profesional.
+        </p>
       </div>
-
-      {/* ── RIGHT: Glance Sidebar ── */}
-      <motion.aside
-        aria-label="Ringkasan semua sistem"
-        className="fi-dossier-glance"
-        initial={revealInitial}
-        whileInView="visible"
-        viewport={motionViewport}
-        variants={mv?.slideInRight}
-        transition={shouldReduce ? { duration: 0 } : { ...transitions.medium, delay: 0.2 }}
-      >
-        <div className="fi-glance-head">
-          <strong>Semua Sistem Sekilas</strong>
-          <span>22 Sistem</span>
-        </div>
-        <section data-fi-scroll="fade">
-          <h3>
-            <span className="dot testing"></span>Sedang Diuji · 6
-          </h3>
-          <ul>
-            <li>AADI</li>
-            <li>Audrey</li>
-            <li>Intelligence Dashboard</li>
-            <li>Sentra Assist</li>
-            <li>Telemedicine</li>
-            <li>ReferraLink</li>
-          </ul>
-        </section>
-        <section data-fi-scroll="fade" style={{ '--fi-scroll-delay': '100ms' } as CSSProperties}>
-          <h3>
-            <span className="dot built"></span>Sudah Dibangun · 1
-          </h3>
-          <ul>
-            <li>Med-Cognitive</li>
-          </ul>
-        </section>
-        <section data-fi-scroll="fade" style={{ '--fi-scroll-delay': '200ms' } as CSSProperties}>
-          <h3>
-            <span className="dot inbuild"></span>Sedang Dibangun · 11
-          </h3>
-          <ul>
-            <li>MELLY</li>
-            <li>Melinda Dashboard</li>
-            <li>Melinda Shield</li>
-            <li>Autonomous Admission</li>
-            <li>Smart Triage</li>
-            <li>Proactive Care Navigator</li>
-            <li>Ambient Scribe</li>
-            <li>Critical Alert System</li>
-            <li>Predictive Bed Management</li>
-            <li>Hospital management Auditor</li>
-            <li>Hospital Orchestrator</li>
-          </ul>
-        </section>
-        <section
-          data-fi-scroll="fade"
-          id="registry-roadmap"
-          style={{ '--fi-scroll-delay': '300ms' } as CSSProperties}
-        >
-          <h3>
-            <span className="dot planned"></span>Akan Dibangun · 4
-          </h3>
-          <ul>
-            <li>POGS</li>
-            <li>CDOS</li>
-            <li>TRIAGE</li>
-            <li>PREDICTION</li>
-          </ul>
-        </section>
-      </motion.aside>
     </section>
   )
 }
