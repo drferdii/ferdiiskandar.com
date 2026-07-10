@@ -83,7 +83,7 @@ export default function Hero() {
                 <a
                   href="https://medium.com/@drferdiiskandar"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="Medium"
                   className="fi-hero-social-link"
                 >
@@ -92,7 +92,7 @@ export default function Hero() {
                 <a
                   href="https://orcid.org/0009-0003-3788-1307"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="ORCID iD"
                   className="fi-hero-social-link"
                 >
@@ -101,7 +101,7 @@ export default function Hero() {
                 <a
                   href="https://x.com/ClaudesyI81047"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="X (Twitter)"
                   className="fi-hero-social-link"
                 >
@@ -110,7 +110,7 @@ export default function Hero() {
                 <a
                   href="https://substack.com/@drferdiiskandar"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="Substack"
                   className="fi-hero-social-link"
                 >
@@ -119,7 +119,7 @@ export default function Hero() {
                 <a
                   href="https://www.kaggle.com/drferdiiskandar"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="Kaggle"
                   className="fi-hero-social-link"
                 >
@@ -128,7 +128,7 @@ export default function Hero() {
                 <a
                   href="https://www.reddit.com/user/SixCupaCoffee/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="Reddit"
                   className="fi-hero-social-link"
                 >
@@ -137,7 +137,7 @@ export default function Hero() {
                 <a
                   href="https://www.linkedin.com/in/dr-ferdi-iskandar-1b620a3b5"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="LinkedIn"
                   className="fi-hero-social-link"
                 >
@@ -146,7 +146,7 @@ export default function Hero() {
                 <a
                   href="https://huggingface.co/dr-Ferdi"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   title="Hugging Face"
                   className="fi-hero-social-link"
                 >

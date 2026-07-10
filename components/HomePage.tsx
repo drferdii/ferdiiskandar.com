@@ -1,6 +1,7 @@
 'use client'
 
 import AbbyWidget from '@/components/AbbyWidget'
+import BlueprintStory from '@/components/BlueprintStory'
 import Contact from '@/components/Contact'
 import Expertise from '@/components/Expertise'
 import Footer from '@/components/Footer'
@@ -11,7 +12,6 @@ import Navbar from '@/components/Navbar'
 import PortfolioStory from '@/components/PortfolioStory'
 import ScrollEnter from '@/components/ScrollEnter'
 import ScrollReveal from '@/components/ScrollReveal'
-import BlueprintStory from '@/components/BlueprintStory'
 
 export default function HomePage() {
   return (

@@ -1,6 +1,7 @@
 import { Fragment_Mono, Geist, Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import type { ReactNode } from 'react'
 
+import Schema from '@/components/Schema'
 import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import { buildSiteMetadata } from '@/lib/site-metadata'
 import './globals.css'
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <head />
       <body suppressHydrationWarning>
+        <Schema />
         <a className="fi-skip-link" href="#main-content">
           Skip to content
         </a>

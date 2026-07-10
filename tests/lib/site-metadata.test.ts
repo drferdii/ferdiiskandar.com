@@ -80,7 +80,7 @@ describe('site metadata', () => {
 
     expect(metadata.title).toBe('dr. Ferdi Iskandar — Augmented Intelligence Architect')
     expect(String(metadata.description)).toContain('kecerdasan terapan')
-    expect(String(metadata.description)).toContain('Profil pribadi')
+    expect(String(metadata.description)).toContain('Profil dr. Ferdi Iskandar')
     expect(metadata.alternates?.canonical).toBe('/')
     expect(metadata.openGraph?.url).toBe('/')
     expectSocialPreviewMetadata(metadata)

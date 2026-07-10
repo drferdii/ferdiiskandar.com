@@ -34,8 +34,8 @@ export default function PortfolioStory() {
       // Measure against each pan's own clipping ancestor (not raw vh) — the
       // story panel's viewport is shorter than 100vh because StoryHeader now
       // sits above it as a static, un-panned sibling.
-      const dist0 = Math.max(0, pans[0].scrollHeight - pans[0].parentElement!.clientHeight)
-      const dist1 = Math.max(0, pans[1].scrollHeight - pans[1].parentElement!.clientHeight)
+      const dist0 = Math.max(0, pans[0].scrollHeight - (pans[0].parentElement?.clientHeight || 0))
+      const dist1 = Math.max(0, pans[1].scrollHeight - (pans[1].parentElement?.clientHeight || 0))
       const total = dist0 + vh + dist1
 
       const master = gsap.timeline({
