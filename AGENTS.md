@@ -81,7 +81,6 @@ The app is intentionally structured as a **founder dossier** rather than a gener
 | `/notes` | Public page | Writing / notes surface |
 | `/speaking` | Public page | Speaking profile |
 | `/cv` | Public page | CV and credentials surface |
-| `/classy-news` | Public page | Classy News |
 | `/api/abby` | API | Main Abby assistant endpoint (DeepSeek / OpenAI) |
 | `/api/chat` | API | Legacy chat endpoint (NVIDIA) |
 | `/robots.txt` | Generated | Robots metadata |
@@ -133,7 +132,6 @@ app/                    # Next.js App Router routes, layout, global CSS
   about/
   api/abby/
   api/chat/
-  classy-news/
   cv/
   notes/
   speaking/
@@ -283,7 +281,6 @@ pnpm test:coverage # with coverage
 - Sitemap contract (`tests/app/sitemap.test.ts`)
 - Site metadata contract (`tests/lib/site-metadata.test.ts`)
 - Site content contract (`tests/lib/site-content.test.ts`)
-- Classy News content contract (`tests/lib/classy-news-content.test.ts`)
 - Next runtime guard behavior (`tests/scripts/next-runtime-guard.test.ts`)
 - Smoke tooling baseline (`tests/smoke/tooling.test.ts`)
 
@@ -304,7 +301,8 @@ Never expose, print, modify, or commit:
 
 Environment variables are defined in `.env.example`:
 
-- `AI_PROVIDER` — `"deepseek"` (default) or `"openai"`
+- `AI_PROVIDER` — `"gemini"` (default), `"deepseek"`, `"openrouter"`, or `"openai"`
+- `GEMINI_API_KEY`, `ABBY_MODEL` — Gemini config (via OpenAI-compatible endpoint)
 - `DEEPSEEK_API_KEY`, `DEEPSEEK_BASE_URL`, `ABBY_MODEL` — DeepSeek config
 - `OPENAI_API_KEY`, `ABBY_MODEL` — OpenAI config
 - `NVIDIA_API_KEY` — Legacy chat endpoint only

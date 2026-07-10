@@ -12,7 +12,7 @@ To support AI-augmented public profile exploration through Abby, while preservin
 
 <p> <img src="https://img.shields.io/badge/Focus-Personal%20Website-111111?style=flat-square" /> <img src="https://img.shields.io/badge/Format-Founder%20Dossier-2f4f4f?style=flat-square" /> <img src="https://img.shields.io/badge/Builder-Sentra%20Artificial%20Intelligence-1a1a1a?style=flat-square" /> <img src="https://img.shields.io/badge/Location-Indonesia-c41e3a?style=flat-square" /> </p>
 
-<p> <a href="https://ferdiiskandar.com" title="Personal Website"><img src="https://cdn.simpleicons.org/linktree/43E55E" height="24" /></a>&nbsp;&nbsp; <a href="https://medium.com/@codieverse" title="Medium"><img src="https://cdn.simpleicons.org/medium/AAAAAA" height="24" /></a>&nbsp;&nbsp; <a href="https://orcid.org/0009-0003-3788-1307" title="ORCID iD"><img src="https://cdn.simpleicons.org/orcid/A6CE39" height="24" /></a>&nbsp;&nbsp; <a href="https://x.com/ClaudesyI81047" title="X / Twitter"><img src="https://cdn.simpleicons.org/x/AAAAAA" height="24" /></a>&nbsp;&nbsp; <a href="https://substack.com/@drferdiiskandar" title="Substack"><img src="https://cdn.simpleicons.org/substack/FF6719" height="24" /></a>&nbsp;&nbsp; <a href="https://www.kaggle.com/drferdiiskandar" title="Kaggle"><img src="https://cdn.simpleicons.org/kaggle/20BEFF" height="24" /></a>&nbsp;&nbsp; <a href="https://www.reddit.com/user/SixCupaCoffee/" title="Reddit"><img src="https://cdn.simpleicons.org/reddit/FF4500" height="24" /></a>&nbsp;&nbsp; <a href="https://www.linkedin.com/in/dr-ferdi-iskandar-1b620a3b5" title="LinkedIn"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" height="24" /></a>&nbsp;&nbsp; <a href="https://huggingface.co/dr-Ferdi" title="Hugging Face"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" height="24" /></a> </p> </td> </tr> </table>
+<p> <a href="https://ferdiiskandar.com" title="Personal Website"><img src="https://cdn.simpleicons.org/linktree/43E55E" height="24" /></a>&nbsp;&nbsp; <a href="https://medium.com/@drferdiiskandar" title="Medium"><img src="https://cdn.simpleicons.org/medium/AAAAAA" height="24" /></a>&nbsp;&nbsp; <a href="https://orcid.org/0009-0003-3788-1307" title="ORCID iD"><img src="https://cdn.simpleicons.org/orcid/A6CE39" height="24" /></a>&nbsp;&nbsp; <a href="https://x.com/ClaudesyI81047" title="X / Twitter"><img src="https://cdn.simpleicons.org/x/AAAAAA" height="24" /></a>&nbsp;&nbsp; <a href="https://substack.com/@drferdiiskandar" title="Substack"><img src="https://cdn.simpleicons.org/substack/FF6719" height="24" /></a>&nbsp;&nbsp; <a href="https://www.kaggle.com/drferdiiskandar" title="Kaggle"><img src="https://cdn.simpleicons.org/kaggle/20BEFF" height="24" /></a>&nbsp;&nbsp; <a href="https://www.reddit.com/user/SixCupaCoffee/" title="Reddit"><img src="https://cdn.simpleicons.org/reddit/FF4500" height="24" /></a>&nbsp;&nbsp; <a href="https://www.linkedin.com/in/dr-ferdi-iskandar-1b620a3b5" title="LinkedIn"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" height="24" /></a>&nbsp;&nbsp; <a href="https://huggingface.co/dr-Ferdi" title="Hugging Face"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" height="24" /></a> </p> </td> </tr> </table>
 ---
 
 ## 01 · Executive Intent
@@ -164,12 +164,6 @@ The application is organized as a route-based founder dossier. Every public rout
 <td>Formal reviewers, partners</td>
 </tr>
 <tr>
-<td><b>Classy News</b></td>
-<td><code>/classy-news</code></td>
-<td>Editorial AI/news-style surface for the dr Classy ecosystem.</td>
-<td>Readers, AI followers, public audience</td>
-</tr>
-<tr>
 <td><b>Abby Widget</b></td>
 <td>Client overlay</td>
 <td>Guide visitors conversationally through public profile and website context.</td>
@@ -201,7 +195,6 @@ flowchart TD
     Notes["/notes <br/>Writing Surface"]
     Speaking["/speaking <br/>Stage Profile"]
     CV["/cv <br/>Credentials"]
-    News["/classy-news <br/>Editorial AI News"]
     Abby["Abby Widget <br/>Conversation Overlay"]
     Contact["Future /contact <br/>Collaboration Surface"]
     Systems["Future /systems <br/>Systems Catalogue"]
@@ -211,7 +204,6 @@ flowchart TD
     Home --> Notes
     Home --> Speaking
     Home --> CV
-    Home --> News
     Abby --> About
     Abby --> Works
     Abby --> Speaking
@@ -230,7 +222,7 @@ flowchart TD
     class Home home;
     class About,CV profile;
     class Works,Systems work;
-    class Notes,News writing;
+    class Notes writing;
     class Speaking public;
     class Abby ai;
     class Contact future;
@@ -372,21 +364,25 @@ Supporting configuration:
 flowchart LR
     Request["Visitor Request"]
     Selector["AI_PROVIDER<br/>environment selector"]
-    DeepSeek["DeepSeek<br/>default Abby provider"]
+    Gemini["Gemini<br/>default Abby provider"]
+    DeepSeek["DeepSeek<br/>alternate Abby provider"]
     OpenAI["OpenAI<br/>alternate Abby provider"]
     Nvidia["NVIDIA NIM<br/>legacy /api/chat only"]
     Response["Safe Public Reply"]
 
     Request --> Selector
+    Selector -->|AI_PROVIDER=gemini| Gemini
     Selector -->|AI_PROVIDER=deepseek| DeepSeek
     Selector -->|AI_PROVIDER=openai| OpenAI
     Request -->|legacy path| Nvidia
+    Gemini --> Response
     DeepSeek --> Response
     OpenAI --> Response
     Nvidia --> Response
 
     classDef request fill:#FEFCE8,stroke:#CA8A04,color:#713F12,stroke-width:2px;
     classDef selector fill:#F1F5F9,stroke:#475569,color:#334155,stroke-width:2px;
+    classDef gemini fill:#EEF2FF,stroke:#4F46E5,color:#312E81,stroke-width:2px;
     classDef deepseek fill:#ECFDF5,stroke:#059669,color:#064E3B,stroke-width:2px;
     classDef openai fill:#E0F2FE,stroke:#0284C7,color:#075985,stroke-width:2px;
     classDef nvidia fill:#DCFCE7,stroke:#65A30D,color:#365314,stroke-dasharray: 5 5,stroke-width:2px;
@@ -394,6 +390,7 @@ flowchart LR
 
     class Request request;
     class Selector selector;
+    class Gemini gemini;
     class DeepSeek deepseek;
     class OpenAI openai;
     class Nvidia nvidia;
@@ -402,7 +399,8 @@ flowchart LR
 
 | Provider mode | Endpoint | Status | Notes |
 |---|---|---|---|
-| `AI_PROVIDER=deepseek` | `/api/abby` | Primary | Default Abby provider. |
+| `AI_PROVIDER=gemini` | `/api/abby` | Primary | Default Abby provider (via Gemini's OpenAI-compatible endpoint). |
+| `AI_PROVIDER=deepseek` | `/api/abby` | Alternate | Provider abstraction path. |
 | `AI_PROVIDER=openai` | `/api/abby` | Alternate | Provider abstraction path. |
 | `NVIDIA_API_KEY` | `/api/chat` | Legacy | Secondary chat route; not the primary Abby system. |
 
@@ -651,7 +649,6 @@ apps/corporate/ferdiiskandar/
 │   ├── api/
 │   │   ├── abby/route.ts        # Main Abby assistant endpoint
 │   │   └── chat/route.ts        # Legacy NVIDIA chat endpoint
-│   ├── classy-news/             # Classy News route
 │   ├── cv/                      # CV route
 │   ├── globals.css              # Primary editorial stylesheet
 │   ├── layout.tsx               # Root layout with fonts/providers
@@ -730,13 +727,17 @@ pnpm start
 ## 19 · Environment Contract
 
 ```env
-# AI Provider selection: "deepseek" default or "openai"
-AI_PROVIDER=deepseek
+# AI Provider selection: "gemini" default, or "deepseek" / "openrouter" / "openai"
+AI_PROVIDER=gemini
+
+# Gemini required when AI_PROVIDER=gemini (uses Gemini's OpenAI-compatible endpoint)
+GEMINI_API_KEY=
+# ABBY_MODEL=gemini-3.5-flash
 
 # DeepSeek required when AI_PROVIDER=deepseek
-DEEPSEEK_API_KEY=
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-ABBY_MODEL=deepseek-chat
+# DEEPSEEK_API_KEY=
+# DEEPSEEK_BASE_URL=https://api.deepseek.com
+# ABBY_MODEL=deepseek-chat
 
 # OpenAI required when AI_PROVIDER=openai
 # OPENAI_API_KEY=
@@ -808,7 +809,6 @@ Current test contracts:
 - sitemap contract;
 - site metadata contract;
 - site content contract;
-- Classy News content contract;
 - Next runtime guard behavior;
 - smoke tooling baseline;
 - navbar route awareness;
@@ -941,7 +941,7 @@ MIT License — see `LICENSE` for details.
   <a href="mailto:drferdiiskandar@sentrahai.com">
     <img src="https://img.shields.io/badge/Sentra%20Email-1A1A1A?style=for-the-badge&logo=gmail&logoColor=white" alt="Sentra Email" />
   </a>
-  <a href="https://medium.com/@claudesy.id" target="_blank">
+  <a href="https://medium.com/@drferdiiskandar" target="_blank">
     <img src="https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white" alt="Medium" />
   </a>
   <a href="https://www.linkedin.com/in/dr-ferdi-iskandar-1b620a3b5/" target="_blank">
