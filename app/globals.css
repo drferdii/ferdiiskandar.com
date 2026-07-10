@@ -2248,8 +2248,22 @@ button:focus-visible,
   margin-right: calc(50% - 50vw);
 }
 
-.fi-manifesto-sketch-lines { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.fi-manifesto-sketch-line { position: absolute; background: rgba(0, 33, 71, 0.25); }
+/* Gutter boxes sit outside the 1140px content column and clip with
+   overflow:hidden — the sketch lines rendered inside them are structurally
+   incapable of reaching the text, and the gutter itself vanishes (0 width)
+   on viewports too narrow to have room beside the content. */
+.fi-manifesto-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: max(0px, calc(50% - 570px));
+  overflow: hidden;
+  pointer-events: none;
+}
+.fi-manifesto-gutter-left { left: 0; }
+.fi-manifesto-gutter-right { right: 0; }
+.fi-manifesto-sketch-lines { position: absolute; inset: 0; }
+.fi-manifesto-sketch-line { position: absolute; background: rgba(0, 33, 71, 0.3); }
 
 .fi-manifesto-content {
   position: relative;

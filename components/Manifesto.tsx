@@ -89,8 +89,8 @@ function AsclepiusClock() {
   )
 }
 
-// Deterministic PRNG (mulberry32) — same seeded sketch-line layout on server
-// and client.
+// Deterministic PRNG (mulberry32) — same seeded line layout on server and
+// client.
 function mulberry32(seed: number) {
   let a = seed
   return () => {
@@ -127,8 +127,13 @@ function makeSketchLines(seed: number, count: number): SketchLine[] {
   )
 }
 
-function SketchLines() {
-  const lines = useMemo(() => makeSketchLines(19940217, 10), [])
+// Decorative "sentra" construction lines — rendered ONLY inside a narrow
+// gutter box (see .fi-manifesto-gutter) that sits outside the centered
+// content column and clips with overflow:hidden. Structurally incapable of
+// touching text, regardless of random placement, and simply disappears on
+// viewports too narrow to have a gutter.
+function SketchLines({ seed }: { seed: number }) {
+  const lines = useMemo(() => makeSketchLines(seed, 6), [seed])
 
   return (
     <div className="fi-manifesto-sketch-lines" aria-hidden>
@@ -206,7 +211,12 @@ export default function Manifesto() {
 
   return (
     <section ref={sectionRef} id="manifesto" className="fi-manifesto-section">
-      <SketchLines />
+      <div className="fi-manifesto-gutter fi-manifesto-gutter-left">
+        <SketchLines seed={19940217} />
+      </div>
+      <div className="fi-manifesto-gutter fi-manifesto-gutter-right">
+        <SketchLines seed={20260708} />
+      </div>
 
       <div ref={contentRef} className="fi-manifesto-content">
         <div className="fi-manifesto-portrait" aria-label="Kolaborator Sentra">
@@ -264,7 +274,7 @@ export default function Manifesto() {
               transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Image
-                src="/drferdi.png"
+                src="/drferdi-manifesto.png"
                 alt="dr Ferdi Iskandar"
                 width={800}
                 height={800}
