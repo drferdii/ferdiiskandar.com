@@ -23,14 +23,28 @@ interface ProviderConfig {
   apiKey: string
   model: string
   extraHeaders?: Record<string, string>
+  extraBody?: Record<string, unknown>
 }
 
 const ERR_CONFIG = 'Konfigurasi server tidak lengkap.'
 const isDev = process.env.NODE_ENV === 'development'
 
 function resolveProvider(): ProviderConfig | { error: string } {
-  const provider = (process.env.AI_PROVIDER ?? 'deepseek').toLowerCase()
+  const provider = (process.env.AI_PROVIDER ?? 'gemini').toLowerCase()
   const model = process.env.ABBY_MODEL ?? 'deepseek-chat'
+
+  if (provider === 'gemini') {
+    const apiKey = process.env.GEMINI_API_KEY
+    if (!apiKey)
+      return { error: isDev ? 'Missing GEMINI_API_KEY for AI_PROVIDER=gemini' : ERR_CONFIG }
+    return {
+      baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
+      apiKey,
+      model: process.env.ABBY_MODEL ?? 'gemini-3.5-flash',
+      // Keep thinking budget low so the visible reply doesn't get truncated by max_tokens.
+      extraBody: { reasoning_effort: 'low' },
+    }
+  }
 
   if (provider === 'openrouter') {
     const apiKey = process.env.OPENROUTER_API_KEY
@@ -198,9 +212,10 @@ export async function POST(request: NextRequest) {
           ...safeHistory,
           { role: 'user', content: trimmed },
         ],
-        max_tokens: 700,
+        max_tokens: 1024,
         temperature: 0.72,
         top_p: 0.9,
+        ...(PROVIDER.extraBody ?? {}),
       }),
       signal: AbortSignal.timeout(28_000),
     })
@@ -216,7 +231,7 @@ export async function POST(request: NextRequest) {
           'Upstream Authentication Error',
           isDev
             ? (upstreamMessage ??
-                'Provider AI menolak kredensial atau akses model. Periksa DEEPSEEK_API_KEY / OPENAI_API_KEY dan model yang dipakai.')
+                'Provider AI menolak kredensial atau akses model. Periksa GEMINI_API_KEY / DEEPSEEK_API_KEY / OPENAI_API_KEY dan model yang dipakai.')
             : 'Layanan AI tidak tersedia saat ini. Silakan coba lagi.',
           '/v1/problems/upstream-authentication',
         )
