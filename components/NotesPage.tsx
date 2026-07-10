@@ -45,7 +45,7 @@ export default function NotesPage() {
               Makna sebelum pendapat.
             </p>
             <span aria-hidden="true">✧</span>
-            <small>Catatan dr Ferdi</small>
+            <small>Catatan dr Ferdi Iskandar</small>
           </div>
         </aside>
 

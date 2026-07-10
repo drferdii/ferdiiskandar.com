@@ -4,13 +4,12 @@ export const notesHero = {
   eyebrow: 'Ruang Observasi',
   issue: 'Meja Catatan / Edisi Terpilih',
   date: 'Kurasi aktif',
-  title: 'Catatan dr Ferdi',
+  title: 'Catatan dr Ferdi Iskandar',
   paragraphs: [
-    'Sebelum sebuah keputusan menjadi tindakan, ia selalu melewati ruang observasi.',
-    'Di ruang itu, pengalaman diperiksa kembali. Peristiwa tidak langsung disimpulkan. Percakapan tidak langsung dijadikan pendapat. Setiap hal diberi jarak, dilihat ulang, lalu disusun menjadi pemahaman yang lebih jernih.',
-    'Catatan ini adalah ruang observasi tersebut.',
-    'Bukan tempat untuk mengejar kecepatan, bukan juga panggung untuk menunjukkan kepintaran. Ia adalah ruang untuk memperlambat pikiran, membaca pola, dan menemukan makna di balik hal-hal yang sering terlihat biasa.',
-    'Karena bagi saya, menulis bukan sekadar mencatat apa yang terjadi. Menulis adalah cara memahami mengapa sesuatu terjadi, apa artinya, dan ke mana seharusnya kita bergerak setelahnya.',
+    'Setiap keputusan melewati satu tahap yang sering dilewatkan: observasi sebelum kesimpulan diambil.',
+    'Peristiwa diberi jarak sebelum disimpulkan. Percakapan diberi waktu sebelum dijadikan pendapat. Di situlah pemahaman yang lebih jernih terbentuk.',
+    'Catatan ini adalah ruang itu — bukan untuk mengejar kecepatan atau menunjukkan kepintaran, tapi untuk membaca pola dan menemukan makna di balik hal yang terlihat biasa.',
+    'Menulis, bagi saya, bukan mencatat apa yang terjadi. Menulis adalah cara memahami mengapa itu terjadi, dan ke mana kita harus bergerak setelahnya.',
   ],
 } as const
 
@@ -43,7 +42,7 @@ export const notesIndexEntries = [
 
 export const notesDeskStats = [
   {
-    value: '04',
+    value: '05',
     label: 'tulisan terkurasi',
   },
   {
@@ -88,15 +87,15 @@ export const notesReadingOrder = [
   {
     number: '03',
     title: 'Daftar lanjutan tetap terhubung',
-    body: 'Artikel lain di bawahnya memperluas pembahasan yang sama: AI medis, implementasi, empati dokter, dan cara institusi mengambil keputusan.',
+    body: 'Artikel lain di bawahnya memperluas pembahasan yang sama: migrasi engram adaptif, trajektori klinis berbasis AI, dan halusinasi sebagai mekanisme adaptif otak.',
   },
 ] as const
 
 export const notesDeskCards = [
   {
     label: 'Arah Baca',
-    title: 'Dari beban administrasi menuju desain institusi.',
-    body: 'Catatan diposisikan sebagai jembatan antara praktik medis sehari-hari, model AI yang sedang berubah cepat, dan kebutuhan organisasi untuk mengambil keputusan dengan lebih tenang.',
+    title: 'Dari hipotesis mekanistik menuju penerapan klinis.',
+    body: 'Catatan diposisikan sebagai jembatan antara hipotesis neuro-kognitif yang sedang dikembangkan, penerapan AI pada trajektori klinis, dan kebutuhan layanan kesehatan primer di Indonesia.',
   },
   {
     label: 'Ruang Editorial',
@@ -113,51 +112,62 @@ export const notesDeskCards = [
 export const mediumArchive = {
   title: 'Tulisan di Medium',
   subtitle: 'Pilihan tulisan aktual dari profil Medium dr Ferdi',
-  href: 'https://medium.com/@claudesy.id',
+  href: 'https://medium.com/@drferdiiskandar',
   label: 'Buka Arsip Medium',
 } as const
 
 export const mediumFeaturedPost = {
   label: 'Tulisan Terbaru',
   code: 'MED-LATEST',
-  date: 'Mar 16',
-  title: 'Peran Generative AI dalam Reduksi Beban Administrasi Medis.',
+  date: 'Jun 11',
+  title: 'The Adaptive Engram Migration Hypothesis',
   synopsis:
-    'Tulisan terbaru yang tampil di profil Medium saat pengecekan menyorot bagaimana AI generatif dapat membantu mengurangi beban administratif medis tanpa mengaburkan tanggung jawab profesional.',
+    'Tulisan terbaru yang tampil di profil Medium saat pengecekan mengajukan hipotesis migrasi engram adaptif, membaca fenomena kerasukan (possession trance) sebagai kaskade disosiatif yang terbentuk secara kultural dalam respons stres neuro-kultural.',
   body: 'Bagian ini sengaja dibuat paling dominan agar pembaca langsung melihat tulisan paling aktual terlebih dahulu. Daftar di bawahnya berfungsi sebagai rak lanjutan untuk artikel lain yang benar-benar sudah terbit.',
-  href: 'https://medium.com/@claudesy.id',
+  href: 'https://medium.com/@drferdiiskandar/the-adaptive-engram-migration-hypothesis-2f9e551131e3',
   cta: 'Buka Tulisan Terbaru',
 } as const
 
 export const mediumEntries = [
   {
     code: 'MED-01',
-    date: 'Mar 13',
-    title: 'MedGemma 27B & CDDS: Masa Depan AI Multimodal untuk Praktik Kedokteran Modern',
+    date: 'Jun 9',
+    title: 'AI-Mediated Real-Time Diagnostic Course Correction',
     synopsis:
-      'Refleksi mengenai model multimodal dan arah pemakaiannya dalam praktik kedokteran modern.',
-    body: 'Ditampilkan sebagai bacaan lanjutan yang lebih teknis, namun tetap dekat dengan pembacaan editorial dan konteks praktik nyata.',
-    href: 'https://medium.com/@claudesy.id',
+      'Kerangka mekanistik untuk sistem trajektori klinis, dibahas dalam konteks pelayanan kesehatan di Indonesia.',
+    body: 'Ditampilkan sebagai bacaan lanjutan yang menyambungkan model koreksi diagnostik berbasis AI dengan realitas sistem layanan kesehatan di Indonesia.',
+    href: 'https://medium.com/@drferdiiskandar/ai-mediated-real-time-diagnostic-course-correction-5e8026049858',
     cta: 'Baca di Medium',
   },
   {
     code: 'MED-02',
-    date: 'Mar 9',
+    date: 'Jun 8',
     title:
-      'Menyelaraskan Visi dan Implementasi: Refleksi CEO dan Peneliti atas “Modeling Medical Diagnosis”',
+      'Adaptive Engram Migration as a Trigger for Transient Auditory Hallucinations in the Aging Brain',
     synopsis:
-      'Tulisan reflektif yang menghubungkan visi sistem medis dengan realitas implementasi dan evaluasi model.',
-    body: 'Masuk sebagai artikel lanjutan yang memperlihatkan kesinambungan antara sudut pandang kepemimpinan dan disiplin pembangunan sistem.',
-    href: 'https://medium.com/@claudesy.id',
+      'Hipotesis mekanistik yang mengajukan migrasi engram adaptif sebagai salah satu pemicu halusinasi auditori sementara pada otak yang menua.',
+    body: 'Masuk sebagai artikel lanjutan yang memperluas hipotesis migrasi engram ke ranah neurodegeneratif dan penuaan.',
+    href: 'https://medium.com/@drferdiiskandar/adaptive-engram-migration-as-a-trigger-for-transient-auditory-hallucinations-in-the-aging-brain-a-2e10d99034e4',
     cta: 'Baca di Medium',
   },
   {
     code: 'MED-03',
-    date: 'Mar 8',
-    title: 'Di Balik Layar Algoritma: AI dan Masa Depan Empati Dokter di Indonesia',
-    synopsis: 'Pembacaan atas AI, empati dokter, dan konteks praktik layanan primer di Indonesia.',
-    body: 'Diletakkan sebagai bagian dari rak tulisan yang memperluas sisi humanistik dan institusional dari diskusi AI di layanan kesehatan.',
-    href: 'https://medium.com/@claudesy.id',
+    date: 'Jun 8',
+    title: 'Real-Time Clinical Trajectory Modeling',
+    synopsis:
+      'Kerangka komputasional untuk mencegat perkembangan penyakit lebih awal, disusun untuk konteks layanan primer dengan sumber daya terbatas.',
+    body: 'Diletakkan sebagai bagian dari rak tulisan yang memperlihatkan sisi teknis dari pemodelan trajektori klinis di layanan primer.',
+    href: 'https://medium.com/@drferdiiskandar/real-time-clinical-trajectory-modeling-a-computational-framework-for-intercepting-disease-6aa8e8e80fd9',
+    cta: 'Baca di Medium',
+  },
+  {
+    code: 'MED-04',
+    date: 'Jun 4',
+    title: 'Hallucination as a Patching Mechanism',
+    synopsis:
+      'Membaca ulang persepsi akibat kelelahan sebagai bentuk kompensasi top-down yang adaptif, bukan sekadar kegagalan kognitif.',
+    body: 'Menutup rak ini sebagai tulisan yang menyambungkan tema halusinasi dengan mekanisme adaptif otak yang dibahas pada artikel-artikel sebelumnya.',
+    href: 'https://medium.com/@drferdiiskandar/hallucination-as-a-patching-mechanism-reframing-fatigue-induced-perception-as-adaptive-top-down-12bef78e85b6',
     cta: 'Baca di Medium',
   },
 ] as const
@@ -174,9 +184,9 @@ export const notesGlanceSections = [
   {
     title: 'Tema Berulang',
     items: [
-      'AI medis dan beban administratif',
-      'Implementasi model diagnosis',
-      'Empati dokter dan konteks layanan primer',
+      'Migrasi engram adaptif dan implikasinya',
+      'Trajektori klinis dan koreksi diagnostik berbasis AI',
+      'Halusinasi sebagai mekanisme adaptif otak',
     ],
   },
   {
