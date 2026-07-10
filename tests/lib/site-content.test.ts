@@ -25,7 +25,6 @@ describe('site content', () => {
       { label: 'Profil', href: '/about' },
       { label: 'Karya', href: '/works' },
       { label: 'Catatan', href: '/notes' },
-      { label: 'Berita', href: '/classy-news' },
       { label: 'Speaking', href: '/speaking' },
       { label: 'CV', href: '/cv' },
       { label: 'Kontak', href: '/#contact' },

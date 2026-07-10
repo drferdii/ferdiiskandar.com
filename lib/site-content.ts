@@ -19,7 +19,6 @@ export const primaryNav = [
   { label: 'Profil', href: '/about' },
   { label: 'Karya', href: '/works' },
   { label: 'Catatan', href: '/notes' },
-  { label: 'Berita', href: '/classy-news' },
   { label: 'Speaking', href: '/speaking' },
   { label: 'CV', href: '/cv' },
   { label: 'Kontak', href: '/#contact' },
@@ -64,7 +63,7 @@ export const socialLinks = [
   },
   {
     label: 'Medium',
-    href: 'https://medium.com/',
+    href: 'https://medium.com/@drferdiiskandar',
     value: 'Tulisan panjang dan refleksi editorial',
     icon: 'medium',
   },

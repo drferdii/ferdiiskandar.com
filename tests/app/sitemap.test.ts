@@ -10,7 +10,6 @@ describe('sitemap', () => {
       'https://ferdiiskandar.com/about',
       'https://ferdiiskandar.com/works',
       'https://ferdiiskandar.com/notes',
-      'https://ferdiiskandar.com/classy-news',
       'https://ferdiiskandar.com/speaking',
       'https://ferdiiskandar.com/cv',
     ])

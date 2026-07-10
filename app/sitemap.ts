@@ -25,11 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${getSiteUrl()}/classy-news`,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${getSiteUrl()}/speaking`,
       changeFrequency: 'monthly',
       priority: 0.8,

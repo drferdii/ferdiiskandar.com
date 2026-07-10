@@ -60,18 +60,18 @@ describe('site metadata', () => {
     expectSocialPreviewMetadata(metadata)
   })
 
-  it('builds classy-news metadata with the new route pathname', () => {
+  it('builds speaking metadata with the route pathname', () => {
     const metadata = buildPageMetadata({
-      title: 'Classy News',
+      title: 'Speaking',
       description:
-        'Halaman editorial khusus Classy News di dalam ferdiiskandar: signal AI, open-source watch, dan jembatan terkurasi ke notes, works, speaking, serta contact surface.',
-      pathname: '/classy-news',
+        'Halaman Speaking dr. Ferdi Iskandar: topik, format, dan agenda pembicaraan publik.',
+      pathname: '/speaking',
     })
 
-    expect(metadata.title).toBe('Classy News | dr. Ferdi Iskandar')
-    expect(String(metadata.description)).toContain('Classy News')
-    expect(metadata.alternates?.canonical).toBe('/classy-news')
-    expect(metadata.openGraph?.url).toBe('/classy-news')
+    expect(metadata.title).toBe('Speaking | dr. Ferdi Iskandar')
+    expect(String(metadata.description)).toContain('Speaking')
+    expect(metadata.alternates?.canonical).toBe('/speaking')
+    expect(metadata.openGraph?.url).toBe('/speaking')
     expectSocialPreviewMetadata(metadata)
   })
 
