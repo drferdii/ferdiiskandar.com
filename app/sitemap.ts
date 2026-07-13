@@ -25,6 +25,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${getSiteUrl()}/kisah-sentra`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${getSiteUrl()}/tanpa-naskah`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${getSiteUrl()}/bagaimana-sentra-dibangun`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${getSiteUrl()}/speaking`,
       changeFrequency: 'monthly',
       priority: 0.8,

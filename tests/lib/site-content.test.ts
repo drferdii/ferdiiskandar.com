@@ -24,6 +24,9 @@ describe('site content', () => {
     expect(primaryNav).toEqual([
       { label: 'Profil', href: '/about' },
       { label: 'Karya', href: '/works' },
+      { label: 'Kisah Sentra', href: '/kisah-sentra' },
+      { label: 'Human – AI Collab', href: '/bagaimana-sentra-dibangun' },
+      { label: 'Tanpa Naskah', href: '/tanpa-naskah' },
       { label: 'Catatan', href: '/notes' },
       { label: 'Speaking', href: '/speaking' },
       { label: 'CV', href: '/cv' },

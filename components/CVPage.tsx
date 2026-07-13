@@ -103,12 +103,12 @@ export default function CVPage() {
             <div className="fi-cv-hero-portrait" data-fi-scroll="right" style={scrollDelay(160)}>
               <div className="fi-cv-hero-photo">
                 <Image
-                  alt="dr. Ferdi Iskandar"
-                  height={450}
+                  alt="dr. Ferdi Iskandar berdiri mengenakan kaos Sentra putih dan celana gelap"
+                  height={1448}
                   priority
                   sizes="(max-width: 900px) 100vw, 45vw"
-                  src="/cdrferdi.png"
-                  width={800}
+                  src="/assets/site/jeans-transparent.webp"
+                  width={1086}
                 />
               </div>
               <div className="fi-cv-hero-credential-strip">

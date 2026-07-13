@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { CSSProperties } from 'react'
 
 import { DossierGlanceSections, DossierIndexNav } from '@/components/DossierShared'
@@ -110,6 +111,13 @@ export default function WorksPage() {
                   className="fi-works-hero-motion-note fi-enter-aside"
                   style={withDelay('0.34s')}
                 >
+                  <Image
+                    alt="dr. Ferdi Iskandar bersama asisten klinis dalam ilustrasi ruang kerja medis"
+                    className="fi-works-hero-motion-photo"
+                    height={350}
+                    src="/me+assistant.png"
+                    width={280}
+                  />
                   <span>Sinyal Institusional</span>
                   <strong>
                     Kecerdasan seharusnya mendukung penilaian, bukan memainkan panggung.

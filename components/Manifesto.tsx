@@ -274,10 +274,10 @@ export default function Manifesto() {
               transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Image
-                src="/drferdi-manifesto.png"
-                alt="dr Ferdi Iskandar"
-                width={800}
-                height={800}
+                src="/assets/site/me+tp-transparent.webp"
+                alt="dr Ferdi Iskandar mengenakan setelan jas gelap dan dasi biru dengan pose tangan bersilang"
+                width={1122}
+                height={1402}
                 className="fi-manifesto-portrait-image"
               />
             </motion.div>
@@ -302,9 +302,9 @@ export default function Manifesto() {
         </div>
 
         <p ref={tesisRef} className="fi-manifesto-tesis">
-          Kedokteran bukan sekadar tindakan. Ia adalah perlombaan melawan waktu. Kecerdasan klinis
-          harus membantu menemukan akar masalah lebih awal, memangkas kebisingan, dan memberi pasien
-          hal yang paling menentukan hasil: waktu yang tepat untuk diselamatkan.
+          Kedokteran adalah perlombaan melawan waktu. Kecerdasan klinis memangkas kebisingan,
+          menemukan akar masalah lebih awal — dan memberi pasien satu hal yang menentukan hasil:
+          waktu yang tepat untuk diselamatkan.
         </p>
 
         <div ref={pillarsRef} className="fi-manifesto-grid">

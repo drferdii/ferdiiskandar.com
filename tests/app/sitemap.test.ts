@@ -10,6 +10,9 @@ describe('sitemap', () => {
       'https://ferdiiskandar.com/about',
       'https://ferdiiskandar.com/works',
       'https://ferdiiskandar.com/notes',
+      'https://ferdiiskandar.com/kisah-sentra',
+      'https://ferdiiskandar.com/tanpa-naskah',
+      'https://ferdiiskandar.com/bagaimana-sentra-dibangun',
       'https://ferdiiskandar.com/speaking',
       'https://ferdiiskandar.com/cv',
     ])

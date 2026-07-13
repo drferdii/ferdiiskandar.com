@@ -4,7 +4,7 @@ import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { FadeIn } from '@/components/HeroMotion'
 import { primaryNav } from '@/lib/site-content'
@@ -113,7 +113,7 @@ export default function Navbar() {
                 {navItems.map((item) => {
                   if (item.label === 'Karya') {
                     return (
-                      <div className="fi-nav-dropdown" key={item.label}>
+                      <Fragment key={item.label}>
                         <Link
                           className={[
                             'fi-nav-editorial-link fi-focus-ring',
@@ -124,27 +124,45 @@ export default function Navbar() {
                           href={item.href}
                           onMouseEnter={handleLinkHover}
                         >
-                          {item.label}{' '}
-                          <span
-                            style={{ fontSize: '8px', marginLeft: '4px', verticalAlign: 'middle' }}
-                          >
-                            ▼
-                          </span>
+                          {item.label}
                         </Link>
-                        <div className="fi-nav-dropdown-content">
-                          <Link href="/works" className="fi-nav-dropdown-item">
-                            Semua Karya
-                          </Link>
-                          <a
-                            href="https://sentrahai.com/"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="fi-nav-dropdown-item"
-                          >
-                            Sentraverse
-                          </a>
+                        <div className="fi-nav-dropdown">
+                          <span className="fi-nav-editorial-link fi-focus-ring fi-nav-dropdown-trigger">
+                            Ekosistem{' '}
+                            <span
+                              style={{
+                                fontSize: '8px',
+                                marginLeft: '4px',
+                                verticalAlign: 'middle',
+                              }}
+                            >
+                              ▼
+                            </span>
+                          </span>
+                          <div className="fi-nav-dropdown-content">
+                            <a
+                              href="https://sentrahai.com/"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="fi-nav-dropdown-item"
+                            >
+                              Sentraverse
+                            </a>
+                            <span
+                              aria-disabled="true"
+                              className="fi-nav-dropdown-item fi-nav-dropdown-item--soon"
+                            >
+                              Medlink
+                            </span>
+                            <span
+                              aria-disabled="true"
+                              className="fi-nav-dropdown-item fi-nav-dropdown-item--soon"
+                            >
+                              MANTRA
+                            </span>
+                          </div>
                         </div>
-                      </div>
+                      </Fragment>
                     )
                   }
                   return (
