@@ -1,4 +1,4 @@
-# Speaking Profile — dr Classy
+# Speaking Profile — dr Ferdi Iskandar
 
 > **Last updated:** 2026-07-07
 > **Languages:** Bahasa Indonesia (primary), English (below)
@@ -24,26 +24,26 @@
 ## Speaker Bio / Bio Pembicara
 
 **Bahasa Indonesia:**
-dr Classy, atau dr Ferdi Iskandar, adalah dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence. Ia berfokus pada healthcare AI, clinical decision support, edukasi kesehatan, dan sistem AI-native untuk membantu dokter, rumah sakit, serta organisasi mengambil keputusan lebih cepat, terstruktur, dan manusiawi.
+dr Ferdi Iskandar adalah dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence. Ia berfokus pada healthcare AI, clinical decision support, edukasi kesehatan, dan sistem AI-native untuk membantu dokter, rumah sakit, serta organisasi mengambil keputusan lebih cepat, terstruktur, dan manusiawi.
 
 **English:**
-dr Classy, or dr Ferdi Iskandar, is a physician, hospital CEO, and founder of Sentra Artificial Intelligence. He focuses on healthcare AI, clinical decision support, health education, and AI-native systems that help doctors, hospitals, and organizations make faster, more structured, and more humane decisions.
+dr Ferdi Iskandar is a physician, hospital CEO, and founder of Sentra Artificial Intelligence. He focuses on healthcare AI, clinical decision support, health education, and AI-native systems that help doctors, hospitals, and organizations make faster, more structured, and more humane decisions.
 
 ---
 
 ## Intro Panggung 1 Menit / 1-Minute Stage Introduction
 
 **Bahasa Indonesia:**
-> Hadirin sekalian, pembicara kita berikutnya adalah dr Ferdi Iskandar, atau dikenal sebagai dr Classy. Beliau adalah dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence. Dengan latar belakang klinis, kepemimpinan rumah sakit, serta pengalaman dalam organisasi internasional, dr Classy membawa perspektif unik tentang bagaimana AI dapat membantu sistem kesehatan menjadi lebih terstruktur, manusiawi, dan siap menghadapi masa depan. Hari ini, beliau akan berbagi tentang healthcare AI, clinical decision support, dan bagaimana manusia dan AI dapat bekerja bersama secara aman dan bertanggung jawab.
+> Hadirin sekalian, pembicara kita berikutnya adalah dr Ferdi Iskandar. Beliau adalah dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence. Dengan latar belakang klinis, kepemimpinan rumah sakit, serta pengalaman dalam organisasi internasional, dr Ferdi Iskandar membawa perspektif unik tentang bagaimana AI dapat membantu sistem kesehatan menjadi lebih terstruktur, manusiawi, dan siap menghadapi masa depan. Hari ini, beliau akan berbagi tentang healthcare AI, clinical decision support, dan bagaimana manusia dan AI dapat bekerja bersama secara aman dan bertanggung jawab.
 
 **English:**
-> Distinguished guests, our next speaker is dr Ferdi Iskandar, known as dr Classy. He is a physician, hospital CEO, and founder of Sentra Artificial Intelligence. With a background in clinical medicine, hospital leadership, and international organizational experience, dr Classy brings a unique perspective on how AI can help healthcare systems become more structured, humane, and future-ready. Today, he will share insights on healthcare AI, clinical decision support, and how humans and AI can work together safely and responsibly.
+> Distinguished guests, our next speaker is dr Ferdi Iskandar. He is a physician, hospital CEO, and founder of Sentra Artificial Intelligence. With a background in clinical medicine, hospital leadership, and international organizational experience, dr Ferdi Iskandar brings a unique perspective on how AI can help healthcare systems become more structured, humane, and future-ready. Today, he will share insights on healthcare AI, clinical decision support, and how humans and AI can work together safely and responsibly.
 
 ---
 
 ## Abby Response Pattern untuk Event Organizer
 
-Jika pengunjung berkata "Saya ingin mengundang dr Classy sebagai pembicara", Abby harus:
+Jika pengunjung berkata "Saya ingin mengundang dr Ferdi Iskandar sebagai pembicara", Abby harus:
 
 1. Menyambut secara profesional — mengakui minat tersebut dengan hangat.
 2. Menanyakan konteks acara — format (offline/online), audiens, topik yang diinginkan, tanggal.

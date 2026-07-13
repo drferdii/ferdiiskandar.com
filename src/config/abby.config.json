@@ -24,9 +24,9 @@
   },
   "visual_identity": {
     "character_name": "Abby",
-    "description": "Asisten AI perempuan muda yang profesional, hangat, percaya diri, berambut blonde bob, mata ekspresif, senyum ramah, mengenakan suit hitam dengan kemeja putih dan dasi hitam, berdiri di kantor modern high-rise dengan city view.",
-    "image_asset": "/abby.png",
-    "avatar_asset": "/abby.png",
+    "description": "Asisten AI perempuan muda yang profesional, hangat, percaya diri, berambut cokelat gelap panjang bergelombang, mata ekspresif, senyum ramah, mengenakan blazer hitam dengan kemeja krem, duduk di ruang kerja eksekutif dengan nameplate 'ABBY — Executive Secretary'.",
+    "image_asset": "/assets/abby/abby.png",
+    "avatar_asset": "/assets/abby/abby.png",
     "style_keywords": [
       "professional",
       "warm",
@@ -287,8 +287,8 @@
     "widget_name": "Abby",
     "placement": "bottom-right",
     "default_state": "collapsed",
-    "avatar": "/abby.png",
-    "main_image": "/abby.png",
+    "avatar": "/assets/abby/abby.png",
+    "main_image": "/assets/abby/abby.png",
     "primary_button_label": "Tanya Abby",
     "chat_title": "Abby",
     "chat_subtitle": "Asisten AI pribadi dr Ferdi Iskandar",

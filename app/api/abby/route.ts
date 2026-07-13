@@ -54,14 +54,25 @@ function resolveProvider(): ProviderConfig | { error: string } {
       return {
         error: isDev ? 'Missing OPENROUTER_API_KEY for AI_PROVIDER=openrouter' : ERR_CONFIG,
       }
+    const primaryModel = process.env.ABBY_MODEL ?? 'openai/gpt-oss-120b:free'
+    const fallbackModels = (
+      process.env.ABBY_MODEL_FALLBACKS ??
+      'openai/gpt-oss-20b:free,google/gemma-4-31b-it:free,google/gemma-4-26b-a4b-it:free'
+    )
+      .split(',')
+      .map((m) => m.trim())
+      .filter(Boolean)
     return {
       baseUrl: process.env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1',
       apiKey,
-      model: process.env.ABBY_MODEL ?? 'deepseek/deepseek-v4-flash',
+      model: primaryModel,
       extraHeaders: {
         'HTTP-Referer': process.env.OPENROUTER_SITE_URL ?? 'https://ferdiiskandar.com',
         'X-Title': process.env.OPENROUTER_APP_NAME ?? 'Abby by dr Classy',
       },
+      // OpenRouter tries `models` in order and falls back automatically on
+      // rate-limit, downtime, or moderation errors from the earlier entries.
+      extraBody: { models: [primaryModel, ...fallbackModels] },
     }
   }
 

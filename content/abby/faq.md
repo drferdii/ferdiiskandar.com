@@ -6,11 +6,9 @@
 
 ---
 
-## Siapa dr Classy?
+## Siapa dr Ferdi Iskandar?
 
-dr Classy adalah persona publik yang diciptakan oleh dr Ferdi Iskandar. Persona ini digunakan sebagai lapisan komunikasi publik yang lebih nyaman dan terukur, karena pada dasarnya beliau tidak terlalu menikmati public fame sebagai identitas utama.
-
-Dalam substansinya, dr Classy tetap merujuk pada dr Ferdi Iskandar sebagai dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence yang berfokus pada healthcare AI, clinical decision support, edukasi kesehatan, dan pengembangan sistem AI yang membantu manusia mengambil keputusan lebih terstruktur tanpa menggantikan peran dokter atau tenaga profesional.
+dr Ferdi Iskandar adalah dokter, CEO rumah sakit, dan founder Sentra Artificial Intelligence yang berfokus pada healthcare AI, clinical decision support, edukasi kesehatan, dan pengembangan sistem AI yang membantu manusia mengambil keputusan lebih terstruktur tanpa menggantikan peran dokter atau tenaga profesional.
 
 ## Apa itu Sentra Artificial Intelligence?
 
@@ -20,13 +18,13 @@ Sentra Artificial Intelligence adalah ekosistem AI yang berfokus pada healthcare
 
 Tidak. Prinsip Sentra adalah AI sebagai clinical decision support dan partner berpikir, bukan pengganti dokter. Keputusan klinis tetap berada pada dokter dan tenaga kesehatan yang berwenang. AI membantu menyusun informasi, memberi konteks, mendukung reasoning, dan mengurangi beban kerja administratif atau kognitif.
 
-## Apa saja proyek utama dr Classy?
+## Apa saja proyek utama dr Ferdi Iskandar?
 
-Beberapa proyek utama dr Classy meliputi Sentra Artificial Intelligence, AADI, Audrey, AI News, Classy News, Sidelab, dan Abby. Seluruhnya berada dalam visi besar membangun AI yang lebih berguna, terstruktur, dan manusiawi untuk healthcare, edukasi, dan intelligent operations.
+Beberapa proyek utama dr Ferdi Iskandar meliputi Sentra Artificial Intelligence, AADI, Audrey, AI News, Classy News, Sidelab, dan Abby. Seluruhnya berada dalam visi besar membangun AI yang lebih berguna, terstruktur, dan manusiawi untuk healthcare, edukasi, dan intelligent operations.
 
-## Apa topik speaking dr Classy?
+## Apa topik speaking dr Ferdi Iskandar?
 
-dr Classy dapat berbicara tentang Healthcare AI di Indonesia, Clinical Decision Support, AI-Native Hospital Operations, The Clinical Mind Algorithm / TCMA, Human-AI Collaboration, AI untuk Edukasi Kesehatan, Founder Journey dari dokter ke AI founder, serta AI, leadership, dan masa depan organisasi.
+dr Ferdi Iskandar dapat berbicara tentang Healthcare AI di Indonesia, Clinical Decision Support, AI-Native Hospital Operations, The Clinical Mind Algorithm / TCMA, Human-AI Collaboration, AI untuk Edukasi Kesehatan, Founder Journey dari dokter ke AI founder, serta AI, leadership, dan masa depan organisasi.
 
 ## Apakah Abby bisa memberi diagnosis?
 
@@ -34,7 +32,7 @@ Tidak. Abby hanya dapat memberikan informasi kesehatan umum dan edukatif. Untuk 
 
 ## Apakah ini website resmi Sentra?
 
-Bukan. Ini website pribadi dr Ferdi Iskandar. Sentra dapat dijelaskan sebagai salah satu karya besarnya, sedangkan nama dr Classy hanya muncul bila konteks percakapan memang memerlukan penjelasan tentang persona publik tersebut.
+Bukan. Ini website pribadi dr Ferdi Iskandar. Sentra dapat dijelaskan sebagai salah satu karya besarnya.
 
 ---
 

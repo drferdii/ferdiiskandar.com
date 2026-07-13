@@ -83,7 +83,7 @@ flowchart LR
     Abby["Abby AI Assistant<br/>Guided Conversation"]
     Knowledge["Controlled Knowledge Base<br/>content/abby/*.md"]
     APIs["Next.js API Routes<br/>/api/abby + /api/chat"]
-    Providers["AI Provider Layer<br/>DeepSeek + OpenAI + NVIDIA Legacy"]
+    Providers["AI Provider Layer<br/>Gemini + DeepSeek + OpenAI + NVIDIA Legacy"]
     Visitor["Public Visitor<br/>Media · Partner · Event Organizer"]
     Action["Visitor Action<br/>Read · Ask · Contact · Collaborate"]
 
@@ -152,6 +152,24 @@ The application is organized as a route-based founder dossier. Every public rout
 <td>Readers, collaborators, public audience</td>
 </tr>
 <tr>
+<td><b>Kisah Sentra</b></td>
+<td><code>/kisah-sentra</code></td>
+<td>Tell the founding story of Sentra as an editorial narrative.</td>
+<td>Readers, collaborators, public audience</td>
+</tr>
+<tr>
+<td><b>Tanpa Naskah</b></td>
+<td><code>/tanpa-naskah</code></td>
+<td>Collect unscripted quotes and reflections from the founder, grouped by theme.</td>
+<td>Readers, collaborators, public audience</td>
+</tr>
+<tr>
+<td><b>Human – AI Collab</b></td>
+<td><code>/bagaimana-sentra-dibangun</code></td>
+<td>Document the dr Ferdi × Voss brainstorming session behind Sentra's clinical architecture.</td>
+<td>Readers, technical and institutional visitors</td>
+</tr>
+<tr>
 <td><b>Speaking</b></td>
 <td><code>/speaking</code></td>
 <td>Support event evaluation, speaker invitation, and public-stage positioning.</td>
@@ -193,6 +211,9 @@ flowchart TD
     About["/about <br/>Founder Profile"]
     Works["/works <br/>Selected Systems"]
     Notes["/notes <br/>Writing Surface"]
+    KisahSentra["/kisah-sentra <br/>Founding Story"]
+    TanpaNaskah["/tanpa-naskah <br/>Unscripted Reflections"]
+    HumanAI["/bagaimana-sentra-dibangun <br/>Human – AI Collab"]
     Speaking["/speaking <br/>Stage Profile"]
     CV["/cv <br/>Credentials"]
     Abby["Abby Widget <br/>Conversation Overlay"]
@@ -202,6 +223,9 @@ flowchart TD
     Home --> About
     Home --> Works
     Home --> Notes
+    Home --> KisahSentra
+    Home --> TanpaNaskah
+    Home --> HumanAI
     Home --> Speaking
     Home --> CV
     Abby --> About
@@ -222,7 +246,7 @@ flowchart TD
     class Home home;
     class About,CV profile;
     class Works,Systems work;
-    class Notes writing;
+    class Notes,KisahSentra,TanpaNaskah,HumanAI writing;
     class Speaking public;
     class Abby ai;
     class Contact future;
@@ -242,8 +266,8 @@ flowchart TD
 | **Default language** | Bahasa Indonesia |
 | **Primary knowledge source** | `content/abby/*.md` |
 | **System prompt** | `src/prompts/abby.system-prompt.md` |
-| **Default provider** | DeepSeek |
-| **Alternate provider** | OpenAI |
+| **Default provider** | Gemini |
+| **Alternate provider** | DeepSeek, OpenAI |
 | **Legacy provider** | NVIDIA through `/api/chat` |
 
 Abby should answer from controlled context, route visitors to the right public surface, and preserve safe scope at all times.
@@ -341,6 +365,7 @@ flowchart TB
 | `content/abby/speaking-profile.md` | Speaking topics, stage bio, and event-introduction material. |
 | `content/abby/thought-leadership.md` | Principles, worldview, and conceptual positioning. |
 | `content/abby/projects-and-works.md` | Project catalogue and filtering guidance. |
+| `content/abby/founder-narrative-pages.md` | Kisah Sentra, Human – AI Collab, and Tanpa Naskah page summaries. |
 | `content/abby/media-kit.md` | Press materials and interview support. |
 | `content/abby/contact-and-collaboration.md` | Outreach routing and collaboration boundaries. |
 | `content/abby/public-boundaries.md` | What Abby can say, cannot say, and must not infer. |
@@ -688,8 +713,8 @@ cd apps/corporate/ferdiiskandar
 cp .env.example .env.local
 
 # 4. Add AI provider credentials
-# AI_PROVIDER=deepseek
-# DEEPSEEK_API_KEY=your-key-here
+# AI_PROVIDER=gemini
+# GEMINI_API_KEY=your-key-here
 
 # 5. Start the development server
 pnpm dev

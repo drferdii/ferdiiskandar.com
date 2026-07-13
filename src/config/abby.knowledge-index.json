@@ -27,6 +27,11 @@
       "priority": "high"
     },
     {
+      "id": "founder_narrative_pages",
+      "path": "/content/abby/founder-narrative-pages.md",
+      "priority": "high"
+    },
+    {
       "id": "media_kit",
       "path": "/content/abby/media-kit.md",
       "priority": "medium"

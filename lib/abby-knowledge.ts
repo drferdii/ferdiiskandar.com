@@ -10,6 +10,7 @@ const CONTENT_FILES = [
   'speaking-profile.md',
   'thought-leadership.md',
   'projects-and-works.md',
+  'founder-narrative-pages.md',
   'media-kit.md',
   'contact-and-collaboration.md',
   'public-boundaries.md',

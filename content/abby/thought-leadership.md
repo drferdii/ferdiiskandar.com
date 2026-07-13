@@ -1,4 +1,4 @@
-# Thought Leadership — dr Classy
+# Thought Leadership — dr Ferdi Iskandar
 
 > **Last updated:** 2026-07-07
 > **Languages:** Bahasa Indonesia (primary), English (below)
@@ -9,10 +9,10 @@
 ## Pemikiran Utama / Core Thinking
 
 **Bahasa Indonesia:**
-dr Classy membawa narasi bahwa AI bukan sekadar alat otomatisasi, tetapi partner berpikir untuk meningkatkan kualitas keputusan, efisiensi kerja, edukasi kesehatan, dan kesiapan organisasi menghadapi masa depan healthcare.
+dr Ferdi Iskandar membawa narasi bahwa AI bukan sekadar alat otomatisasi, tetapi partner berpikir untuk meningkatkan kualitas keputusan, efisiensi kerja, edukasi kesehatan, dan kesiapan organisasi menghadapi masa depan healthcare.
 
 **English:**
-dr Classy carries a narrative that AI is not merely an automation tool, but a thinking partner that enhances decision quality, work efficiency, health education, and organizational readiness for the future of healthcare.
+dr Ferdi Iskandar carries a narrative that AI is not merely an automation tool, but a thinking partner that enhances decision quality, work efficiency, health education, and organizational readiness for the future of healthcare.
 
 ---
 
@@ -41,20 +41,20 @@ dr Classy carries a narrative that AI is not merely an automation tool, but a th
 ## Positioning Final / Final Positioning Statement
 
 **Bahasa Indonesia:**
-dr Classy adalah representasi publik dari dokter dan founder AI yang ingin membuat healthcare AI lebih manusiawi, terstruktur, relevan untuk Indonesia, dan aman digunakan sebagai pendukung keputusan — bukan pengganti manusia.
+dr Ferdi Iskandar adalah representasi publik dari dokter dan founder AI yang ingin membuat healthcare AI lebih manusiawi, terstruktur, relevan untuk Indonesia, dan aman digunakan sebagai pendukung keputusan — bukan pengganti manusia.
 
 **English:**
-dr Classy is the public representation of a physician and AI founder who aims to make healthcare AI more humane, structured, relevant to Indonesia, and safe as a decision-support tool — not a replacement for humans.
+dr Ferdi Iskandar is the public representation of a physician and AI founder who aims to make healthcare AI more humane, structured, relevant to Indonesia, and safe as a decision-support tool — not a replacement for humans.
 
 ---
 
 ## Human-AI Collaboration Philosophy / Filsafat Kolaborasi Manusia-AI
 
 **Bahasa Indonesia:**
-Dalam pandangan dr Classy, AI terbaik bukan AI yang "menggantikan semua orang", tetapi AI yang membantu manusia berpikir lebih jernih, bekerja lebih efisien, belajar lebih cepat, dan mengambil keputusan dengan lebih bertanggung jawab.
+Dalam pandangan dr Ferdi Iskandar, AI terbaik bukan AI yang "menggantikan semua orang", tetapi AI yang membantu manusia berpikir lebih jernih, bekerja lebih efisien, belajar lebih cepat, dan mengambil keputusan dengan lebih bertanggung jawab.
 
 **English:**
-In dr Classy's view, the best AI is not one that "replaces everyone," but one that helps humans think more clearly, work more efficiently, learn faster, and make more responsible decisions.
+In dr Ferdi Iskandar's view, the best AI is not one that "replaces everyone," but one that helps humans think more clearly, work more efficiently, learn faster, and make more responsible decisions.
 
 ### Three Pillars of Human-AI Collaboration
 
@@ -83,13 +83,13 @@ Jika menjelaskan thought leadership, Abby harus:
 ### DO
 - Hindari hype AI — gunakan bahasa yang mudah dipahami dan realistis
 - Menekankan safety dan human-in-the-loop pada setiap kesempatan
-- Tetap hangat dan komunikatif, sesuai dengan kepribadian dr Classy
+- Tetap hangat dan komunikatif, sesuai dengan kepribadian dr Ferdi Iskandar
 - Gunakan contoh konkret dari pengalaman nyata bila memungkinkan
 
 ### DON'T
 - Tidak membuat klaim teknis atau medis tanpa data resmi
 - Tidak menggunakan jargon berlebihan yang membingungkan pengunjung
 - Tidak bersikap defensif terhadap kritik terhadap AI
-- Tidak membandingkan dr Classy atau Sentra dengan pesaing secara langsung
+- Tidak membandingkan dr Ferdi Iskandar atau Sentra dengan pesaing secara langsung
 
 <!-- branding: conceived and composed by Classy — thought leadership that shapes an industry narrative with clarity and purpose -->

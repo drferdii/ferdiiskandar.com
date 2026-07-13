@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 
 import abbyConfig from '@/src/config/abby.config.json'
 import leadCaptureConfig from '@/src/config/abby.lead-capture.json'
@@ -20,6 +20,24 @@ type LeadFormState = {
   message: string
   consent: boolean
 }
+
+const MAX_USER_QUESTIONS = 10
+const QUESTION_LIMIT_MESSAGE =
+  'Anda sudah mencapai batas 10 pertanyaan untuk sesi ini. Silakan mulai percakapan baru nanti, atau lanjut lewat Contact Desk kalau perlu tindak lanjut langsung.'
+
+const WELCOME_TITLE = 'Halo, saya Abby.'
+const WELCOME_BODY =
+  'Saya mendampingi Anda menjelajahi perjalanan, karya, dan cara berpikir dr. Ferdi Iskandar. Kita bisa mulai dari mana saja.'
+
+const QUICK_STARTERS: Array<{ label: string; message: string }> = [
+  { label: 'Siapa Ferdi?', message: 'Siapa dr. Ferdi Iskandar?' },
+  { label: 'Apa yang sedang ia bangun?', message: 'Apa yang sedang dr. Ferdi bangun sekarang?' },
+  {
+    label: 'Pemikiran tentang AI dan kesehatan',
+    message: 'Bagaimana pemikiran dr. Ferdi tentang AI dan kesehatan?',
+  },
+  { label: 'Hubungi Ferdi', message: 'Saya ingin menghubungi dr. Ferdi.' },
+]
 
 const CTA_HREF_OVERRIDE: Record<string, string> = {
   '/media-kit': '/cv',
@@ -46,7 +64,8 @@ const LEAD_INTENT_PATTERNS: Array<{ purpose: AbbyLeadPurpose; pattern: RegExp }>
   },
   {
     purpose: 'healthcare_ai_discussion',
-    pattern: /\b(healthcare ai|clinical decision support|diskusi ai|ai kesehatan|rumah sakit.*ai)\b/i,
+    pattern:
+      /\b(healthcare ai|clinical decision support|diskusi ai|ai kesehatan|rumah sakit.*ai)\b/i,
   },
   {
     purpose: 'partnership',
@@ -82,6 +101,34 @@ function purposeLabel(purpose: AbbyLeadPurpose): string {
   )
 }
 
+const MARKDOWN_LINK_PATTERN = /\[([^\]]+)\]\(([^)\s]+)\)/g
+
+function renderMessageText(text: string) {
+  const parts = text.split(MARKDOWN_LINK_PATTERN)
+  const nodes: React.ReactNode[] = []
+
+  for (let i = 0; i < parts.length; i += 3) {
+    if (parts[i]) nodes.push(<Fragment key={`t-${i}`}>{parts[i]}</Fragment>)
+    const label = parts[i + 1]
+    const href = parts[i + 2]
+    if (label && href) {
+      const isInternal = href.startsWith('/')
+      nodes.push(
+        <Link
+          key={`l-${i}`}
+          href={href}
+          className="abby-bubble-link"
+          {...(!isInternal && { target: '_blank', rel: 'noreferrer' })}
+        >
+          {label}
+        </Link>,
+      )
+    }
+  }
+
+  return nodes
+}
+
 function createConversationSummary(messages: Message[]): string {
   return messages
     .slice(-6)
@@ -92,6 +139,7 @@ function createConversationSummary(messages: Message[]): string {
 
 export default function AbbyWidget() {
   const [open, setOpen] = useState(false)
+  const [collapsedVisible, setCollapsedVisible] = useState(false)
   const [phase, setPhase] = useState<'welcome' | 'chat'>('welcome')
   const [visitorMode, setVisitorMode] = useState<VisitorMode | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
@@ -104,6 +152,8 @@ export default function AbbyWidget() {
   const [leadForm, setLeadForm] = useState<LeadFormState>(DEFAULT_LEAD_FORM)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const notifSoundRef = useRef<HTMLAudioElement>(null)
+  const prevMessageCountRef = useRef(0)
 
   const detectedLeadPurpose = useMemo(() => {
     for (const message of [...messages].reverse()) {
@@ -112,6 +162,35 @@ export default function AbbyWidget() {
       if (detected) return detected
     }
     return null
+  }, [messages])
+
+  const userQuestionCount = useMemo(
+    () => messages.filter((m) => m.role === 'user').length,
+    [messages],
+  )
+  const questionLimitReached = userQuestionCount >= MAX_USER_QUESTIONS
+
+  function playNotifSound() {
+    const audio = notifSoundRef.current
+    if (!audio) return
+    audio.currentTime = 0
+    audio.play().catch(() => {})
+  }
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setCollapsedVisible(true)
+      playNotifSound()
+    }, 1200)
+    return () => clearTimeout(id)
+  }, [])
+
+  useEffect(() => {
+    if (messages.length > prevMessageCountRef.current) {
+      const lastMessage = messages[messages.length - 1]
+      if (lastMessage?.role === 'assistant') playNotifSound()
+    }
+    prevMessageCountRef.current = messages.length
   }, [messages])
 
   useEffect(() => {
@@ -133,16 +212,14 @@ export default function AbbyWidget() {
     setLeadForm(DEFAULT_LEAD_FORM)
   }
 
-  function handleModeSelect(mode: VisitorMode) {
-    resetChat()
-    setVisitorMode(mode)
-    setPhase('chat')
-  }
-
   function handleBack() {
     resetChat()
     setPhase('welcome')
-    setVisitorMode(null)
+  }
+
+  function handleQuickStart(message: string) {
+    setPhase('chat')
+    sendMessage(message)
   }
 
   function openLeadForm(purpose: AbbyLeadPurpose = detectedLeadPurpose ?? 'general_inquiry') {
@@ -163,6 +240,12 @@ export default function AbbyWidget() {
     const trimmed = text.trim()
     if (!trimmed || loading) return
 
+    if (questionLimitReached) {
+      setInput('')
+      return
+    }
+
+    setPhase('chat')
     const detectedPurpose = detectLeadPurpose(trimmed)
 
     setError(null)
@@ -247,29 +330,42 @@ export default function AbbyWidget() {
 
   return (
     <>
-      <button
-        type="button"
-        className="abby-toggle"
-        aria-label={open ? 'Tutup Abby' : 'Tanya Abby'}
-        aria-expanded={open}
-        onClick={() => setOpen((prev) => !prev)}
-      >
-        <span className="abby-toggle-avatar">
-          <Image
-            src="/abby.png"
-            alt="Abby"
-            width={600}
-            height={687}
-            className="abby-toggle-img"
-          />
-        </span>
-        {!open && <span className="abby-toggle-label">Tanya Abby</span>}
-        {open && (
-          <span className="abby-toggle-close" aria-hidden="true">
-            ✕
-          </span>
-        )}
-      </button>
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption -- short UI notification chime, no spoken content */}
+      <audio ref={notifSoundRef} src="/assets/sounds/notif.mp3" preload="auto" />
+
+      {!open && collapsedVisible && (
+        <button
+          type="button"
+          className="abby-term-card abby-collapsed-enter"
+          aria-label="Tanya Abby"
+          onClick={() => setOpen(true)}
+        >
+          <div className="abby-term-titlebar">
+            <span className="abby-term-dots" aria-hidden="true">
+              <span className="abby-term-dot red" />
+              <span className="abby-term-dot yellow" />
+              <span className="abby-term-dot green" />
+            </span>
+            <span className="abby-term-breadcrumb">SENTRA / ABBY</span>
+          </div>
+          <div className="abby-term-body">
+            <span className="abby-term-index">01</span>
+            <Image
+              src="/assets/abby/abby.png"
+              alt="Abby"
+              width={600}
+              height={900}
+              className="abby-term-photo"
+              priority
+            />
+            <h3 className="abby-term-title">Abby</h3>
+            <p className="abby-term-desc">
+              Pemandu virtual dr Ferdi Iskandar — tanya apa saja soal karya dan pemikirannya.
+            </p>
+            <span className="abby-term-link">KLIK DI SINI</span>
+          </div>
+        </button>
+      )}
 
       {open && (
         <div
@@ -282,29 +378,22 @@ export default function AbbyWidget() {
           onWheelCapture={stopPageScroll}
           onTouchMove={stopPageScroll}
         >
-          <header className="abby-header">
-            <div className="abby-header-identity">
-              <Image
-                src="/abby.png"
-                alt="Abby"
-                width={600}
-                height={687}
-                className="abby-header-avatar"
-              />
-              <div>
-                <strong className="abby-header-name">Abby</strong>
-                <span className="abby-header-sub">Asisten AI pribadi dr Ferdi Iskandar</span>
-              </div>
-            </div>
+          <div className="abby-term-titlebar">
+            <span className="abby-term-dots" aria-hidden="true">
+              <span className="abby-term-dot red" />
+              <span className="abby-term-dot yellow" />
+              <span className="abby-term-dot green" />
+            </span>
+            <span className="abby-term-breadcrumb">SENTRA / ABBY</span>
             <div className="abby-header-actions">
               {phase === 'chat' && (
                 <button
                   type="button"
                   className="abby-back-btn"
                   onClick={handleBack}
-                  aria-label="Kembali ke pilihan mode"
+                  aria-label="Kembali ke awal"
                 >
-                  ← Mode
+                  ← Awal
                 </button>
               )}
               <button
@@ -316,60 +405,45 @@ export default function AbbyWidget() {
                 ✕
               </button>
             </div>
-          </header>
+          </div>
 
           {phase === 'welcome' && (
             <div className="abby-welcome">
-              <div className="abby-welcome-image">
+              <div className="abby-welcome-copy">
+                <h3 className="abby-welcome-title">{WELCOME_TITLE}</h3>
+                <p className="abby-welcome-body">{WELCOME_BODY}</p>
+                <div className="abby-starters">
+                  {QUICK_STARTERS.map((starter) => (
+                    <button
+                      key={starter.label}
+                      type="button"
+                      className="abby-starter-btn"
+                      onClick={() => handleQuickStart(starter.message)}
+                    >
+                      {starter.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="abby-welcome-photo">
                 <Image
-                  src="/abby.png"
-                  alt="Abby, asisten AI dr Ferdi Iskandar"
+                  src="/assets/abby/abby.png"
+                  alt="Abby"
                   width={600}
-                  height={687}
-                  className="abby-main-img"
+                  height={900}
+                  className="abby-welcome-photo-img"
                   priority
                 />
-              </div>
-              <p className="abby-opening">{abbyConfig.opening_message.id}</p>
-              <p className="abby-mode-prompt">Siapa Anda hari ini?</p>
-              <div className="abby-modes">
-                {abbyConfig.visitor_modes.map((mode) => (
-                  <button
-                    key={mode.id}
-                    type="button"
-                    className="abby-mode-btn"
-                    onClick={() => handleModeSelect(mode)}
-                  >
-                    {mode.label}
-                  </button>
-                ))}
               </div>
             </div>
           )}
 
-          {phase === 'chat' && visitorMode && (
+          {phase === 'chat' && (
             <>
               <div className="abby-body" aria-live="polite">
-                {messages.length === 0 && (
-                  <div className="abby-suggestions">
-                    <p className="abby-suggestions-label">Pertanyaan untuk {visitorMode.label}:</p>
-                    {visitorMode.suggested_questions.map((q, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        className="abby-suggestion-btn"
-                        onClick={() => sendMessage(q)}
-                        disabled={loading}
-                      >
-                        {q}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
                 {messages.map((msg, i) => (
                   <div key={i} className={`abby-bubble abby-bubble-${msg.role}`}>
-                    <p>{msg.text}</p>
+                    <p>{renderMessageText(msg.text)}</p>
                   </div>
                 ))}
 
@@ -546,42 +620,48 @@ export default function AbbyWidget() {
                   </Link>
                 ))}
               </div>
-
-              <form className="abby-form" onSubmit={handleSubmit}>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  className="abby-input"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder={abbyConfig.ui.placeholder}
-                  disabled={loading}
-                  aria-label="Pesan untuk Abby"
-                  maxLength={2000}
-                />
-                <button
-                  type="submit"
-                  className="abby-send"
-                  disabled={loading || input.trim().length === 0}
-                  aria-label="Kirim pesan"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                  </svg>
-                </button>
-              </form>
             </>
           )}
+
+          {questionLimitReached && <p className="abby-limit-notice">{QUESTION_LIMIT_MESSAGE}</p>}
+
+          <form className="abby-form" onSubmit={handleSubmit}>
+            <input
+              ref={inputRef}
+              type="text"
+              className="abby-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={
+                questionLimitReached
+                  ? 'Batas pertanyaan tercapai'
+                  : 'Tanyakan apa saja kepada Abby…'
+              }
+              disabled={loading || questionLimitReached}
+              aria-label="Pesan untuk Abby"
+              maxLength={2000}
+            />
+            <button
+              type="submit"
+              className="abby-send"
+              disabled={loading || questionLimitReached || input.trim().length === 0}
+              aria-label="Kirim pesan"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
+            </button>
+          </form>
         </div>
       )}
     </>
