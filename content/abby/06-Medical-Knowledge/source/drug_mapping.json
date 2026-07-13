@@ -1,0 +1,459 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "description": "Mapping nama obat generik ke stok Puskesmas untuk Sentra Assist CDSS",
+    "last_updated": "2026-01-30T20:34:52.765847"
+  },
+  "mappings": [
+    {
+      "generik": "Paracetamol",
+      "alias": ["Parasetamol", "PCT", "Acetaminophen"],
+      "stok_match": ["Parasetamol", "Paracetamol"],
+      "kategori": "Analgesik-Antipiretik"
+    },
+    {
+      "generik": "Ibuprofen",
+      "alias": ["Proris", "Bufect"],
+      "stok_match": ["Ibuprofen"],
+      "kategori": "NSAID"
+    },
+    {
+      "generik": "Asam Mefenamat",
+      "alias": ["Mefenamic Acid", "Ponstan"],
+      "stok_match": ["Asam mefenamat", "Mefenamat"],
+      "kategori": "NSAID"
+    },
+    {
+      "generik": "Amoxicillin",
+      "alias": ["Amoksisilin", "Amoxsan"],
+      "stok_match": ["Amoksilin", "Amoxicillin", "Amoksisilin"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Ampicillin",
+      "alias": ["Ampisilin"],
+      "stok_match": ["Ampisilin", "Ampicillin"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Cefadroxil",
+      "alias": ["Cefadroksil"],
+      "stok_match": ["Cefadroxil", "Cefadroksil"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Ciprofloxacin",
+      "alias": ["Ciprofloksasin", "Cipro"],
+      "stok_match": ["Ciprofloxacin", "Siprofloksasin"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Cotrimoxazole",
+      "alias": ["Cotrimoksazol", "TMP-SMX", "Bactrim"],
+      "stok_match": ["Cotrimoxazol", "Kotrimoksazol"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Metronidazole",
+      "alias": ["Metronidazol", "Flagyl"],
+      "stok_match": ["Metronidazol", "Metronidazole"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Eritromisin",
+      "alias": ["Erythromycin"],
+      "stok_match": ["Eritromisin", "Erythromycin"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Doksisiklin",
+      "alias": ["Doxycycline"],
+      "stok_match": ["Doksisiklin", "Doxycycline"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Kloramfenikol",
+      "alias": ["Chloramphenicol"],
+      "stok_match": ["Kloramfenikol", "Chloramphenicol"],
+      "kategori": "Antibiotik"
+    },
+    {
+      "generik": "Omeprazole",
+      "alias": ["Omeprazol", "OMZ", "PPI"],
+      "stok_match": ["Omeprazol", "Omeprazole"],
+      "kategori": "Antiulkus"
+    },
+    {
+      "generik": "Ranitidine",
+      "alias": ["Ranitidin", "H2 Blocker"],
+      "stok_match": ["Ranitidin", "Ranitidine"],
+      "kategori": "Antiulkus"
+    },
+    {
+      "generik": "Antasida DOEN",
+      "alias": ["Antasid", "Al-Mg Hydroxide"],
+      "stok_match": ["Antasida", "Antasid"],
+      "kategori": "Antasida"
+    },
+    {
+      "generik": "Sucralfate",
+      "alias": ["Sukralfat"],
+      "stok_match": ["Sukralfat", "Sucralfate"],
+      "kategori": "Gastroprotektif"
+    },
+    {
+      "generik": "Amlodipine",
+      "alias": ["Amlodipin", "Norvasc"],
+      "stok_match": ["Amlodipin", "Amlodipine"],
+      "kategori": "Antihipertensi"
+    },
+    {
+      "generik": "Captopril",
+      "alias": ["Capoten", "ACE-I"],
+      "stok_match": ["Captopril", "Kaptopril"],
+      "kategori": "Antihipertensi"
+    },
+    {
+      "generik": "Lisinopril",
+      "alias": ["ACE Inhibitor"],
+      "stok_match": ["Lisinopril"],
+      "kategori": "Antihipertensi"
+    },
+    {
+      "generik": "Nifedipine",
+      "alias": ["Nifedipin", "Adalat"],
+      "stok_match": ["Nifedipin", "Nifedipine"],
+      "kategori": "Antihipertensi"
+    },
+    {
+      "generik": "Bisoprolol",
+      "alias": ["Beta Blocker"],
+      "stok_match": ["Bisoprolol"],
+      "kategori": "Antihipertensi"
+    },
+    {
+      "generik": "Hydrochlorothiazide",
+      "alias": ["HCT", "HCTZ"],
+      "stok_match": ["HCT", "Hydrochlorothiazide"],
+      "kategori": "Diuretik"
+    },
+    {
+      "generik": "Furosemide",
+      "alias": ["Furosemid", "Lasix"],
+      "stok_match": ["Furosemid", "Furosemide"],
+      "kategori": "Diuretik"
+    },
+    {
+      "generik": "Metformin",
+      "alias": ["Glucophage"],
+      "stok_match": ["Metformin"],
+      "kategori": "Antidiabetik"
+    },
+    {
+      "generik": "Glibenclamide",
+      "alias": ["Glibenklamid", "Glyburide"],
+      "stok_match": ["Glibenklamid", "Glibenclamide"],
+      "kategori": "Antidiabetik"
+    },
+    {
+      "generik": "Glimepiride",
+      "alias": ["Glimepirid", "Amaryl"],
+      "stok_match": ["Glimepirid", "Glimepiride"],
+      "kategori": "Antidiabetik"
+    },
+    {
+      "generik": "Chlorpheniramine",
+      "alias": ["CTM", "Klorfeniramin"],
+      "stok_match": ["CTM", "Chlorpheniramin", "Klorfeniramin"],
+      "kategori": "Antihistamin"
+    },
+    {
+      "generik": "Cetirizine",
+      "alias": ["Setirizin", "Zyrtec"],
+      "stok_match": ["Cetirizin", "Setirizin"],
+      "kategori": "Antihistamin"
+    },
+    {
+      "generik": "Loratadine",
+      "alias": ["Loratadin", "Claritin"],
+      "stok_match": ["Loratadin", "Loratadine"],
+      "kategori": "Antihistamin"
+    },
+    {
+      "generik": "Dextromethorphan",
+      "alias": ["DMP", "Dekstrometorfan"],
+      "stok_match": ["Dextromethorphan", "DMP"],
+      "kategori": "Antitusif"
+    },
+    {
+      "generik": "Ambroxol",
+      "alias": ["Mucosolvan"],
+      "stok_match": ["Ambroxol", "Ambroksol"],
+      "kategori": "Ekspektoran"
+    },
+    {
+      "generik": "Bromhexine",
+      "alias": ["Bromheksin", "Bisolvon"],
+      "stok_match": ["Bromheksin", "Bromhexine"],
+      "kategori": "Ekspektoran"
+    },
+    {
+      "generik": "GG (Guaifenesin)",
+      "alias": ["Glyceryl Guaiacolate", "Expectorant"],
+      "stok_match": ["GG", "Guaifenesin"],
+      "kategori": "Ekspektoran"
+    },
+    {
+      "generik": "Prednisone",
+      "alias": ["Prednisolon", "Steroid oral"],
+      "stok_match": ["Prednison", "Prednisolon"],
+      "kategori": "Kortikosteroid"
+    },
+    {
+      "generik": "Dexamethasone",
+      "alias": ["Deksametason"],
+      "stok_match": ["Dexametason", "Deksametason"],
+      "kategori": "Kortikosteroid"
+    },
+    {
+      "generik": "Methylprednisolone",
+      "alias": ["Metilprednisolon", "Medrol"],
+      "stok_match": ["Metilprednisolon", "Methylprednisolone"],
+      "kategori": "Kortikosteroid"
+    },
+    {
+      "generik": "Salbutamol",
+      "alias": ["Albuterol", "Ventolin"],
+      "stok_match": ["Salbutamol"],
+      "kategori": "Bronkodilator"
+    },
+    {
+      "generik": "Aminophylline",
+      "alias": ["Aminofilin", "Theophylline"],
+      "stok_match": ["Aminofilin", "Aminophylline"],
+      "kategori": "Bronkodilator"
+    },
+    {
+      "generik": "Domperidone",
+      "alias": ["Domperidon", "Motilium"],
+      "stok_match": ["Domperidon", "Domperidone"],
+      "kategori": "Antiemetik"
+    },
+    {
+      "generik": "Metoclopramide",
+      "alias": ["Metoklopramid", "Primperan"],
+      "stok_match": ["Metoklopramid", "Metoclopramide"],
+      "kategori": "Antiemetik"
+    },
+    {
+      "generik": "Ondansetron",
+      "alias": [],
+      "stok_match": ["Ondansetron"],
+      "kategori": "Antiemetik"
+    },
+    {
+      "generik": "Oralit",
+      "alias": ["ORS", "Oral Rehydration Salt"],
+      "stok_match": ["Oralit"],
+      "kategori": "Elektrolit"
+    },
+    {
+      "generik": "Zinc",
+      "alias": ["Zink", "Seng"],
+      "stok_match": ["Zinc", "Zink"],
+      "kategori": "Suplemen"
+    },
+    {
+      "generik": "Attapulgite",
+      "alias": ["New Diatabs"],
+      "stok_match": ["Attapulgite"],
+      "kategori": "Antidiare"
+    },
+    {
+      "generik": "Loperamide",
+      "alias": ["Imodium"],
+      "stok_match": ["Loperamid"],
+      "kategori": "Antidiare"
+    },
+    {
+      "generik": "Albendazole",
+      "alias": ["Albendazol"],
+      "stok_match": ["Albendazol"],
+      "kategori": "Anthelmintic"
+    },
+    {
+      "generik": "Mebendazole",
+      "alias": ["Mebendazol", "Vermox"],
+      "stok_match": ["Mebendazol"],
+      "kategori": "Anthelmintic"
+    },
+    {
+      "generik": "Pirantel Pamoat",
+      "alias": ["Pyrantel", "Combantrin"],
+      "stok_match": ["Pirantel"],
+      "kategori": "Anthelmintic"
+    },
+    {
+      "generik": "Ketoconazole",
+      "alias": ["Ketokonazol", "Nizoral"],
+      "stok_match": ["Ketokonazol", "Ketoconazole"],
+      "kategori": "Antifungal"
+    },
+    {
+      "generik": "Miconazole",
+      "alias": ["Mikonazol"],
+      "stok_match": ["Mikonazol", "Miconazole"],
+      "kategori": "Antifungal"
+    },
+    {
+      "generik": "Griseofulvin",
+      "alias": [],
+      "stok_match": ["Griseofulvin"],
+      "kategori": "Antifungal"
+    },
+    {
+      "generik": "Nistatin",
+      "alias": ["Nystatin"],
+      "stok_match": ["Nistatin", "Nystatin"],
+      "kategori": "Antifungal"
+    },
+    {
+      "generik": "Acyclovir",
+      "alias": ["Asiklovir", "Zovirax"],
+      "stok_match": ["Acyclovir", "Asiklovir"],
+      "kategori": "Antiviral"
+    },
+    {
+      "generik": "Permetrin",
+      "alias": ["Permethrin", "Scabimite"],
+      "stok_match": ["Permetrin"],
+      "kategori": "Skabisida"
+    },
+    {
+      "generik": "Salep 2-4",
+      "alias": ["Sulfur Salicyl", "Salep Whitfield"],
+      "stok_match": ["Salep 2-4", "Sulfur"],
+      "kategori": "Antifungal Topikal"
+    },
+    {
+      "generik": "Hydrocortisone Cream",
+      "alias": ["Kortikosteroid topikal"],
+      "stok_match": ["Hydrocortison", "Hidrokortison"],
+      "kategori": "Kortikosteroid Topikal"
+    },
+    {
+      "generik": "Chloramphenicol Eye Drop",
+      "alias": ["Cendo Fenicol", "Tetes mata kloram"],
+      "stok_match": ["Kloramfenikol tetes", "Chloramphenicol eye"],
+      "kategori": "Antibiotik Mata"
+    },
+    {
+      "generik": "Artificial Tears",
+      "alias": ["Air mata buatan", "Sodium Hyaluronate"],
+      "stok_match": ["Artificial tears", "Cendo lyteers"],
+      "kategori": "Pelumas Mata"
+    },
+    {
+      "generik": "Vitamin B Complex",
+      "alias": ["Vitamin B Kompleks", "Vit B"],
+      "stok_match": ["Vitamin B", "B Complex"],
+      "kategori": "Vitamin"
+    },
+    {
+      "generik": "Vitamin C",
+      "alias": ["Ascorbic Acid", "Asam Askorbat"],
+      "stok_match": ["Vitamin C"],
+      "kategori": "Vitamin"
+    },
+    {
+      "generik": "Vitamin B12",
+      "alias": ["Cyanocobalamin"],
+      "stok_match": ["Vitamin B12", "B12"],
+      "kategori": "Vitamin"
+    },
+    {
+      "generik": "Asam Folat",
+      "alias": ["Folic Acid"],
+      "stok_match": ["Asam Folat", "Folic"],
+      "kategori": "Vitamin"
+    },
+    {
+      "generik": "Fe (Zat Besi)",
+      "alias": ["Ferrous Sulfate", "Tablet Tambah Darah"],
+      "stok_match": ["Tablet tambah darah", "Sulfas ferosus", "Fe"],
+      "kategori": "Suplemen"
+    },
+    {
+      "generik": "Kalsium",
+      "alias": ["Calcium", "Cal-95"],
+      "stok_match": ["Kalsium", "Calcium"],
+      "kategori": "Suplemen"
+    },
+    {
+      "generik": "Diazepam",
+      "alias": ["Valium"],
+      "stok_match": ["Diazepam"],
+      "kategori": "Sedatif"
+    },
+    {
+      "generik": "Phenobarbital",
+      "alias": ["Fenobarbital", "Luminal"],
+      "stok_match": ["Phenobarbital", "Fenobarbital"],
+      "kategori": "Antikonvulsan"
+    },
+    {
+      "generik": "Phenytoin",
+      "alias": ["Fenitoin", "Dilantin"],
+      "stok_match": ["Phenytoin", "Fenitoin"],
+      "kategori": "Antikonvulsan"
+    },
+    {
+      "generik": "Carbamazepine",
+      "alias": ["Karbamazepin", "Tegretol"],
+      "stok_match": ["Carbamazepin", "Karbamazepin"],
+      "kategori": "Antikonvulsan"
+    },
+    {
+      "generik": "Betahistine",
+      "alias": ["Betahistin", "Merislon"],
+      "stok_match": ["Betahistin"],
+      "kategori": "Antivertigo"
+    },
+    {
+      "generik": "Flunarizine",
+      "alias": ["Flunarizin", "Sibelium"],
+      "stok_match": ["Flunarizin"],
+      "kategori": "Antivertigo"
+    },
+    {
+      "generik": "Dimenhydrinate",
+      "alias": ["Dramamine", "Antimo"],
+      "stok_match": ["Dimenhydrinate", "Dimenhidrinat"],
+      "kategori": "Antiemetik"
+    },
+    {
+      "generik": "Amitriptyline",
+      "alias": ["Amitriptilin"],
+      "stok_match": ["Amitriptilin"],
+      "kategori": "Antidepresan"
+    },
+    {
+      "generik": "Haloperidol",
+      "alias": ["Haldol"],
+      "stok_match": ["Haloperidol"],
+      "kategori": "Antipsikotik"
+    },
+    {
+      "generik": "Allopurinol",
+      "alias": ["Alopurinol"],
+      "stok_match": ["Alopurinol", "Allopurinol"],
+      "kategori": "Antigout"
+    },
+    {
+      "generik": "Colchicine",
+      "alias": ["Kolkisin"],
+      "stok_match": ["Colchicine", "Kolkisin"],
+      "kategori": "Antigout"
+    }
+  ]
+}

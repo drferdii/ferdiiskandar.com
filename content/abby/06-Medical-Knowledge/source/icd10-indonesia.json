@@ -1,0 +1,751 @@
+[
+  {
+    "code": "J06.9",
+    "description": "Acute upper respiratory infection, unspecified",
+    "description_en": "Acute upper respiratory infection, unspecified",
+    "description_id": "Infeksi saluran pernapasan atas akut",
+    "is_billable": true
+  },
+  {
+    "code": "J00",
+    "description": "Acute nasopharyngitis [common cold]",
+    "description_en": "Acute nasopharyngitis [common cold]",
+    "description_id": "Nasofaringitis akut [common cold]",
+    "is_billable": true
+  },
+  {
+    "code": "J02.9",
+    "description": "Acute pharyngitis, unspecified",
+    "description_en": "Acute pharyngitis, unspecified",
+    "description_id": "Faringitis akut",
+    "is_billable": true
+  },
+  {
+    "code": "J03.9",
+    "description": "Acute tonsillitis, unspecified",
+    "description_en": "Acute tonsillitis, unspecified",
+    "description_id": "Tonsilitis akut",
+    "is_billable": true
+  },
+  {
+    "code": "J18.9",
+    "description": "Pneumonia, unspecified organism",
+    "description_en": "Pneumonia, unspecified organism",
+    "description_id": "Pneumonia",
+    "is_billable": true
+  },
+  {
+    "code": "J20.9",
+    "description": "Acute bronchitis, unspecified",
+    "description_en": "Acute bronchitis, unspecified",
+    "description_id": "Bronkitis akut",
+    "is_billable": true
+  },
+  {
+    "code": "J40",
+    "description": "Bronchitis, not specified as acute or chronic",
+    "description_en": "Bronchitis, not specified as acute or chronic",
+    "description_id": "Bronkitis",
+    "is_billable": true
+  },
+  {
+    "code": "J45.9",
+    "description": "Asthma, unspecified",
+    "description_en": "Asthma, unspecified",
+    "description_id": "Asma",
+    "is_billable": true
+  },
+  {
+    "code": "J44.9",
+    "description": "Chronic obstructive pulmonary disease, unspecified",
+    "description_en": "Chronic obstructive pulmonary disease, unspecified",
+    "description_id": "Penyakit paru obstruktif kronik (PPOK)",
+    "is_billable": true
+  },
+  {
+    "code": "J30.4",
+    "description": "Allergic rhinitis, unspecified",
+    "description_en": "Allergic rhinitis, unspecified",
+    "description_id": "Rinitis alergi",
+    "is_billable": true
+  },
+  {
+    "code": "A09",
+    "description": "Infectious gastroenteritis and colitis, unspecified",
+    "description_en": "Infectious gastroenteritis and colitis, unspecified",
+    "description_id": "Gastroenteritis dan kolitis infeksi (Diare)",
+    "is_billable": true
+  },
+  {
+    "code": "A09.0",
+    "description": "Other and unspecified gastroenteritis and colitis of infectious origin",
+    "description_en": "Other and unspecified gastroenteritis and colitis of infectious origin",
+    "description_id": "Gastroenteritis dan kolitis infeksi lainnya",
+    "is_billable": true
+  },
+  {
+    "code": "K29.7",
+    "description": "Gastritis, unspecified",
+    "description_en": "Gastritis, unspecified",
+    "description_id": "Gastritis",
+    "is_billable": true
+  },
+  {
+    "code": "K30",
+    "description": "Functional dyspepsia",
+    "description_en": "Functional dyspepsia",
+    "description_id": "Dispepsia fungsional",
+    "is_billable": true
+  },
+  {
+    "code": "K59.0",
+    "description": "Constipation",
+    "description_en": "Constipation",
+    "description_id": "Konstipasi",
+    "is_billable": true
+  },
+  {
+    "code": "K59.1",
+    "description": "Functional diarrhoea",
+    "description_en": "Functional diarrhoea",
+    "description_id": "Diare fungsional",
+    "is_billable": true
+  },
+  {
+    "code": "R11",
+    "description": "Nausea and vomiting",
+    "description_en": "Nausea and vomiting",
+    "description_id": "Mual dan muntah",
+    "is_billable": true
+  },
+  {
+    "code": "R10.4",
+    "description": "Other and unspecified abdominal pain",
+    "description_en": "Other and unspecified abdominal pain",
+    "description_id": "Nyeri perut",
+    "is_billable": true
+  },
+  {
+    "code": "I10",
+    "description": "Essential (primary) hypertension",
+    "description_en": "Essential (primary) hypertension",
+    "description_id": "Hipertensi esensial (primer)",
+    "is_billable": true
+  },
+  {
+    "code": "I11.9",
+    "description": "Hypertensive heart disease without heart failure",
+    "description_en": "Hypertensive heart disease without heart failure",
+    "description_id": "Penyakit jantung hipertensi tanpa gagal jantung",
+    "is_billable": true
+  },
+  {
+    "code": "I20.0",
+    "description": "Unstable angina",
+    "description_en": "Unstable angina",
+    "description_id": "Angina tidak stabil",
+    "is_billable": true
+  },
+  {
+    "code": "I21.9",
+    "description": "Acute myocardial infarction, unspecified",
+    "description_en": "Acute myocardial infarction, unspecified",
+    "description_id": "Infark miokard akut",
+    "is_billable": true
+  },
+  {
+    "code": "I50.9",
+    "description": "Heart failure, unspecified",
+    "description_en": "Heart failure, unspecified",
+    "description_id": "Gagal jantung",
+    "is_billable": true
+  },
+  {
+    "code": "I63.9",
+    "description": "Cerebral infarction, unspecified",
+    "description_en": "Cerebral infarction, unspecified",
+    "description_id": "Infark serebral (Stroke)",
+    "is_billable": true
+  },
+  {
+    "code": "E11.9",
+    "description": "Type 2 diabetes mellitus without complications",
+    "description_en": "Type 2 diabetes mellitus without complications",
+    "description_id": "Diabetes melitus tipe 2 tanpa komplikasi",
+    "is_billable": true
+  },
+  {
+    "code": "E11.65",
+    "description": "Type 2 diabetes mellitus with hyperglycemia",
+    "description_en": "Type 2 diabetes mellitus with hyperglycemia",
+    "description_id": "Diabetes melitus tipe 2 dengan hiperglikemia",
+    "is_billable": true
+  },
+  {
+    "code": "E10.9",
+    "description": "Type 1 diabetes mellitus without complications",
+    "description_en": "Type 1 diabetes mellitus without complications",
+    "description_id": "Diabetes melitus tipe 1 tanpa komplikasi",
+    "is_billable": true
+  },
+  {
+    "code": "E78.5",
+    "description": "Hyperlipidemia, unspecified",
+    "description_en": "Hyperlipidemia, unspecified",
+    "description_id": "Hiperlipidemia",
+    "is_billable": true
+  },
+  {
+    "code": "E03.9",
+    "description": "Hypothyroidism, unspecified",
+    "description_en": "Hypothyroidism, unspecified",
+    "description_id": "Hipotiroidisme",
+    "is_billable": true
+  },
+  {
+    "code": "E05.9",
+    "description": "Thyrotoxicosis, unspecified",
+    "description_en": "Thyrotoxicosis, unspecified",
+    "description_id": "Hipertiroidisme",
+    "is_billable": true
+  },
+  {
+    "code": "R50.9",
+    "description": "Fever, unspecified",
+    "description_en": "Fever, unspecified",
+    "description_id": "Demam",
+    "is_billable": true
+  },
+  {
+    "code": "R51",
+    "description": "Headache",
+    "description_en": "Headache",
+    "description_id": "Sakit kepala",
+    "is_billable": true
+  },
+  {
+    "code": "R53",
+    "description": "Malaise and fatigue",
+    "description_en": "Malaise and fatigue",
+    "description_id": "Malaise dan kelelahan",
+    "is_billable": true
+  },
+  {
+    "code": "R42",
+    "description": "Dizziness and giddiness",
+    "description_en": "Dizziness and giddiness",
+    "description_id": "Pusing",
+    "is_billable": true
+  },
+  {
+    "code": "R52",
+    "description": "Pain, unspecified",
+    "description_en": "Pain, unspecified",
+    "description_id": "Nyeri",
+    "is_billable": true
+  },
+  {
+    "code": "R07.9",
+    "description": "Chest pain, unspecified",
+    "description_en": "Chest pain, unspecified",
+    "description_id": "Nyeri dada",
+    "is_billable": true
+  },
+  {
+    "code": "R00.0",
+    "description": "Tachycardia, unspecified",
+    "description_en": "Tachycardia, unspecified",
+    "description_id": "Takikardia",
+    "is_billable": true
+  },
+  {
+    "code": "R00.2",
+    "description": "Palpitations",
+    "description_en": "Palpitations",
+    "description_id": "Palpitasi (Jantung berdebar)",
+    "is_billable": true
+  },
+  {
+    "code": "G43.9",
+    "description": "Migraine, unspecified",
+    "description_en": "Migraine, unspecified",
+    "description_id": "Migrain",
+    "is_billable": true
+  },
+  {
+    "code": "G44.2",
+    "description": "Tension-type headache",
+    "description_en": "Tension-type headache",
+    "description_id": "Sakit kepala tipe tegang",
+    "is_billable": true
+  },
+  {
+    "code": "M54.5",
+    "description": "Low back pain",
+    "description_en": "Low back pain",
+    "description_id": "Nyeri punggung bawah",
+    "is_billable": true
+  },
+  {
+    "code": "M54.2",
+    "description": "Cervicalgia",
+    "description_en": "Cervicalgia",
+    "description_id": "Nyeri leher",
+    "is_billable": true
+  },
+  {
+    "code": "M79.3",
+    "description": "Panniculitis, unspecified",
+    "description_en": "Panniculitis, unspecified",
+    "description_id": "Myalgia (Nyeri otot)",
+    "is_billable": true
+  },
+  {
+    "code": "M25.5",
+    "description": "Pain in joint",
+    "description_en": "Pain in joint",
+    "description_id": "Nyeri sendi",
+    "is_billable": true
+  },
+  {
+    "code": "M13.9",
+    "description": "Arthritis, unspecified",
+    "description_en": "Arthritis, unspecified",
+    "description_id": "Artritis",
+    "is_billable": true
+  },
+  {
+    "code": "L30.9",
+    "description": "Dermatitis, unspecified",
+    "description_en": "Dermatitis, unspecified",
+    "description_id": "Dermatitis",
+    "is_billable": true
+  },
+  {
+    "code": "L29.9",
+    "description": "Pruritus, unspecified",
+    "description_en": "Pruritus, unspecified",
+    "description_id": "Pruritus (Gatal)",
+    "is_billable": true
+  },
+  {
+    "code": "L50.9",
+    "description": "Urticaria, unspecified",
+    "description_en": "Urticaria, unspecified",
+    "description_id": "Urtikaria (Biduran)",
+    "is_billable": true
+  },
+  {
+    "code": "B35.9",
+    "description": "Dermatophytosis, unspecified",
+    "description_en": "Dermatophytosis, unspecified",
+    "description_id": "Dermatofitosis (Kurap)",
+    "is_billable": true
+  },
+  {
+    "code": "L02.9",
+    "description": "Cutaneous abscess, furuncle and carbuncle, unspecified",
+    "description_en": "Cutaneous abscess, furuncle and carbuncle, unspecified",
+    "description_id": "Abses kulit, furunkel, karbunkel",
+    "is_billable": true
+  },
+  {
+    "code": "L08.9",
+    "description": "Local infection of skin and subcutaneous tissue, unspecified",
+    "description_en": "Local infection of skin and subcutaneous tissue, unspecified",
+    "description_id": "Infeksi kulit lokal",
+    "is_billable": true
+  },
+  {
+    "code": "B05.9",
+    "description": "Measles without complication",
+    "description_en": "Measles without complication",
+    "description_id": "Campak tanpa komplikasi",
+    "is_billable": true
+  },
+  {
+    "code": "B01.9",
+    "description": "Varicella without complication",
+    "description_en": "Varicella without complication",
+    "description_id": "Varisela (Cacar air) tanpa komplikasi",
+    "is_billable": true
+  },
+  {
+    "code": "H10.9",
+    "description": "Conjunctivitis, unspecified",
+    "description_en": "Conjunctivitis, unspecified",
+    "description_id": "Konjungtivitis",
+    "is_billable": true
+  },
+  {
+    "code": "H66.9",
+    "description": "Otitis media, unspecified",
+    "description_en": "Otitis media, unspecified",
+    "description_id": "Otitis media",
+    "is_billable": true
+  },
+  {
+    "code": "H81.1",
+    "description": "Benign paroxysmal vertigo",
+    "description_en": "Benign paroxysmal vertigo",
+    "description_id": "Vertigo",
+    "is_billable": true
+  },
+  {
+    "code": "N30.0",
+    "description": "Acute cystitis",
+    "description_en": "Acute cystitis",
+    "description_id": "Sistitis akut (Infeksi saluran kemih)",
+    "is_billable": true
+  },
+  {
+    "code": "N39.0",
+    "description": "Urinary tract infection, site not specified",
+    "description_en": "Urinary tract infection, site not specified",
+    "description_id": "Infeksi saluran kemih",
+    "is_billable": true
+  },
+  {
+    "code": "R31",
+    "description": "Hematuria",
+    "description_en": "Hematuria",
+    "description_id": "Hematuria (Kencing berdarah)",
+    "is_billable": true
+  },
+  {
+    "code": "K02.9",
+    "description": "Dental caries, unspecified",
+    "description_en": "Dental caries, unspecified",
+    "description_id": "Karies gigi",
+    "is_billable": true
+  },
+  {
+    "code": "K04.7",
+    "description": "Periapical abscess without sinus",
+    "description_en": "Periapical abscess without sinus",
+    "description_id": "Abses periapikal",
+    "is_billable": true
+  },
+  {
+    "code": "K05.1",
+    "description": "Chronic gingivitis",
+    "description_en": "Chronic gingivitis",
+    "description_id": "Gingivitis kronis",
+    "is_billable": true
+  },
+  {
+    "code": "A01.0",
+    "description": "Typhoid fever",
+    "description_en": "Typhoid fever",
+    "description_id": "Demam tifoid (Tipes)",
+    "is_billable": true
+  },
+  {
+    "code": "A90",
+    "description": "Dengue fever [classical dengue]",
+    "description_en": "Dengue fever [classical dengue]",
+    "description_id": "Demam dengue",
+    "is_billable": true
+  },
+  {
+    "code": "A91",
+    "description": "Dengue haemorrhagic fever",
+    "description_en": "Dengue haemorrhagic fever",
+    "description_id": "Demam berdarah dengue (DBD)",
+    "is_billable": true
+  },
+  {
+    "code": "B54",
+    "description": "Unspecified malaria",
+    "description_en": "Unspecified malaria",
+    "description_id": "Malaria",
+    "is_billable": true
+  },
+  {
+    "code": "A15.0",
+    "description": "Tuberculosis of lung",
+    "description_en": "Tuberculosis of lung",
+    "description_id": "Tuberkulosis paru",
+    "is_billable": true
+  },
+  {
+    "code": "B20",
+    "description": "Human immunodeficiency virus [HIV] disease",
+    "description_en": "Human immunodeficiency virus [HIV] disease",
+    "description_id": "Infeksi HIV",
+    "is_billable": true
+  },
+  {
+    "code": "A41.9",
+    "description": "Sepsis, unspecified organism",
+    "description_en": "Sepsis, unspecified organism",
+    "description_id": "Sepsis",
+    "is_billable": true
+  },
+  {
+    "code": "R65.20",
+    "description": "Severe sepsis without septic shock",
+    "description_en": "Severe sepsis without septic shock",
+    "description_id": "Sepsis berat tanpa syok septik",
+    "is_billable": true
+  },
+  {
+    "code": "T78.2",
+    "description": "Anaphylactic shock, unspecified",
+    "description_en": "Anaphylactic shock, unspecified",
+    "description_id": "Syok anafilaktik",
+    "is_billable": true
+  },
+  {
+    "code": "Z34.0",
+    "description": "Supervision of normal first pregnancy",
+    "description_en": "Supervision of normal first pregnancy",
+    "description_id": "Pengawasan kehamilan normal pertama",
+    "is_billable": true
+  },
+  {
+    "code": "Z34.9",
+    "description": "Supervision of normal pregnancy, unspecified",
+    "description_en": "Supervision of normal pregnancy, unspecified",
+    "description_id": "Pengawasan kehamilan normal",
+    "is_billable": true
+  },
+  {
+    "code": "O80",
+    "description": "Single spontaneous delivery",
+    "description_en": "Single spontaneous delivery",
+    "description_id": "Persalinan spontan tunggal",
+    "is_billable": true
+  },
+  {
+    "code": "O14.9",
+    "description": "Pre-eclampsia, unspecified",
+    "description_en": "Pre-eclampsia, unspecified",
+    "description_id": "Preeklampsia",
+    "is_billable": true
+  },
+  {
+    "code": "O15.0",
+    "description": "Eclampsia in pregnancy",
+    "description_en": "Eclampsia in pregnancy",
+    "description_id": "Eklampsia dalam kehamilan",
+    "is_billable": true
+  },
+  {
+    "code": "O20.0",
+    "description": "Threatened abortion",
+    "description_en": "Threatened abortion",
+    "description_id": "Ancaman keguguran",
+    "is_billable": true
+  },
+  {
+    "code": "O21.0",
+    "description": "Mild hyperemesis gravidarum",
+    "description_en": "Mild hyperemesis gravidarum",
+    "description_id": "Hiperemesis gravidarum ringan",
+    "is_billable": true
+  },
+  {
+    "code": "F32.9",
+    "description": "Depressive episode, unspecified",
+    "description_en": "Depressive episode, unspecified",
+    "description_id": "Episode depresif",
+    "is_billable": true
+  },
+  {
+    "code": "F41.9",
+    "description": "Anxiety disorder, unspecified",
+    "description_en": "Anxiety disorder, unspecified",
+    "description_id": "Gangguan kecemasan",
+    "is_billable": true
+  },
+  {
+    "code": "F51.0",
+    "description": "Insomnia not due to a substance or known physiological condition",
+    "description_en": "Insomnia not due to a substance or known physiological condition",
+    "description_id": "Insomnia",
+    "is_billable": true
+  },
+  {
+    "code": "D50.9",
+    "description": "Iron deficiency anaemia, unspecified",
+    "description_en": "Iron deficiency anaemia, unspecified",
+    "description_id": "Anemia defisiensi besi",
+    "is_billable": true
+  },
+  {
+    "code": "E86",
+    "description": "Volume depletion",
+    "description_en": "Volume depletion",
+    "description_id": "Dehidrasi",
+    "is_billable": true
+  },
+  {
+    "code": "E46",
+    "description": "Unspecified protein-calorie malnutrition",
+    "description_en": "Unspecified protein-calorie malnutrition",
+    "description_id": "Malnutrisi protein-kalori",
+    "is_billable": true
+  },
+  {
+    "code": "Z00.0",
+    "description": "General adult medical examination",
+    "description_en": "General adult medical examination",
+    "description_id": "Pemeriksaan medis umum dewasa",
+    "is_billable": true
+  },
+  {
+    "code": "Z00.1",
+    "description": "Routine child health examination",
+    "description_en": "Routine child health examination",
+    "description_id": "Pemeriksaan kesehatan anak rutin",
+    "is_billable": true
+  },
+  {
+    "code": "Z23",
+    "description": "Encounter for immunization",
+    "description_en": "Encounter for immunization",
+    "description_id": "Kunjungan untuk imunisasi",
+    "is_billable": true
+  },
+  {
+    "code": "Z30.0",
+    "description": "Encounter for general counseling and advice on contraception",
+    "description_en": "Encounter for general counseling and advice on contraception",
+    "description_id": "Konseling kontrasepsi",
+    "is_billable": true
+  },
+  {
+    "code": "S00.9",
+    "description": "Superficial injury of head, unspecified",
+    "description_en": "Superficial injury of head, unspecified",
+    "description_id": "Cedera superfisial kepala",
+    "is_billable": true
+  },
+  {
+    "code": "S01.9",
+    "description": "Open wound of head, unspecified",
+    "description_en": "Open wound of head, unspecified",
+    "description_id": "Luka terbuka kepala",
+    "is_billable": true
+  },
+  {
+    "code": "S06.0",
+    "description": "Concussion",
+    "description_en": "Concussion",
+    "description_id": "Gegar otak",
+    "is_billable": true
+  },
+  {
+    "code": "S52.9",
+    "description": "Fracture of forearm, unspecified",
+    "description_en": "Fracture of forearm, unspecified",
+    "description_id": "Fraktur lengan bawah",
+    "is_billable": true
+  },
+  {
+    "code": "S82.9",
+    "description": "Fracture of lower leg, unspecified",
+    "description_en": "Fracture of lower leg, unspecified",
+    "description_id": "Fraktur tungkai bawah",
+    "is_billable": true
+  },
+  {
+    "code": "T14.0",
+    "description": "Superficial injury of unspecified body region",
+    "description_en": "Superficial injury of unspecified body region",
+    "description_id": "Cedera superfisial",
+    "is_billable": true
+  },
+  {
+    "code": "T14.1",
+    "description": "Open wound of unspecified body region",
+    "description_en": "Open wound of unspecified body region",
+    "description_id": "Luka terbuka",
+    "is_billable": true
+  },
+  {
+    "code": "W19",
+    "description": "Unspecified fall",
+    "description_en": "Unspecified fall",
+    "description_id": "Jatuh",
+    "is_billable": true
+  },
+  {
+    "code": "V89.2",
+    "description": "Person injured in unspecified motor-vehicle accident, traffic",
+    "description_en": "Person injured in unspecified motor-vehicle accident, traffic",
+    "description_id": "Kecelakaan lalu lintas",
+    "is_billable": true
+  },
+  {
+    "code": "J11.1",
+    "description": "Influenza with other respiratory manifestations, virus not identified",
+    "description_en": "Influenza with other respiratory manifestations, virus not identified",
+    "description_id": "Influenza dengan manifestasi pernapasan",
+    "is_billable": true
+  },
+  {
+    "code": "B34.9",
+    "description": "Viral infection, unspecified",
+    "description_en": "Viral infection, unspecified",
+    "description_id": "Infeksi virus",
+    "is_billable": true
+  },
+  {
+    "code": "A04.9",
+    "description": "Bacterial intestinal infection, unspecified",
+    "description_en": "Bacterial intestinal infection, unspecified",
+    "description_id": "Infeksi usus bakteri",
+    "is_billable": true
+  },
+  {
+    "code": "A06.9",
+    "description": "Amoebiasis, unspecified",
+    "description_en": "Amoebiasis, unspecified",
+    "description_id": "Amoebiasis",
+    "is_billable": true
+  },
+  {
+    "code": "B82.9",
+    "description": "Intestinal parasitism, unspecified",
+    "description_en": "Intestinal parasitism, unspecified",
+    "description_id": "Parasitosis usus (Cacingan)",
+    "is_billable": true
+  },
+  {
+    "code": "N94.6",
+    "description": "Dysmenorrhoea, unspecified",
+    "description_en": "Dysmenorrhoea, unspecified",
+    "description_id": "Dismenore (Nyeri haid)",
+    "is_billable": true
+  },
+  {
+    "code": "N76.0",
+    "description": "Acute vaginitis",
+    "description_en": "Acute vaginitis",
+    "description_id": "Vaginitis akut",
+    "is_billable": true
+  },
+  {
+    "code": "N73.9",
+    "description": "Female pelvic inflammatory disease, unspecified",
+    "description_en": "Female pelvic inflammatory disease, unspecified",
+    "description_id": "Penyakit radang panggul",
+    "is_billable": true
+  },
+  {
+    "code": "E55.9",
+    "description": "Vitamin D deficiency, unspecified",
+    "description_en": "Vitamin D deficiency, unspecified",
+    "description_id": "Defisiensi vitamin D",
+    "is_billable": true
+  },
+  {
+    "code": "E53.8",
+    "description": "Deficiency of other specified B group vitamins",
+    "description_en": "Deficiency of other specified B group vitamins",
+    "description_id": "Defisiensi vitamin B",
+    "is_billable": true
+  }
+]
