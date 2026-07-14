@@ -37,14 +37,12 @@ function resolveProvider(): ProviderConfig | { error: string } {
     const apiKey = process.env.GEMINI_API_KEY
     if (!apiKey)
       return { error: isDev ? 'Missing GEMINI_API_KEY for AI_PROVIDER=gemini' : ERR_CONFIG }
+    const geminiModel = process.env.ABBY_MODEL ?? 'gemini-2.5-flash'
     return {
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
       apiKey,
-      // gemini-3.5-flash's free tier is capped at 20 requests/day (new-model
-      // launch restriction) — 2.5-flash has a much higher free daily quota.
-      model: process.env.ABBY_MODEL ?? 'gemini-2.5-flash',
-      // Keep thinking budget low so the visible reply doesn't get truncated by max_tokens.
-      extraBody: { reasoning_effort: 'low' },
+      model: geminiModel,
+      extraBody: {},
     }
   }
 
@@ -245,7 +243,7 @@ export async function POST(request: NextRequest) {
           isDev
             ? (upstreamMessage ??
                 'Provider AI menolak kredensial atau akses model. Periksa GEMINI_API_KEY / DEEPSEEK_API_KEY / OPENAI_API_KEY dan model yang dipakai.')
-            : 'Layanan AI tidak tersedia saat ini. Silakan coba lagi.',
+            : 'Layanan AI menolak kredensial. Periksa API key dan akses model di dashboard provider.',
           '/v1/problems/upstream-authentication',
         )
       }
@@ -259,12 +257,15 @@ export async function POST(request: NextRequest) {
           '/v1/problems/upstream-rate-limited',
         )
       }
+      // For all other upstream errors, include the raw error text in dev mode
+      // and a helpful generic message in production
+      const upstreamDetail = isDev
+        ? (upstreamMessage ?? errorText ?? `HTTP ${upstreamResponse.status}`)
+        : `Layanan AI (${provider}) mengalami gangguan: HTTP ${upstreamResponse.status}. Silakan coba beberapa saat lagi.`
       return problem(
         502,
         'Upstream Service Error',
-        isDev && upstreamMessage
-          ? upstreamMessage
-          : 'Layanan AI tidak tersedia saat ini. Silakan coba lagi.',
+        upstreamDetail,
         '/v1/problems/upstream-service-error',
       )
     }
