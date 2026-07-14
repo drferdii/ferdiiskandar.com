@@ -261,7 +261,7 @@ export async function POST(request: NextRequest) {
       // and a helpful generic message in production
       const upstreamDetail = isDev
         ? (upstreamMessage ?? errorText ?? `HTTP ${upstreamResponse.status}`)
-        : `Layanan AI (${provider}) mengalami gangguan: HTTP ${upstreamResponse.status}. Silakan coba beberapa saat lagi.`
+        : `Layanan AI mengalami gangguan: HTTP ${upstreamResponse.status}. Silakan coba beberapa saat lagi.`
       return problem(
         502,
         'Upstream Service Error',
