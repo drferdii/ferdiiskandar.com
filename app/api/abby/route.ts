@@ -87,9 +87,6 @@ function resolveProvider(): ProviderConfig | { error: string } {
   return { baseUrl: process.env.DEEPSEEK_BASE_URL ?? 'https://api.deepseek.com', apiKey, model }
 }
 
-// Resolved once at module load — env vars are static at runtime
-const PROVIDER = resolveProvider()
-
 // Precomputed once — knowledge base does not change between requests
 const SYSTEM_BASE = `${ABBY_SYSTEM_PROMPT}
 
@@ -146,12 +143,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if ('error' in PROVIDER) {
-      console.error('[Abby API] Provider config error:', PROVIDER.error)
+    const providerConfig = resolveProvider()
+    if ('error' in providerConfig) {
+      console.error('[Abby API] Provider config error:', providerConfig.error)
       return problem(
         500,
         'Server Configuration Error',
-        PROVIDER.error,
+        providerConfig.error,
         '/v1/problems/server-configuration',
       )
     }
@@ -209,15 +207,15 @@ export async function POST(request: NextRequest) {
 
     const systemContent = modeContext ? `${SYSTEM_BASE}${modeContext}` : SYSTEM_BASE
 
-    const upstreamResponse = await fetch(`${PROVIDER.baseUrl}/chat/completions`, {
+    const upstreamResponse = await fetch(`${providerConfig.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${PROVIDER.apiKey}`,
+        Authorization: `Bearer ${providerConfig.apiKey}`,
         'Content-Type': 'application/json',
-        ...(PROVIDER.extraHeaders ?? {}),
+        ...(providerConfig.extraHeaders ?? {}),
       },
       body: JSON.stringify({
-        model: PROVIDER.model,
+        model: providerConfig.model,
         messages: [
           { role: 'system', content: systemContent },
           ...safeHistory,
@@ -226,7 +224,7 @@ export async function POST(request: NextRequest) {
         max_tokens: 1024,
         temperature: 0.72,
         top_p: 0.9,
-        ...(PROVIDER.extraBody ?? {}),
+        ...(providerConfig.extraBody ?? {}),
       }),
       signal: AbortSignal.timeout(28_000),
     })
