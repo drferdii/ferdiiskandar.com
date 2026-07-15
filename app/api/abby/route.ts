@@ -290,7 +290,10 @@ export async function POST(request: NextRequest) {
     return problem(
       500,
       'Internal Server Error',
-      `Terjadi kesalahan internal. Detail: ${errDetail}`,
+      `Terjadi kesalahan internal. Provider: ${JSON.stringify({
+        baseUrl: providerConfig.baseUrl,
+        model: providerConfig.model,
+      })}. Detail: ${errDetail}`,
       '/v1/problems/internal-server-error',
     )
   }
