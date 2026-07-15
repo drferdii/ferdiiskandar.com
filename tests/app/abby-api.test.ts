@@ -155,6 +155,28 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     expect(bodyObj.models).toEqual(['openai/gpt-oss-120b:free', 'model1:free', 'model2:free'])
   })
 
+  it('trims leading/trailing spaces and normalizes model names for OpenRouter', async () => {
+    process.env.AI_PROVIDER = '  openrouter  '
+    process.env.OPENROUTER_API_KEY = 'mock-key'
+    process.env.ABBY_MODEL = '  gemini-2.5-flash  '
+
+    const req = new NextRequest('http://localhost/api/abby', {
+      method: 'POST',
+      headers: { 'x-real-ip': '127.0.0.7' },
+      body: JSON.stringify({ message: 'Halo' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+
+    expect(fetch).toHaveBeenLastCalledWith(
+      'https://openrouter.ai/api/v1/chat/completions',
+      expect.objectContaining({
+        body: expect.stringContaining('"model":"google/gemini-2.5-flash"'),
+      }),
+    )
+  })
+
   it('returns 500 when the resolved provider configuration has an error (e.g. missing API key)', async () => {
     process.env.AI_PROVIDER = 'gemini'
     delete process.env.GEMINI_API_KEY
