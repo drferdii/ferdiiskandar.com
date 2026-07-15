@@ -1,7 +1,52 @@
 import { type NextRequest } from 'next/server'
+import https from 'node:https'
 
 import { ABBY_KNOWLEDGE, ABBY_SYSTEM_PROMPT } from '../../../lib/abby-knowledge'
 import { createFixedWindowRateLimiter, getClientKey } from '../../../lib/rate-limit'
+
+function nativePost(url: string, headers: Record<string, string>, body: string): Promise<{ status: number; text: string }> {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url)
+    const options = {
+      method: 'POST',
+      hostname: parsedUrl.hostname,
+      path: parsedUrl.pathname + parsedUrl.search,
+      headers: {
+        ...headers,
+        'Content-Length': Buffer.byteLength(body),
+      },
+      timeout: 28_000,
+    }
+
+    const req = https.request(options, (res) => {
+      let data = ''
+      res.setEncoding('utf-8')
+      res.on('data', (chunk) => {
+        data += chunk
+      })
+      res.on('end', () => {
+        resolve({
+          status: res.statusCode ?? 500,
+          text: data,
+        })
+      })
+    })
+
+    req.on('error', (err) => {
+      reject(err)
+    })
+
+    req.on('timeout', () => {
+      req.destroy()
+      const timeoutError = new Error('Gateway Timeout')
+      timeoutError.name = 'TimeoutError'
+      reject(timeoutError)
+    })
+
+    req.write(body)
+    req.end()
+  })
+}
 
 export const runtime = 'nodejs'
 
@@ -223,34 +268,38 @@ export async function POST(request: NextRequest) {
 
     const systemContent = modeContext ? `${SYSTEM_BASE}${modeContext}` : SYSTEM_BASE
 
-    const upstreamResponse = await fetch(`${providerConfig.baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${providerConfig.apiKey}`,
-        'Content-Type': 'application/json',
-        ...(providerConfig.extraHeaders ?? {}),
-      },
-      body: JSON.stringify({
-        model: providerConfig.model,
-        messages: [
-          { role: 'system', content: systemContent },
-          ...safeHistory,
-          { role: 'user', content: trimmed },
-        ],
-        max_tokens: 1024,
-        temperature: 0.72,
-        top_p: 0.9,
-        ...(providerConfig.extraBody ?? {}),
-      }),
-      signal: AbortSignal.timeout(28_000),
+    const requestBody = JSON.stringify({
+      model: providerConfig.model,
+      messages: [
+        { role: 'system', content: systemContent },
+        ...safeHistory,
+        { role: 'user', content: trimmed },
+      ],
+      max_tokens: 1024,
+      temperature: 0.72,
+      top_p: 0.9,
+      ...(providerConfig.extraBody ?? {}),
     })
 
-    if (!upstreamResponse.ok) {
-      const errorText = await upstreamResponse.text()
-      const upstreamMessage = getUpstreamErrorMessage(errorText)
-      console.error('[Abby API] Upstream error:', upstreamResponse.status, errorText)
+    const upstreamHeaders = {
+      Authorization: `Bearer ${providerConfig.apiKey}`,
+      'Content-Type': 'application/json',
+      ...(providerConfig.extraHeaders ?? {}),
+    }
 
-      if (upstreamResponse.status === 401 || upstreamResponse.status === 403) {
+    const { status: upstreamStatus, text: errorText } = await nativePost(
+      `${providerConfig.baseUrl}/chat/completions`,
+      upstreamHeaders,
+      requestBody
+    )
+
+    const isOk = upstreamStatus >= 200 && upstreamStatus < 300
+
+    if (!isOk) {
+      const upstreamMessage = getUpstreamErrorMessage(errorText)
+      console.error('[Abby API] Upstream error:', upstreamStatus, errorText)
+
+      if (upstreamStatus === 401 || upstreamStatus === 403) {
         return problem(
           502,
           'Upstream Authentication Error',
@@ -261,7 +310,7 @@ export async function POST(request: NextRequest) {
           '/v1/problems/upstream-authentication',
         )
       }
-      if (upstreamResponse.status === 429) {
+      if (upstreamStatus === 429) {
         return problem(
           429,
           'Upstream Rate Limited',
@@ -271,11 +320,9 @@ export async function POST(request: NextRequest) {
           '/v1/problems/upstream-rate-limited',
         )
       }
-      // For all other upstream errors, include the raw error text in dev mode
-      // and a helpful generic message in production
       const upstreamDetail = isDev
-        ? (upstreamMessage ?? errorText ?? `HTTP ${upstreamResponse.status}`)
-        : `Layanan AI mengalami gangguan: HTTP ${upstreamResponse.status}. Silakan coba beberapa saat lagi.`
+        ? (upstreamMessage ?? errorText ?? `HTTP ${upstreamStatus}`)
+        : `Layanan AI mengalami gangguan: HTTP ${upstreamStatus}. Silakan coba beberapa saat lagi.`
       return problem(
         502,
         'Upstream Service Error',
@@ -284,20 +331,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const responseClone = typeof upstreamResponse.clone === 'function' ? upstreamResponse.clone() : null
     let data: any
     try {
-      data = await upstreamResponse.json()
+      data = JSON.parse(errorText)
     } catch (parseError) {
       console.error('[Abby API] Failed to parse upstream JSON:', parseError)
-      let rawText = ''
-      try {
-        rawText = responseClone ? await responseClone.text() : '(clone not supported)'
-      } catch (textError) {
-        rawText = `(failed to read body text: ${textError instanceof Error ? textError.message : String(textError)})`
-      }
       throw new Error(
-        `Upstream returned ${upstreamResponse.status} but failed to parse as JSON. Raw response: ${rawText.slice(0, 1000)}. Parser error: ${parseError instanceof Error ? parseError.message : String(parseError)}`
+        `Upstream returned ${upstreamStatus} but failed to parse as JSON. Raw response: ${errorText.slice(0, 1000)}. Parser error: ${parseError instanceof Error ? parseError.message : String(parseError)}`
       )
     }
     const rawReply =
@@ -316,14 +356,10 @@ export async function POST(request: NextRequest) {
       )
     }
     console.error('[Abby API] Unexpected error:', error)
-    const errDetail = error instanceof Error ? `${error.message}\n${error.stack}` : String(error)
-    const providerInfo = providerConfig && !('error' in providerConfig)
-      ? { baseUrl: providerConfig.baseUrl, model: providerConfig.model }
-      : { baseUrl: 'unknown', model: 'unknown' }
     return problem(
       500,
       'Internal Server Error',
-      `Terjadi kesalahan internal. Provider: ${JSON.stringify(providerInfo)}. Detail: ${errDetail}`,
+      'Terjadi kesalahan internal. Silakan coba lagi.',
       '/v1/problems/internal-server-error',
     )
   }

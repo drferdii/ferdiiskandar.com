@@ -1,6 +1,17 @@
 import { NextRequest } from 'next/server'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+const mockWrite = vi.fn()
+const mockRequestSpy = vi.fn()
+
+vi.mock('node:https', () => {
+  return {
+    default: {
+      request: (options: any, callback: any) => mockRequestSpy(options, callback)
+    }
+  }
+})
+
 import { POST } from '@/app/api/abby/route'
 
 describe('Abby AI Chat API route dynamic resolution', () => {
@@ -8,15 +19,34 @@ describe('Abby AI Chat API route dynamic resolution', () => {
 
   beforeEach(() => {
     originalEnv = { ...process.env }
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          choices: [{ message: { content: 'Halo dari AI mock!' } }],
+    mockWrite.mockClear()
+    mockRequestSpy.mockClear()
+
+    mockRequestSpy.mockImplementation((options, callback) => {
+      const mockResponse = {
+        statusCode: 200,
+        setEncoding: vi.fn(),
+        on: vi.fn((event, cb) => {
+          if (event === 'data') {
+            cb(JSON.stringify({
+              choices: [{ message: { content: 'Halo dari AI mock!' } }],
+            }))
+          }
+          if (event === 'end') {
+            cb()
+          }
         }),
-      }),
-    )
+      }
+      const mockReq = {
+        on: vi.fn(),
+        write: mockWrite,
+        end: vi.fn(() => {
+          if (callback) callback(mockResponse)
+        }),
+        destroy: vi.fn(),
+      }
+      return mockReq
+    })
   })
 
   afterEach(() => {
@@ -49,14 +79,18 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     const data = (await res.json()) as { reply: string }
     expect(data.reply).toBe('Halo dari AI mock!')
 
-    expect(fetch).toHaveBeenCalledWith(
-      'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+    expect(mockRequestSpy).toHaveBeenCalledWith(
       expect.objectContaining({
+        hostname: 'generativelanguage.googleapis.com',
+        path: '/v1beta/openai/chat/completions',
         headers: expect.objectContaining({
           Authorization: 'Bearer mock-gemini-key',
         }),
-        body: expect.stringContaining('"model":"gemini-2.5-flash"'),
       }),
+      expect.any(Function)
+    )
+    expect(mockWrite).toHaveBeenCalledWith(
+      expect.stringContaining('"model":"gemini-2.5-flash"')
     )
   })
 
@@ -76,14 +110,18 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
 
-    expect(fetch).toHaveBeenCalledWith(
-      'https://api.deepseek.com/chat/completions',
+    expect(mockRequestSpy).toHaveBeenCalledWith(
       expect.objectContaining({
+        hostname: 'api.deepseek.com',
+        path: '/chat/completions',
         headers: expect.objectContaining({
           Authorization: 'Bearer mock-deepseek-key',
         }),
-        body: expect.stringContaining('"model":"deepseek-chat"'),
       }),
+      expect.any(Function)
+    )
+    expect(mockWrite).toHaveBeenCalledWith(
+      expect.stringContaining('"model":"deepseek-chat"')
     )
   })
 
@@ -100,13 +138,15 @@ describe('Abby AI Chat API route dynamic resolution', () => {
 
     const res1 = await POST(req1)
     expect(res1.status).toBe(200)
-    expect(fetch).toHaveBeenLastCalledWith(
-      'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+
+    expect(mockRequestSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
+        hostname: 'generativelanguage.googleapis.com',
         headers: expect.objectContaining({
           Authorization: 'Bearer mock-gemini-key-1',
         }),
       }),
+      expect.any(Function)
     )
 
     // Request 2: OpenRouter
@@ -121,15 +161,19 @@ describe('Abby AI Chat API route dynamic resolution', () => {
 
     const res2 = await POST(req2)
     expect(res2.status).toBe(200)
-    expect(fetch).toHaveBeenLastCalledWith(
-      'https://openrouter.ai/api/v1/chat/completions',
+
+    expect(mockRequestSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
+        hostname: 'openrouter.ai',
+        path: '/api/v1/chat/completions',
         headers: expect.objectContaining({
           Authorization: 'Bearer mock-openrouter-key-2',
         }),
       }),
+      expect.any(Function)
     )
   })
+
   it('limits OpenRouter models array to at most 3 items to satisfy API constraints', async () => {
     process.env.AI_PROVIDER = 'openrouter'
     process.env.OPENROUTER_API_KEY = 'mock-openrouter-key'
@@ -147,9 +191,9 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
 
-    const fetchCalls = vi.mocked(fetch).mock.calls
-    const lastCall = fetchCalls[fetchCalls.length - 1]
-    const bodyObj = JSON.parse(lastCall[1]!.body as string) as { models: string[] }
+    expect(mockWrite).toHaveBeenCalled()
+    const lastWriteCall = mockWrite.mock.calls[mockWrite.mock.calls.length - 1]
+    const bodyObj = JSON.parse(lastWriteCall[0] as string) as { models: string[] }
     expect(bodyObj.models).toBeDefined()
     expect(bodyObj.models.length).toBeLessThanOrEqual(3)
     expect(bodyObj.models).toEqual(['openai/gpt-oss-120b:free', 'model1:free', 'model2:free'])
@@ -169,11 +213,15 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     const res = await POST(req)
     expect(res.status).toBe(200)
 
-    expect(fetch).toHaveBeenLastCalledWith(
-      'https://openrouter.ai/api/v1/chat/completions',
+    expect(mockRequestSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
-        body: expect.stringContaining('"model":"google/gemini-2.5-flash"'),
+        hostname: 'openrouter.ai',
+        path: '/api/v1/chat/completions',
       }),
+      expect.any(Function)
+    )
+    expect(mockWrite).toHaveBeenCalledWith(
+      expect.stringContaining('"model":"google/gemini-2.5-flash"')
     )
   })
 
