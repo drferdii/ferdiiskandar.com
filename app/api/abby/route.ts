@@ -133,6 +133,7 @@ function normalizeAssistantReply(content: string): string {
 }
 
 export async function POST(request: NextRequest) {
+  let providerConfig: ProviderConfig | { error: string } | null = null
   try {
     const clientKey = getClientKey(request)
     if (rateLimiter.isRateLimited(clientKey)) {
@@ -144,7 +145,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const providerConfig = resolveProvider()
+    providerConfig = resolveProvider()
     if ('error' in providerConfig) {
       console.error('[Abby API] Provider config error:', providerConfig.error)
       return problem(
@@ -269,7 +270,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const data = await upstreamResponse.json()
+    const responseClone = typeof upstreamResponse.clone === 'function' ? upstreamResponse.clone() : null
+    let data: any
+    try {
+      data = await upstreamResponse.json()
+    } catch (parseError) {
+      console.error('[Abby API] Failed to parse upstream JSON:', parseError)
+      let rawText = ''
+      try {
+        rawText = responseClone ? await responseClone.text() : '(clone not supported)'
+      } catch (textError) {
+        rawText = `(failed to read body text: ${textError instanceof Error ? textError.message : String(textError)})`
+      }
+      throw new Error(
+        `Upstream returned ${upstreamResponse.status} but failed to parse as JSON. Raw response: ${rawText.slice(0, 1000)}. Parser error: ${parseError instanceof Error ? parseError.message : String(parseError)}`
+      )
+    }
     const rawReply =
       data?.choices?.[0]?.message?.content ||
       'Maaf, saya belum bisa menghasilkan respons saat ini. Silakan coba lagi.'
@@ -287,13 +303,13 @@ export async function POST(request: NextRequest) {
     }
     console.error('[Abby API] Unexpected error:', error)
     const errDetail = error instanceof Error ? `${error.message}\n${error.stack}` : String(error)
+    const providerInfo = providerConfig && !('error' in providerConfig)
+      ? { baseUrl: providerConfig.baseUrl, model: providerConfig.model }
+      : { baseUrl: 'unknown', model: 'unknown' }
     return problem(
       500,
       'Internal Server Error',
-      `Terjadi kesalahan internal. Provider: ${JSON.stringify({
-        baseUrl: providerConfig.baseUrl,
-        model: providerConfig.model,
-      })}. Detail: ${errDetail}`,
+      `Terjadi kesalahan internal. Provider: ${JSON.stringify(providerInfo)}. Detail: ${errDetail}`,
       '/v1/problems/internal-server-error',
     )
   }
