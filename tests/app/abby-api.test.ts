@@ -20,8 +20,14 @@ describe('Abby AI Chat API route dynamic resolution', () => {
   })
 
   afterEach(() => {
-    process.env = originalEnv
+    for (const key in process.env) {
+      if (!(key in originalEnv)) {
+        delete process.env[key]
+      }
+    }
+    Object.assign(process.env, originalEnv)
     vi.restoreAllMocks()
+    vi.unstubAllGlobals()
   })
 
   it('resolves gemini provider dynamically when process.env.AI_PROVIDER is gemini', async () => {
