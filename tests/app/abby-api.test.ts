@@ -130,4 +130,24 @@ describe('Abby AI Chat API route dynamic resolution', () => {
       }),
     )
   })
+
+  it('returns 500 when the resolved provider configuration has an error (e.g. missing API key)', async () => {
+    process.env.AI_PROVIDER = 'gemini'
+    delete process.env.GEMINI_API_KEY
+
+    const req = new NextRequest('http://localhost/api/abby', {
+      method: 'POST',
+      headers: {
+        'x-real-ip': '127.0.0.5',
+      },
+      body: JSON.stringify({ message: 'Halo' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(500)
+
+    const data = (await res.json()) as { title: string; detail: string }
+    expect(data.title).toBe('Server Configuration Error')
+    expect(data.detail).toMatch(/Missing GEMINI_API_KEY|Konfigurasi server tidak lengkap\./)
+  })
 })
