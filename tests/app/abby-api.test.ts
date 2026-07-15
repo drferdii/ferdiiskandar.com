@@ -130,6 +130,30 @@ describe('Abby AI Chat API route dynamic resolution', () => {
       }),
     )
   })
+  it('limits OpenRouter models array to at most 3 items to satisfy API constraints', async () => {
+    process.env.AI_PROVIDER = 'openrouter'
+    process.env.OPENROUTER_API_KEY = 'mock-openrouter-key'
+    process.env.ABBY_MODEL = 'openai/gpt-oss-120b:free'
+    process.env.ABBY_MODEL_FALLBACKS = 'model1:free,model2:free,model3:free,model4:free'
+
+    const req = new NextRequest('http://localhost/api/abby', {
+      method: 'POST',
+      headers: {
+        'x-real-ip': '127.0.0.6',
+      },
+      body: JSON.stringify({ message: 'Halo' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+
+    const fetchCalls = vi.mocked(fetch).mock.calls
+    const lastCall = fetchCalls[fetchCalls.length - 1]
+    const bodyObj = JSON.parse(lastCall[1]!.body as string) as { models: string[] }
+    expect(bodyObj.models).toBeDefined()
+    expect(bodyObj.models.length).toBeLessThanOrEqual(3)
+    expect(bodyObj.models).toEqual(['openai/gpt-oss-120b:free', 'model1:free', 'model2:free'])
+  })
 
   it('returns 500 when the resolved provider configuration has an error (e.g. missing API key)', async () => {
     process.env.AI_PROVIDER = 'gemini'

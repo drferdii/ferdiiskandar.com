@@ -70,7 +70,8 @@ function resolveProvider(): ProviderConfig | { error: string } {
       },
       // OpenRouter tries `models` in order and falls back automatically on
       // rate-limit, downtime, or moderation errors from the earlier entries.
-      extraBody: { models: [primaryModel, ...fallbackModels] },
+      // OpenRouter restricts the models array to a maximum of 3 items.
+      extraBody: { models: [primaryModel, ...fallbackModels].slice(0, 3) },
     }
   }
 
