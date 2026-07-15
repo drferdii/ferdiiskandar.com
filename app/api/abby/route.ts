@@ -286,10 +286,11 @@ export async function POST(request: NextRequest) {
       )
     }
     console.error('[Abby API] Unexpected error:', error)
+    const errDetail = error instanceof Error ? `${error.message}\n${error.stack}` : String(error)
     return problem(
       500,
       'Internal Server Error',
-      'Terjadi kesalahan internal. Silakan coba lagi.',
+      `Terjadi kesalahan internal. Detail: ${errDetail}`,
       '/v1/problems/internal-server-error',
     )
   }
