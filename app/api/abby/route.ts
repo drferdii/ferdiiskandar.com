@@ -316,10 +316,14 @@ export async function POST(request: NextRequest) {
       )
     }
     console.error('[Abby API] Unexpected error:', error)
+    const errDetail = error instanceof Error ? `${error.message}\n${error.stack}` : String(error)
+    const providerInfo = providerConfig && !('error' in providerConfig)
+      ? { baseUrl: providerConfig.baseUrl, model: providerConfig.model }
+      : { baseUrl: 'unknown', model: 'unknown' }
     return problem(
       500,
       'Internal Server Error',
-      'Terjadi kesalahan internal. Silakan coba lagi.',
+      `Terjadi kesalahan internal. Provider: ${JSON.stringify(providerInfo)}. Detail: ${errDetail}`,
       '/v1/problems/internal-server-error',
     )
   }
