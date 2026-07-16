@@ -1,19 +1,15 @@
-import leadConfig from '@/src/config/abby.lead-capture.json'
-import type { AbbyLeadPayload, AbbyLeadPurpose } from '@/types/abby-lead'
+﻿import leadConfig from '@/src/config/abby.lead-capture.json'
+
+import { createFixedWindowRateLimiter, getClientKey } from '../../../../lib/rate-limit'
+import { getRequestId, logEvent } from '../../../../lib/logger'
+import { insertLead, updateLeadNotification } from '../../../../lib/lead/repository'
+import { notifyLead } from '../../../../lib/lead/notifier'
+import { validateLeadBody } from '../../../../lib/lead/validation'
 
 export const runtime = 'nodejs'
 
-type LeadMode = 'console' | 'none' | 'email'
-
-const ALLOWED_PURPOSES = new Set<AbbyLeadPurpose>(
-  leadConfig.lead_capture.purposes.map((purpose) => purpose.id as AbbyLeadPurpose),
-)
-
-const MAX_MESSAGE_LENGTH = leadConfig.lead_capture.max_message_length
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-const MEDICAL_DATA_RE =
-  /\b(diagnosis|diagnosa|gejala|keluhan|demam|batuk|sesak|nyeri|mual|muntah|pusing|hasil lab|laboratorium|rontgen|ct scan|mri|rekam medis|nomor rekam medis|pasien|obat|resep|terapi|dosis|tekanan darah|gula darah|kolesterol|riwayat penyakit|alergi|hamil|kehamilan|diagnose|symptom|symptoms|medical record|lab result|medication|prescription|patient)\b/i
+const MAX_BODY_BYTES = 24_000
+const leadLimiter = createFixedWindowRateLimiter({ maxRequests: 5, windowMs: 10 * 60_000 })
 
 const JSON_HEADERS: HeadersInit = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -23,142 +19,76 @@ const JSON_HEADERS: HeadersInit = {
   'Referrer-Policy': 'no-referrer',
 }
 
-function getLeadMode(): LeadMode {
-  const configuredMode = process.env.ABBY_LEAD_MODE ?? leadConfig.lead_capture.default_mode
-  if (configuredMode === 'console' || configuredMode === 'none' || configuredMode === 'email') {
-    return configuredMode
-  }
-  return leadConfig.lead_capture.default_mode as LeadMode
+function headers(requestId: string, extra?: HeadersInit): HeadersInit {
+  return { ...JSON_HEADERS, ...extra, 'X-Request-ID': requestId }
 }
 
-function problem(status: number, detail: string, code: string) {
-  return Response.json({ ok: false, code, detail }, { status, headers: JSON_HEADERS })
+function problem(status: number, detail: string, code: string, requestId: string, extra?: HeadersInit) {
+  return Response.json({ ok: false, code, detail, requestId }, { status, headers: headers(requestId, extra) })
 }
 
-function cleanString(value: unknown): string {
-  return typeof value === 'string' ? value.trim() : ''
-}
-
-function isAllowedPurpose(value: string): value is AbbyLeadPurpose {
-  return ALLOWED_PURPOSES.has(value as AbbyLeadPurpose)
-}
-
-function hasMedicalData(value: string): boolean {
-  return MEDICAL_DATA_RE.test(value)
-}
-
-function createConversationSummary(value: unknown): string | undefined {
-  const summary = cleanString(value)
-  if (!summary) return undefined
-  return summary.slice(0, 1000)
-}
-
-function toPayload(body: Record<string, unknown>): AbbyLeadPayload | Response {
-  const name = cleanString(body.name)
-  const email = cleanString(body.email).toLowerCase()
-  const organization = cleanString(body.organization)
-  const purpose = cleanString(body.purpose)
-  const message = cleanString(body.message)
-  const consent = body.consent === true
-  const visitorMode = cleanString(body.visitorMode)
-  const conversationSummary = createConversationSummary(body.conversationSummary)
-
-  if (name.length < 2) {
-    return problem(400, 'Nama wajib diisi minimal 2 karakter.', 'invalid_name')
-  }
-  if (!EMAIL_RE.test(email)) {
-    return problem(400, 'Email wajib diisi dengan format yang valid.', 'invalid_email')
-  }
-  if (!isAllowedPurpose(purpose)) {
-    return problem(400, 'Tujuan kontak tidak valid.', 'invalid_purpose')
-  }
-  if (message.length < 10) {
-    return problem(400, 'Pesan singkat wajib diisi minimal 10 karakter.', 'invalid_message')
-  }
-  if (message.length > MAX_MESSAGE_LENGTH) {
-    return problem(400, `Pesan terlalu panjang. Maksimal ${MAX_MESSAGE_LENGTH} karakter.`, 'message_too_long')
-  }
-  if (!consent) {
-    return problem(
-      400,
-      'Consent wajib diberikan sebelum inquiry dikirim.',
-      'consent_required',
-    )
-  }
-  if (hasMedicalData(message)) {
-    return problem(
-      400,
-      leadConfig.lead_capture.medical_data_rejection_message,
-      'medical_data_rejected',
-    )
-  }
-
-  return {
-    name,
-    email,
-    organization: organization || undefined,
-    purpose,
-    message,
-    consent,
-    visitorMode: visitorMode || undefined,
-    conversationSummary,
-    createdAt: new Date().toISOString(),
+async function parseBoundedJson(request: Request): Promise<Record<string, unknown> | { error: 'too_large' | 'invalid_json' }> {
+  const contentLength = Number(request.headers.get('content-length') ?? '0')
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) return { error: 'too_large' }
+  try {
+    const text = await request.text()
+    if (Buffer.byteLength(text, 'utf8') > MAX_BODY_BYTES) return { error: 'too_large' }
+    return JSON.parse(text) as Record<string, unknown>
+  } catch {
+    return { error: 'invalid_json' }
   }
 }
 
-async function persistLead(payload: AbbyLeadPayload): Promise<{ stored: boolean; mode: LeadMode }> {
-  const mode = getLeadMode()
-
-  if (mode === 'none') {
-    return { stored: false, mode }
-  }
-
-  if (mode === 'console') {
-    if (process.env.NODE_ENV === 'development') {
-      console.info('[Abby Lead] Received lead:', {
-        ...payload,
-        message: payload.message.slice(0, 500),
-        conversationSummary: payload.conversationSummary?.slice(0, 500),
-      })
-    }
-    return { stored: process.env.NODE_ENV === 'development', mode }
-  }
-
-  const toEmail = process.env.ABBY_LEAD_TO_EMAIL
-  if (!toEmail) {
-    throw new Error('ABBY_LEAD_TO_EMAIL is required for ABBY_LEAD_MODE=email.')
-  }
-
-  throw new Error('ABBY_LEAD_MODE=email is not implemented because no email provider is installed.')
+function getLeadMode(): string {
+  return process.env.ABBY_LEAD_MODE ?? leadConfig.lead_capture.default_mode
 }
 
 export async function POST(request: Request) {
+  const startedAt = Date.now()
+  const requestId = getRequestId(request.headers)
+
   try {
-    const body = (await request.json()) as Record<string, unknown>
-    const payloadOrResponse = toPayload(body)
+    const limit = await leadLimiter.check(getClientKey(request, 'abby-lead'))
+    if (!limit.allowed) {
+      logEvent('warn', 'lead.rate_limited', { requestId, route: '/api/abby/lead', retryAfterSeconds: limit.retryAfterSeconds })
+      return problem(429, 'Terlalu banyak inquiry. Silakan coba beberapa saat lagi.', 'rate_limited', requestId, { 'Retry-After': String(limit.retryAfterSeconds ?? 600) })
+    }
 
-    if (payloadOrResponse instanceof Response) return payloadOrResponse
+    const body = await parseBoundedJson(request)
+    if ('error' in body) return problem(body.error === 'too_large' ? 413 : 400, body.error === 'too_large' ? 'Payload terlalu besar.' : 'Body request harus JSON valid.', String(body.error), requestId)
 
-    const result = await persistLead(payloadOrResponse)
+    const validation = validateLeadBody(body)
+    if (!validation.ok) return problem(validation.status, validation.detail, validation.code, requestId)
 
-    return Response.json(
-      {
-        ok: true,
-        mode: result.mode,
-        stored: result.stored,
-        message: leadConfig.lead_capture.success_message,
-      },
-      { headers: JSON_HEADERS },
-    )
+    const mode = getLeadMode()
+    if (mode === 'none') {
+      logEvent('warn', 'lead.accepted', { requestId, route: '/api/abby/lead', mode, stored: false, latencyMs: Date.now() - startedAt })
+      return Response.json({ ok: true, mode, stored: false, message: leadConfig.lead_capture.success_message, requestId }, { headers: headers(requestId) })
+    }
+
+    if (mode === 'console') {
+      logEvent('info', 'lead.accepted', { requestId, route: '/api/abby/lead', mode, stored: process.env.NODE_ENV === 'development', latencyMs: Date.now() - startedAt })
+      return Response.json({ ok: true, mode, stored: process.env.NODE_ENV === 'development', message: leadConfig.lead_capture.success_message, requestId }, { headers: headers(requestId) })
+    }
+
+    const stored = await insertLead(validation.payload, validation.idempotencyKey)
+    let notificationStatus = stored.notificationStatus
+    if (!stored.duplicate && (mode === 'database_email' || mode === 'email')) {
+      try {
+        const notification = await notifyLead(stored.id, validation.payload)
+        notificationStatus = notification.status === 'sent' ? 'sent' : 'skipped'
+        await updateLeadNotification(stored.id, notificationStatus, notification.status === 'sent' ? notification.messageId : undefined)
+      } catch (error) {
+        notificationStatus = 'failed'
+        await updateLeadNotification(stored.id, 'failed', undefined, error instanceof Error ? error.message : String(error))
+        logEvent('error', 'lead.notification.failed', { requestId, route: '/api/abby/lead', leadId: stored.id, error: error instanceof Error ? error.message : String(error) })
+      }
+    }
+
+    logEvent('info', 'lead.accepted', { requestId, route: '/api/abby/lead', mode, stored: true, leadId: stored.id, duplicate: stored.duplicate, notificationStatus, latencyMs: Date.now() - startedAt })
+    return Response.json({ ok: true, mode, stored: true, leadId: stored.id, duplicate: stored.duplicate, notificationStatus, message: leadConfig.lead_capture.success_message, requestId }, { status: notificationStatus === 'failed' ? 202 : 200, headers: headers(requestId) })
   } catch (error) {
-    const isDev = process.env.NODE_ENV === 'development'
-    console.error('[Abby Lead] Submission error:', error)
-    return problem(
-      500,
-      isDev && error instanceof Error
-        ? error.message
-        : 'Inquiry belum bisa diproses saat ini. Silakan coba lagi melalui jalur kontak resmi.',
-      'lead_submission_failed',
-    )
+    logEvent('error', 'lead.accepted', { requestId, route: '/api/abby/lead', status: 503, latencyMs: Date.now() - startedAt, error: error instanceof Error ? error.message : String(error) })
+    return problem(503, 'Inquiry belum bisa diproses saat ini. Silakan coba lagi melalui jalur kontak resmi.', 'lead_storage_unavailable', requestId)
   }
 }

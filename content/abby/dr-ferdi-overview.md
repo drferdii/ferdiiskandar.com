@@ -1,4 +1,4 @@
----
+﻿---
 title: Dr. Ferdi Overview
 type: profile
 status: active
@@ -30,5 +30,5 @@ His mission is to improve healthcare safety, quality, and accessibility through 
 
 ## Deep Narrative & Journey
 For a deeper look into the personal history, "street-smart" philosophy, and foundational journey that shaped Dr. Ferdi and Sentra AI, see:
-- [Dr-Ferdi-Narrative.md](./Dr-Ferdi-Narrative.md) (Third-person overview of the journey)
-- [The-Outsiders-Gambit.md](./The-Outsiders-Gambit.md) (First-person manifesto and personal reflection)
+- [dr-ferdi-narrative.md](./dr-ferdi-narrative.md) (Third-person overview of the journey)
+- [the-outsiders-gambit.md](./the-outsiders-gambit.md) (First-person manifesto and personal reflection)

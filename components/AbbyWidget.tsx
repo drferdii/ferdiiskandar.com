@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,6 +19,8 @@ type LeadFormState = {
   purpose: AbbyLeadPurpose
   message: string
   consent: boolean
+  website: string
+  formStartedAt: number
 }
 
 const MAX_USER_QUESTIONS = 10
@@ -77,13 +79,20 @@ const LEAD_INTENT_PATTERNS: Array<{ purpose: AbbyLeadPurpose; pattern: RegExp }>
   },
 ]
 
-const DEFAULT_LEAD_FORM: LeadFormState = {
+const createDefaultLeadForm = (): LeadFormState => ({
   name: '',
   email: '',
   organization: '',
   purpose: 'general_inquiry',
   message: '',
   consent: false,
+  website: '',
+  formStartedAt: Date.now(),
+})
+
+const createIdempotencyKey = (): string => {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return crypto.randomUUID()
+  return 'abby-lead-' + Date.now() + '-' + Math.random().toString(36).slice(2)
 }
 
 const LEAD_PROMPT_MESSAGE =
@@ -149,7 +158,7 @@ export default function AbbyWidget() {
   const [leadFormOpen, setLeadFormOpen] = useState(false)
   const [leadSubmitting, setLeadSubmitting] = useState(false)
   const [leadError, setLeadError] = useState<string | null>(null)
-  const [leadForm, setLeadForm] = useState<LeadFormState>(DEFAULT_LEAD_FORM)
+  const [leadForm, setLeadForm] = useState<LeadFormState>(() => createDefaultLeadForm())
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const notifSoundRef = useRef<HTMLAudioElement>(null)
@@ -209,7 +218,7 @@ export default function AbbyWidget() {
     setInput('')
     setLeadFormOpen(false)
     setLeadError(null)
-    setLeadForm(DEFAULT_LEAD_FORM)
+    setLeadForm(createDefaultLeadForm())
   }
 
   function handleBack() {
@@ -230,6 +239,7 @@ export default function AbbyWidget() {
       purpose,
       message: prev.message || lastUserMessage || '',
     }))
+    setLeadForm((prev) => ({ ...prev, formStartedAt: Date.now() }))
     setLeadFormOpen(true)
     if (!messages.some((message) => message.text === LEAD_PROMPT_MESSAGE)) {
       setMessages((prev) => [...prev, { role: 'assistant', text: LEAD_PROMPT_MESSAGE }])
@@ -289,7 +299,7 @@ export default function AbbyWidget() {
     setLeadError(null)
     setLeadSubmitting(true)
 
-    const payload: Omit<AbbyLeadPayload, 'createdAt'> = {
+    const payload = {
       name: leadForm.name,
       email: leadForm.email,
       organization: leadForm.organization || undefined,
@@ -298,6 +308,9 @@ export default function AbbyWidget() {
       consent: leadForm.consent,
       visitorMode: visitorMode?.label,
       conversationSummary: createConversationSummary(messages),
+      website: leadForm.website,
+      formStartedAt: leadForm.formStartedAt,
+      idempotencyKey: createIdempotencyKey(),
     }
 
     try {
@@ -311,7 +324,7 @@ export default function AbbyWidget() {
 
       setMessages((prev) => [...prev, { role: 'assistant', text: data.message }])
       setLeadFormOpen(false)
-      setLeadForm(DEFAULT_LEAD_FORM)
+      setLeadForm(createDefaultLeadForm())
     } catch (err) {
       setLeadError(err instanceof Error ? err.message : 'Inquiry belum bisa dikirim.')
     } finally {
@@ -540,6 +553,16 @@ export default function AbbyWidget() {
                         disabled={leadSubmitting}
                       />
                     </label>
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={leadForm.website}
+                      onChange={(e) => setLeadForm((prev) => ({ ...prev, website: e.target.value }))}
+                      aria-hidden="true"
+                      className="abby-lead-honeypot"
+                    />
 
                     <label className="abby-lead-consent">
                       <input

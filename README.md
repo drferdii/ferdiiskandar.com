@@ -757,7 +757,7 @@ AI_PROVIDER=gemini
 
 # Gemini required when AI_PROVIDER=gemini (uses Gemini's OpenAI-compatible endpoint)
 GEMINI_API_KEY=
-# ABBY_MODEL=gemini-2.5-flash
+# ABBY_MODEL=gemini-3.1-flash-lite
 
 # DeepSeek required when AI_PROVIDER=deepseek
 # DEEPSEEK_API_KEY=

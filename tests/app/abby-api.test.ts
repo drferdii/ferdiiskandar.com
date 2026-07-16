@@ -225,6 +225,48 @@ describe('Abby AI Chat API route dynamic resolution', () => {
     )
   })
 
+  it('retries one transient upstream 502 before returning success', async () => {
+    process.env.AI_PROVIDER = 'gemini'
+    process.env.GEMINI_API_KEY = 'mock-gemini-key'
+    let attempt = 0
+
+    mockRequestSpy.mockImplementation((options, callback) => {
+      const isFirstAttempt = attempt === 0
+      attempt += 1
+      const mockResponse = {
+        statusCode: isFirstAttempt ? 502 : 200,
+        setEncoding: vi.fn(),
+        on: vi.fn((event, cb) => {
+          if (event === 'data') {
+            cb(
+              isFirstAttempt
+                ? JSON.stringify({ error: { message: 'Temporary upstream failure' } })
+                : JSON.stringify({ choices: [{ message: { content: 'Pulih setelah retry.' } }] }),
+            )
+          }
+          if (event === 'end') cb()
+        }),
+      }
+      return {
+        on: vi.fn(),
+        write: mockWrite,
+        end: vi.fn(() => callback(mockResponse)),
+        destroy: vi.fn(),
+      }
+    })
+
+    const req = new NextRequest('http://localhost/api/abby', {
+      method: 'POST',
+      headers: { 'x-real-ip': '127.0.0.8' },
+      body: JSON.stringify({ message: 'Halo' }),
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    await expect(res.json()).resolves.toMatchObject({ reply: 'Pulih setelah retry.' })
+    expect(mockRequestSpy).toHaveBeenCalledTimes(2)
+  })
+
   it('returns 500 when the resolved provider configuration has an error (e.g. missing API key)', async () => {
     process.env.AI_PROVIDER = 'gemini'
     delete process.env.GEMINI_API_KEY

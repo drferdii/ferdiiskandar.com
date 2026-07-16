@@ -1,3 +1,5 @@
+﻿import { publicRoutes } from '@/lib/public-routes'
+
 export const siteIdentity = {
   name: 'dr. Ferdi Iskandar',
   shortName: 'Ferdi Iskandar',

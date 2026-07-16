@@ -1,55 +1,20 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "knowledge_files": [
-    {
-      "id": "personal_profile",
-      "path": "/content/abby/personal-profile.md",
-      "priority": "high"
-    },
-    {
-      "id": "professional_journey",
-      "path": "/content/abby/professional-journey.md",
-      "priority": "high"
-    },
-    {
-      "id": "speaking_profile",
-      "path": "/content/abby/speaking-profile.md",
-      "priority": "high"
-    },
-    {
-      "id": "thought_leadership",
-      "path": "/content/abby/thought-leadership.md",
-      "priority": "high"
-    },
-    {
-      "id": "projects_and_works",
-      "path": "/content/abby/projects-and-works.md",
-      "priority": "high"
-    },
-    {
-      "id": "founder_narrative_pages",
-      "path": "/content/abby/founder-narrative-pages.md",
-      "priority": "high"
-    },
-    {
-      "id": "media_kit",
-      "path": "/content/abby/media-kit.md",
-      "priority": "medium"
-    },
-    {
-      "id": "contact_collaboration",
-      "path": "/content/abby/contact-and-collaboration.md",
-      "priority": "medium"
-    },
-    {
-      "id": "faq",
-      "path": "/content/abby/faq.md",
-      "priority": "medium"
-    },
-    {
-      "id": "public_boundaries",
-      "path": "/content/abby/public-boundaries.md",
-      "priority": "critical"
-    }
+    { "id": "truth_registry", "path": "content/abby/truth-registry.md", "priority": "critical", "always_include": true, "tags": ["governance", "safety", "disclosure", "boundaries", "claims"], "aliases": ["truth registry", "fakta", "status produk", "disclosure", "klaim", "validasi", "disclaimer", "batasan", "medical advice", "privacy"] },
+    { "id": "public_boundaries", "path": "content/abby/public-boundaries.md", "priority": "high", "tags": ["safety", "medical-boundaries"], "aliases": ["batasan", "diagnosis", "medical advice", "privacy"] },
+    { "id": "conversation_style", "path": "content/abby/conversation-style.md", "priority": "critical", "tags": ["style", "tone"], "aliases": ["gaya bicara", "bahasa", "tone"] },
+    { "id": "personal_profile", "path": "content/abby/personal-profile.md", "priority": "high", "tags": ["profile", "bio"], "aliases": ["profil", "biografi", "dr ferdi", "founder"] },
+    { "id": "professional_journey", "path": "content/abby/professional-journey.md", "priority": "high", "tags": ["career", "experience"], "aliases": ["karier", "perjalanan", "pengalaman"] },
+    { "id": "speaking_profile", "path": "content/abby/speaking-profile.md", "priority": "high", "tags": ["speaking", "talks"], "aliases": ["speaker", "narasumber", "seminar", "talk"] },
+    { "id": "thought_leadership", "path": "content/abby/thought-leadership.md", "priority": "high", "tags": ["ideas", "writing"], "aliases": ["pemikiran", "artikel", "opini"] },
+    { "id": "projects_and_works", "path": "content/abby/projects-and-works.md", "priority": "high", "tags": ["works", "projects"], "aliases": ["karya", "project", "sistem", "produk"] },
+    { "id": "founder_narrative_pages", "path": "content/abby/founder-narrative-pages.md", "priority": "high", "tags": ["narrative", "pages"], "aliases": ["cerita", "narasi", "halaman"] },
+    { "id": "contact_collaboration", "path": "content/abby/contact-and-collaboration.md", "priority": "high", "tags": ["contact", "collaboration", "lead"], "aliases": ["kontak", "kolaborasi", "kerja sama", "email"] },
+    { "id": "media_kit", "path": "content/abby/media-kit.md", "priority": "medium", "tags": ["media", "press"], "aliases": ["media", "press", "foto", "bio pendek"] },
+    { "id": "faq", "path": "content/abby/faq.md", "priority": "medium", "tags": ["faq"], "aliases": ["pertanyaan", "faq", "tanya"] },
+    { "id": "response_examples", "path": "content/abby/response-examples.md", "priority": "medium", "tags": ["examples"], "aliases": ["contoh jawaban", "sample"] },
+    { "id": "medical_library_index", "path": "content/abby/06-Medical-Knowledge/Disease-Library.md", "priority": "medium", "tags": ["medical", "education"], "aliases": ["penyakit", "edukasi medis", "disease"], "medical_safe_only": true },
+    { "id": "medical_usage_guide", "path": "content/abby/06-Medical-Knowledge/Clinical-Usage-Guide.md", "priority": "medium", "tags": ["medical", "safety"], "aliases": ["clinical", "medis", "panduan"], "medical_safe_only": true }
   ]
 }

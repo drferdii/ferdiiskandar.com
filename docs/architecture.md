@@ -105,3 +105,10 @@ Next.js Server Route (app/api/*)
 ---
 
 <!-- branding: framed and finished by Classy — architecture documentation built with engineering precision -->
+## Abby production readiness notes
+
+- Public routes are registered in lib/public-routes.ts and consumed by app/sitemap.ts and navigation content.
+- Critical static assets are registered in lib/asset-manifest.ts; tests verify exact-case files under public/.
+- Abby chat uses selective lexical retrieval via buildAbbyKnowledgeContext instead of full-corpus prompt assembly.
+- Lead capture stores accepted leads in PostgreSQL before optional Resend notification. Duplicate submissions are controlled by idempotency_key.
+- Deployment, migration, and rollback steps are documented in docs/abby-deployment-runbook.md.
