@@ -48,7 +48,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-theme="light"
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        {/* Google tag (gtag.js) — GA4 G-E464CSZK26 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E464CSZK26" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-E464CSZK26');`,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <Schema />
         <a className="fi-skip-link" href="#main-content">
