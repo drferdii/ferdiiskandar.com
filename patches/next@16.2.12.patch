@@ -1,0 +1,27 @@
+diff --git a/package.json b/package.json
+index 9fac749bbd3ec126aa0001715ccfaf6f26d9198a..6e5dddd7a317acd8fdd9cfd5728d50c1e52eb20b 100644
+--- a/package.json
++++ b/package.json
+@@ -82,7 +82,7 @@
+     "@swc/helpers": "0.5.15",
+     "baseline-browser-mapping": "^2.9.19",
+     "caniuse-lite": "^1.0.30001579",
+-    "postcss": "8.4.31",
++    "postcss": "^8.5.23",
+     "styled-jsx": "5.1.6"
+   },
+   "peerDependencies": {
+@@ -108,7 +108,7 @@
+     }
+   },
+   "optionalDependencies": {
+-    "sharp": "^0.34.5",
++    "sharp": "^0.35.3",
+     "@next/swc-darwin-arm64": "16.2.12",
+     "@next/swc-darwin-x64": "16.2.12",
+     "@next/swc-linux-arm64-gnu": "16.2.12",
+@@ -134,3 +134,4 @@
+     "node": ">=20.9.0"
+   }
+ }
++

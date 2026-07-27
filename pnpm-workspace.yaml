@@ -7,3 +7,6 @@ overrides:
 allowBuilds:
   esbuild: true
   sharp: true
+
+patchedDependencies:
+  next@16.2.12: patches/next@16.2.12.patch
