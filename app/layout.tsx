@@ -1,4 +1,5 @@
 import { Fragment_Mono, Geist, Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import type { ReactNode } from 'react'
 
 import Schema from '@/components/Schema'
@@ -48,19 +49,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-theme="light"
       suppressHydrationWarning
     >
-      <head>
-        {/* Google tag (gtag.js) — GA4 G-E464CSZK26 */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E464CSZK26" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
+      <body suppressHydrationWarning>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-E464CSZK26"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-E464CSZK26');`,
-          }}
-        />
-      </head>
-      <body suppressHydrationWarning>
+gtag('config', 'G-E464CSZK26');`}
+        </Script>
         <Schema />
         <a className="fi-skip-link" href="#main-content">
           Skip to content
